@@ -8,14 +8,11 @@
 import Foundation
 import CoreBluetooth
 
-struct BluetoothTagModel {
-    let rssi: Int
-    let data: [String: Any]
-    let name: String?
-}
-
 protocol BluetoothManagerDelegate {
     func didReceiveDeviceWithRSSI(model: BluetoothTagModel)
+    func didReceiveDevice(model: BluetoothTagModel)
+
+    func didUpdateModels(models: [String: String])
 }
 
 protocol BluetoothManagerProgotol {
@@ -30,57 +27,66 @@ protocol BluetoothManagerProgotol {
 @objc final class BluetoothManager: NSObject, BluetoothManagerProgotol {
     
     static let shared: BluetoothManagerProgotol = BluetoothManager()
-    let minimalRSSI: Int = -40
+
+    var maxTagModel: BluetoothTagModel = BluetoothTagModel(rssi: -200, name: nil)
+    var models: [String: String] = [:]
 
     var manager: CBCentralManager?
-    var canScanDevices: Bool = false
     var delegate: BluetoothManagerDelegate?
+    var canScanDevices: Bool = false
 
     func setupManager() {
         guard manager == nil else { return }
-        self.manager = CBCentralManager(delegate: self, queue:nil, options: [CBCentralManagerOptionShowPowerAlertKey: true])
-    }
-
-    func startScanningIfCan() {
-        print("trying to start")
-        guard canScanDevices else {
-            print("ne poluchilos")
-            return
-        }
-        print("poluhilos")
-        manager?.scanForPeripherals(withServices: nil, options: nil)
+        self.manager = CBCentralManager(
+            delegate: self,
+            queue:nil,
+            options: [CBCentralManagerOptionShowPowerAlertKey: true] // Позволяет открывать алерт для получения доступа
+        )
+        LoggerHelper.info("Bluetooth manager настроен")
     }
 
     func setDelegate(delegate: BluetoothManagerDelegate) {
         self.delegate = delegate
     }
+
+    func startScanningIfCan() {
+        guard canScanDevices else {
+            LoggerHelper.warning("Сканирование не началось")
+            return
+        }
+        manager?.scanForPeripherals(withServices: nil, options: nil)
+        FeedbackGenerator.prepare()
+        LoggerHelper.info("Начинаем сканирование")
+    }
 }
 
 extension BluetoothManager: CBCentralManagerDelegate {
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
-        print("Did update state \(central.state)")
         canScanDevices = central.state == .poweredOn
+        LoggerHelper.info("\(central.state)")
     }
 
-    func centralManager(
-        _ central: CBCentralManager,
-        didDiscover peripheral: CBPeripheral,
-        advertisementData: [String : Any],
-        rssi RSSI: NSNumber) {
-            print("DID DISCOVER: NAME: \(peripheral.identifier.description) RSSI: \(RSSI.intValue)")
-        if RSSI.intValue > minimalRSSI {
+    func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
+        let model = BluetoothTagModel(
+            rssi: RSSI.intValue,
+            name: peripheral.identifier.description
+        )
+
+        maxTagModel = model.rssi > maxTagModel.rssi ? model : maxTagModel
+
+        if RSSI.intValue > Spec.Constant.minimalRSSI {
             manager?.stopScan()
-            print("🟢🟢🟢🟢\nNAME: \(peripheral.identifier.description)\nRSSI: \(RSSI.intValue)\nDATA: \(advertisementData)")
-            print("stop scan")
-            delegate?.didReceiveDeviceWithRSSI(
-                model:
-                    BluetoothTagModel(
-                        rssi: RSSI.intValue,
-                        data: advertisementData,
-                        name: peripheral.identifier.description
-                    )
-            )
+            FeedbackGenerator.success()
+            delegate?.didReceiveDeviceWithRSSI(model: model)
+            maxTagModel = BluetoothTagModel(rssi: -200, name: nil)
+        } else {
+            delegate?.didReceiveDevice(model: maxTagModel)
         }
+
+        guard let name = model.name else { return }
+
+        models[name] = model.description
+        delegate?.didUpdateModels(models: models)
     }
 }
 

@@ -14,6 +14,10 @@
 		171B83D42948FFDC00EE478F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 171B83D32948FFDC00EE478F /* Assets.xcassets */; };
 		171B83D72948FFDC00EE478F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 171B83D52948FFDC00EE478F /* LaunchScreen.storyboard */; };
 		171B83E02949027700EE478F /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171B83DF2949027700EE478F /* BluetoothManager.swift */; };
+		171B83E22949193C00EE478F /* Spec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171B83E12949193C00EE478F /* Spec.swift */; };
+		171B83E52949196200EE478F /* BluetoothTagModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171B83E42949196200EE478F /* BluetoothTagModel.swift */; };
+		17E9D1D6294A6AB200C6D354 /* FeedbackGeneratorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E9D1D5294A6AB200C6D354 /* FeedbackGeneratorHelper.swift */; };
+		17E9D1DB294A70C300C6D354 /* LoggerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E9D1DA294A70C300C6D354 /* LoggerHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +30,10 @@
 		171B83D62948FFDC00EE478F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		171B83D82948FFDC00EE478F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		171B83DF2949027700EE478F /* BluetoothManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothManager.swift; sourceTree = "<group>"; };
+		171B83E12949193C00EE478F /* Spec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spec.swift; sourceTree = "<group>"; };
+		171B83E42949196200EE478F /* BluetoothTagModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothTagModel.swift; sourceTree = "<group>"; };
+		17E9D1D5294A6AB200C6D354 /* FeedbackGeneratorHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackGeneratorHelper.swift; sourceTree = "<group>"; };
+		17E9D1DA294A70C300C6D354 /* LoggerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +66,9 @@
 		171B83C92948FFDB00EE478F /* BluetoothDemo */ = {
 			isa = PBXGroup;
 			children = (
+				17E9D1D7294A6CA300C6D354 /* Extensions */,
+				171B83E12949193C00EE478F /* Spec.swift */,
+				171B83E32949194F00EE478F /* Models */,
 				171B83DE2949026300EE478F /* Core */,
 				171B83CA2948FFDB00EE478F /* AppDelegate.swift */,
 				171B83CC2948FFDB00EE478F /* SceneDelegate.swift */,
@@ -74,8 +85,25 @@
 			isa = PBXGroup;
 			children = (
 				171B83DF2949027700EE478F /* BluetoothManager.swift */,
+				17E9D1D5294A6AB200C6D354 /* FeedbackGeneratorHelper.swift */,
+				17E9D1DA294A70C300C6D354 /* LoggerHelper.swift */,
 			);
 			path = Core;
+			sourceTree = "<group>";
+		};
+		171B83E32949194F00EE478F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				171B83E42949196200EE478F /* BluetoothTagModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		17E9D1D7294A6CA300C6D354 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -152,7 +180,11 @@
 				171B83CF2948FFDB00EE478F /* ViewController.swift in Sources */,
 				171B83CB2948FFDB00EE478F /* AppDelegate.swift in Sources */,
 				171B83E02949027700EE478F /* BluetoothManager.swift in Sources */,
+				171B83E22949193C00EE478F /* Spec.swift in Sources */,
+				17E9D1D6294A6AB200C6D354 /* FeedbackGeneratorHelper.swift in Sources */,
+				17E9D1DB294A70C300C6D354 /* LoggerHelper.swift in Sources */,
 				171B83CD2948FFDB00EE478F /* SceneDelegate.swift in Sources */,
+				171B83E52949196200EE478F /* BluetoothTagModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

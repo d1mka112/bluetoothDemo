@@ -14,6 +14,7 @@ class ViewController: UIViewController {
         label.textColor = .black
         label.backgroundColor = .gray
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 0
         return label
     }()
 
@@ -49,6 +50,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
 
         BluetoothManager.shared.setDelegate(delegate: self)
+        BluetoothManager.shared.setupManager()
 
         setupView()
         setupSubviews()
@@ -68,7 +70,7 @@ class ViewController: UIViewController {
             infoLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
             infoLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
             infoLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
-            infoLabel.heightAnchor.constraint(equalToConstant: 20)
+            infoLabel.heightAnchor.constraint(equalToConstant: 100)
         ])
 
         NSLayoutConstraint.activate([
@@ -93,33 +95,38 @@ class ViewController: UIViewController {
     }
 
     @objc func buttonDidTapped() {
-        BluetoothManager.shared.setupManager()
         BluetoothManager.shared.startScanningIfCan()
+        self.infoLabel.text = nil
+        self.infoLabel.backgroundColor = .clear
     }
 }
 
 extension ViewController: BluetoothManagerDelegate {
-    func didReceiveDevice(model: BluetoothTagModel) {
-        DispatchQueue.main.async {
-            let color = (100.0 + Double(model.rssi)) / 100.0
-            self.logLabel.text = model.name
-            self.logLabel.backgroundColor = UIColor(red: 1.0 - CGFloat(color), green: CGFloat(color), blue: 0, alpha: 1)
-        }
-    }
     func didReceiveDeviceWithRSSI(model: BluetoothTagModel) {
         DispatchQueue.main.async {
             self.logLabel.text = nil
             self.logLabel.backgroundColor = .clear
 
             self.infoLabel.backgroundColor = .green
-            self.infoLabel.text = model.name
+            self.infoLabel.text = model.description
         }
     }
 
-    func didUpdateModels(models: [String : String]) {
-        let str = models.map { $0.value }.joined(separator: "\n")
+    func didUpdateModels(models: [BluetoothTagModel]) {
+        let models = models.sorted { lModel, rModel in
+            lModel.rssi > rModel.rssi
+        }
+
+        let str = models.map { $0.description }.joined(separator: "\n")
         DispatchQueue.main.async {
             self.modelsLabel.text = str
+        }
+
+        guard let topModel = models.first else { return }
+        DispatchQueue.main.async {
+            let color = (100.0 + Double(topModel.rssi)) / 100.0
+            self.logLabel.text = topModel.name
+            self.logLabel.backgroundColor = UIColor(red: 1.0 - CGFloat(color), green: CGFloat(color), blue: 0, alpha: 1)
         }
     }
 }

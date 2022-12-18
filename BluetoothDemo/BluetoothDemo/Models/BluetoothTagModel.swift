@@ -10,8 +10,9 @@ import Foundation
 struct BluetoothTagModel {
     let rssi: Int
     let name: String?
+    let deviceName: String?
 
     var description: String {
-        "RSSI: \(rssi)\nUUID: \(name)"
+        "RSSI: \(rssi)\nDeviceName: \(deviceName ?? "none")\nUUID: \(name ?? "none")"
     }
 }

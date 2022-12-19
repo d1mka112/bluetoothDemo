@@ -24,10 +24,10 @@ protocol BluetoothManagerProgotol {
 }
 
 @objc final class BluetoothManager: NSObject, BluetoothManagerProgotol {
-    
     static let shared: BluetoothManagerProgotol = BluetoothManager()
 
     private let queue: DispatchQueue = DispatchQueue(label: "com.bluetoothManager", attributes: .concurrent)
+
     @Atomic var models: [String: BluetoothTagModel] = [:] {
         didSet {
             delegate?.didUpdateModels(models: models.map(\.value))
@@ -127,7 +127,7 @@ extension BluetoothManager: CBPeripheralDelegate {
         let model = BluetoothTagModel(rssi: RSSI.intValue, name: peripheral.identifier.description, deviceName: peripheral.name)
         models[peripheral.identifier.description] = model
 
-        if model.rssi > Spec.Constant.minimalRSSI {
+        if model.rssi >= Spec.Constant.minimalRSSI {
             FeedbackGenerator.success()
             GlobalPlayer.paySuccess()
             stopScanning()

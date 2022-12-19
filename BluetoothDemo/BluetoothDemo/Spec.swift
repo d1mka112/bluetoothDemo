@@ -9,7 +9,7 @@ import UIKit
 
 enum Spec {
     enum Constant {
-        static let minimalRSSI: Int = -40
+        static var minimalRSSI: Int = -40
     }
 
     enum Text {

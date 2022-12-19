@@ -46,6 +46,25 @@ class ViewController: UIViewController {
         return button
     }()
 
+    var stepper: UIStepper = {
+        let stepper = UIStepper()
+        stepper.maximumValue = 0
+        stepper.minimumValue = -200
+        stepper.value = Double(Spec.Constant.minimalRSSI)
+        stepper.addTarget(self, action: #selector(stepperValueChanged), for: .valueChanged)
+        stepper.translatesAutoresizingMaskIntoConstraints = false
+        return stepper
+    }()
+
+    var rssiValueLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .black
+        label.backgroundColor = .white
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = String(Spec.Constant.minimalRSSI)
+        return label
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -65,6 +84,8 @@ class ViewController: UIViewController {
         view.addSubview(infoLabel)
         view.addSubview(logLabel)
         view.addSubview(modelsLabel)
+        view.addSubview(stepper)
+        view.addSubview(rssiValueLabel)
         
         NSLayoutConstraint.activate([
             infoLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
@@ -87,6 +108,18 @@ class ViewController: UIViewController {
         ])
 
         NSLayoutConstraint.activate([
+            stepper.topAnchor.constraint(equalTo: button.bottomAnchor, constant: 20),
+            stepper.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
+            stepper.heightAnchor.constraint(equalToConstant: 30)
+        ])
+
+        NSLayoutConstraint.activate([
+            rssiValueLabel.topAnchor.constraint(equalTo: button.bottomAnchor, constant: 20),
+            rssiValueLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
+            rssiValueLabel.heightAnchor.constraint(equalToConstant: 20)
+        ])
+
+        NSLayoutConstraint.activate([
             modelsLabel.topAnchor.constraint(equalTo: button.bottomAnchor, constant: 20),
             modelsLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             modelsLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
@@ -98,6 +131,11 @@ class ViewController: UIViewController {
         BluetoothManager.shared.startScanningIfCan()
         self.infoLabel.text = nil
         self.infoLabel.backgroundColor = .clear
+    }
+
+    @objc func stepperValueChanged() {
+        Spec.Constant.minimalRSSI = Int(stepper.value)
+        rssiValueLabel.text = String(stepper.value)
     }
 }
 

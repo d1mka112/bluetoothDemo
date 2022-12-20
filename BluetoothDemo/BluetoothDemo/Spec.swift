@@ -17,6 +17,7 @@ enum Spec {
     enum Text {
         static let deviceUUID: String = "UUID Устройства"
         static let startScanButton: String = "Нажмите, чтобы начать сканирование"
+        static let bringDeviceToTerminal: String = "Поднесите устройство к терминалу"
     }
 
     enum Color {
@@ -27,6 +28,7 @@ enum Spec {
     enum Images {
         static let checkmark: UIImage = UIImage(named: "checkmark")!
         static let checkmarkCircle: UIImage = UIImage(named: "checkmark.circle")!
+        static let card: UIImage = UIImage(named: "card")!
     }
 
     enum Sound {

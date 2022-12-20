@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class DebugViewController: UIViewController {
     var infoLabel: UILabel = {
         let label = UILabel()
         label.text = Spec.Text.deviceUUID
@@ -68,9 +68,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        Networker.sendTokenRequest(for: Spec.Networking.user)
         BluetoothManager.shared.setDelegate(delegate: self)
-        BluetoothManager.shared.setupManager()
 
         setupView()
         setupSubviews()
@@ -140,7 +138,7 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController: BluetoothManagerDelegate {
+extension DebugViewController: BluetoothManagerDelegate {
     func didReceiveDeviceWithRSSI(model: BluetoothTagModel) {
         DispatchQueue.main.async {
             self.logLabel.text = nil

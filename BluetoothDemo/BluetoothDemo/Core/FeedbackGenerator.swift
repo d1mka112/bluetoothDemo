@@ -1,5 +1,5 @@
 //
-//  FeedbackGeneratorHelper.swift
+//  FeedbackGenerator.swift
 //  BluetoothDemo
 //
 //  Created by Dmitry Leukhin on 14.12.2022.

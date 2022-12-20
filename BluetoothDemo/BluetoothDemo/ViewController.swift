@@ -50,7 +50,7 @@ class ViewController: UIViewController {
         let stepper = UIStepper()
         stepper.maximumValue = 0
         stepper.minimumValue = -200
-        stepper.value = Double(Spec.Constant.minimalRSSI)
+        stepper.value = Double(GlobalStorage.shared.minimalRSSI)
         stepper.addTarget(self, action: #selector(stepperValueChanged), for: .valueChanged)
         stepper.translatesAutoresizingMaskIntoConstraints = false
         return stepper
@@ -61,13 +61,14 @@ class ViewController: UIViewController {
         label.textColor = .black
         label.backgroundColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = String(Spec.Constant.minimalRSSI)
+        label.text = String(GlobalStorage.shared.minimalRSSI)
         return label
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        Networker.sendTokenRequest(for: Spec.Networking.user)
         BluetoothManager.shared.setDelegate(delegate: self)
         BluetoothManager.shared.setupManager()
 
@@ -134,7 +135,7 @@ class ViewController: UIViewController {
     }
 
     @objc func stepperValueChanged() {
-        Spec.Constant.minimalRSSI = Int(stepper.value)
+        GlobalStorage.shared.minimalRSSI = Int(stepper.value)
         rssiValueLabel.text = String(stepper.value)
     }
 }

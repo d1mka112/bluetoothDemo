@@ -8,8 +8,10 @@
 import UIKit
 
 enum Spec {
-    enum Constant {
-        static var minimalRSSI: Int = -40
+    enum Networking {
+        static let user: User = User(login: "part", password: "part")
+        static let host: String = "178.57.218.210"
+        static let port: Int = 198
     }
 
     enum Text {
@@ -19,8 +21,15 @@ enum Spec {
 
     enum Color {
         static let primary: UIColor = UIColor.white
+        static let secondary: UIColor = UIColor.black
     }
+
     enum Images {
         static let checkmark: UIImage = UIImage(named: "checkmark")!
+        static let checkmarkCircle: UIImage = UIImage(named: "checkmark.circle")!
+    }
+
+    enum Sound {
+        static let paySuccess: String = "paySuccess"
     }
 }

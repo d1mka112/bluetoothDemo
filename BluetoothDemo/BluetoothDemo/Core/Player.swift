@@ -14,7 +14,7 @@ final class Player {
 
     private var player: AVAudioPlayer?
 
-    func playAudio(data: Data) {
+    private func playAudio(data: Data) {
         do {
             player = try AVAudioPlayer(data: data, fileTypeHint: "mp3")
             player?.play()
@@ -22,14 +22,18 @@ final class Player {
             LoggerHelper.warning(error.localizedDescription)
         }
     }
+
+    func playAudio(name: String) {
+        guard let asset = NSDataAsset(name: name) else {
+            LoggerHelper.warning("Невозможно найти данные \(name)")
+            return
+        }
+        playAudio(data: asset.data)
+    }
 }
 
 enum GlobalPlayer {
     static func paySuccess() {
-        guard let asset = NSDataAsset(name: "paySuccess") else {
-            LoggerHelper.warning("Невозможно найти данные")
-            return
-        }
-        Player.shared.playAudio(data: asset.data)
+        Player.shared.playAudio(name: Spec.Sound.paySuccess)
     }
 }

@@ -10,17 +10,14 @@ import CoreBluetooth
 
 protocol BluetoothManagerDelegate {
     func didReceiveDeviceWithRSSI(model: BluetoothTagModel)
-
     func didUpdateModels(models: [BluetoothTagModel])
 }
 
 protocol BluetoothManagerProgotol {
-    var manager: CBCentralManager? { get }
-    var canScanDevices: Bool { get set }
-
     func setupManager()
-    func startScanningIfCan()
     func setDelegate(delegate: BluetoothManagerDelegate)
+    func startScanningIfCan()
+    func stopScanning()
 }
 
 @objc final class BluetoothManager: NSObject, BluetoothManagerProgotol {
@@ -28,13 +25,17 @@ protocol BluetoothManagerProgotol {
 
     private let queue: DispatchQueue = DispatchQueue(label: "com.bluetoothManager", attributes: .concurrent)
 
-    @Atomic var models: [String: BluetoothTagModel] = [:] {
+    private var manager: CBCentralManager?
+    private var delegate: BluetoothManagerDelegate?
+    private var canScanDevices: Bool = false
+
+    @Atomic private var models: [String: BluetoothTagModel] = [:] {
         didSet {
             delegate?.didUpdateModels(models: models.map(\.value))
         }
     }
 
-    @Atomic var peripherals: [String: CBPeripheral] = [:] {
+    @Atomic private var peripherals: [String: CBPeripheral] = [:] {
         didSet {
             let subtract = Set(peripherals.keys).subtracting(Set(models.keys))
             subtract.forEach {
@@ -46,11 +47,6 @@ protocol BluetoothManagerProgotol {
             }
         }
     }
-
-    var manager: CBCentralManager?
-    var delegate: BluetoothManagerDelegate?
-    var canScanDevices: Bool = false
-    var isStartingScan: Bool = false
 
     func setupManager() {
         guard manager == nil else { return }
@@ -127,7 +123,7 @@ extension BluetoothManager: CBPeripheralDelegate {
         let model = BluetoothTagModel(rssi: RSSI.intValue, name: peripheral.identifier.description, deviceName: peripheral.name)
         models[peripheral.identifier.description] = model
 
-        if model.rssi >= Spec.Constant.minimalRSSI {
+        if model.rssi >= GlobalStorage.shared.minimalRSSI {
             FeedbackGenerator.success()
             GlobalPlayer.paySuccess()
             stopScanning()

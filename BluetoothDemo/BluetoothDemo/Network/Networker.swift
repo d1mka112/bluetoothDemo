@@ -25,6 +25,17 @@ enum Networker {
             GlobalStorage.shared.token = response?.token
         }
     }
+    static func sendDeviceRequest(
+        for device: Device
+    ) {
+        let endpoint = EndpointFactory.makeDeviceEndpoint(from: device)
+
+        guard let request = makeRequestFromEndpoint(endpoint: endpoint) else { return }
+
+        send(request: request, with: DeviceRespons.self) { response in
+            LoggerHelper.success("Успешно")
+        }
+    }
 
     private static func send<ResponseType: Codable>(
         request: URLRequest,
@@ -58,6 +69,7 @@ enum Networker {
 
         var request = URLRequest(url: url)
         request.httpMethod = endpoint.type.rawValue
+        request.httpBody = endpoint.body
 
         return request
     }

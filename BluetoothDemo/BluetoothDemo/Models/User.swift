@@ -11,3 +11,7 @@ struct User {
     var login: String
     var password: String
 }
+struct Device {
+    var uuid: String
+    var token: String
+}

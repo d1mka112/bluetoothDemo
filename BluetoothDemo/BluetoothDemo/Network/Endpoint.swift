@@ -22,18 +22,24 @@ protocol EndpointRepresentable {
     var scheme: RequestScheme { get set }
     var url: String { get }
     var body: Data? { get }
+    var headerParametes: [HeaderParameters: String] { get }
 }
+
+enum HeaderParameters: String, Hashable, RawRepresentable, Encodable {
+    case contentType = "Content-Type"
+}
+
 struct Endpoint<ParameterType: Hashable & RawRepresentable & Encodable>: EndpointRepresentable {
     var type: RequestType
     var scheme: RequestScheme
     var host: String
     var port: Int?
     var path: String
+    var headerParametes: [HeaderParameters: String]
     var urlParameters: [ParameterType: String]
     var bodyParameters: [ParameterType: String]
 
     var url: String {
-        
         var components = URLComponents()
         components.scheme = scheme.rawValue
         components.host = host
@@ -44,14 +50,23 @@ struct Endpoint<ParameterType: Hashable & RawRepresentable & Encodable>: Endpoin
             guard let key = $0.key.rawValue as? String else { return nil }
             return URLQueryItem(name: key, value: $0.value)
         }
+
         return components.string ?? String()
     }
         
     var body: Data? {
         guard !bodyParameters.isEmpty else { return nil }
-        let encoder = JSONEncoder()
-        if let jsonData = try? encoder.encode(bodyParameters) {
-                return jsonData
+
+        let dict = bodyParameters.reduce([String:String]()) { (dict, parameter) in
+            guard let key = parameter.key.rawValue as? String else { return dict}
+            var dict = dict
+            dict[key] = parameter.value
+            return dict
+        }
+
+        if let jsonData = try? JSONSerialization.data(withJSONObject: dict) {
+            LoggerHelper.success("Json: \(String(data: jsonData, encoding: .utf8) ?? String())")
+            return jsonData
         }
         return nil
     }

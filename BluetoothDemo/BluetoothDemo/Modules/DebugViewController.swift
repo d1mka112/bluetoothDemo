@@ -140,12 +140,22 @@ class DebugViewController: UIViewController {
 
 extension DebugViewController: BluetoothManagerDelegate {
     func didReceiveDeviceWithRSSI(model: BluetoothTagModel) {
-        DispatchQueue.main.async {
-            self.logLabel.text = nil
-            self.logLabel.backgroundColor = .clear
+        Networker.sendDeviceRequest(
+            for: Device(
+                uuid: model.name!,
+                token: GlobalStorage.shared.token!
+            )
+        ) { response in
+            // TODO: Обработка запроса
+            FeedbackGenerator.success()
+            GlobalPlayer.paySuccess()
+            DispatchQueue.main.async {
+                self.logLabel.text = nil
+                self.logLabel.backgroundColor = .clear
 
-            self.infoLabel.backgroundColor = .green
-            self.infoLabel.text = model.description
+                self.infoLabel.backgroundColor = .green
+                self.infoLabel.text = model.description
+            }
         }
     }
 

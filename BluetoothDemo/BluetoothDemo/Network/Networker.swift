@@ -26,14 +26,15 @@ enum Networker {
         }
     }
     static func sendDeviceRequest(
-        for device: Device
+        for device: Device,
+        completion: @escaping (DeviceResponse?) -> Void
     ) {
         let endpoint = EndpointFactory.makeDeviceEndpoint(from: device)
 
         guard let request = makeRequestFromEndpoint(endpoint: endpoint) else { return }
 
-        send(request: request, with: DeviceRespons.self) { response in
-            LoggerHelper.success("Успешно")
+        send(request: request, with: DeviceResponse.self) { response in
+            completion(response)
         }
     }
 
@@ -45,9 +46,12 @@ enum Networker {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {
                 completion(nil)
-                LoggerHelper.error("Произошла ошибка запроса:\n\"\(request.url)\"\n\(error)")
+                LoggerHelper.error(
+                    "Произошла ошибка запроса:\n\"\(String(describing: request.url))\"\n\(error)"
+                )
             } else if let data = data {
                 do {
+                    LoggerHelper.success("Успешный ответ на запрос\n\(String(data: data, encoding: .utf8) ?? String())")
                     let response = try snakeCaseDecoder.decode(ResponseType.self, from: data)
                     completion(response)
                     LoggerHelper.success("Успешный ответ на запрос\n\(response)")
@@ -63,13 +67,16 @@ enum Networker {
         }
         task.resume()
     }
-
+ 
     private static func makeRequestFromEndpoint(endpoint: EndpointRepresentable) -> URLRequest? {
-        guard let url = URL(string: endpoint.url) else { return nil}
+        guard let url = URL(string: endpoint.url) else { return nil }
 
         var request = URLRequest(url: url)
         request.httpMethod = endpoint.type.rawValue
         request.httpBody = endpoint.body
+        endpoint.headerParametes.forEach { parameter in
+            request.addValue(parameter.value, forHTTPHeaderField: parameter.key.rawValue)
+        }
 
         return request
     }

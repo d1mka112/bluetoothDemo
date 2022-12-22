@@ -124,9 +124,6 @@ extension BluetoothManager: CBPeripheralDelegate {
         models[peripheral.identifier.description] = model
 
         if model.rssi >= GlobalStorage.shared.minimalRSSI {
-            Networker.sendDeviceRequest(for: Device(uuid: model.name!, token: GlobalStorage.shared.token!))
-            FeedbackGenerator.success()
-            GlobalPlayer.paySuccess()
             stopScanning()
             delegate?.didReceiveDeviceWithRSSI(model: model)
             LoggerHelper.success("Найден подходящий peripheral \(peripheral.description)\nRSSI:\(RSSI.intValue)")

@@ -14,7 +14,7 @@ enum EndpointFactory {
     }
     enum DeviceParameters: String, Codable {
         case token
-        case uuid
+        case mac
     }
     
 
@@ -25,11 +25,12 @@ enum EndpointFactory {
             host: Spec.Networking.host,
             port: Spec.Networking.port,
             path: "/token",
+            headerParametes: [:],
             urlParameters: [
                 .login: user.login,
                 .password: user.password
             ],
-            bodyParameters: [ : ]
+            bodyParameters: [:]
         )
     }
     static func makeDeviceEndpoint(from device: Device) -> Endpoint<DeviceParameters> {
@@ -38,12 +39,15 @@ enum EndpointFactory {
             scheme: .http,
             host: Spec.Networking.host,
             port: Spec.Networking.port,
-            path: "terminals/attach",
+            path: "/terminals/attach",
+            headerParametes: [
+                .contentType: "application/json-patch+json"
+            ],
             urlParameters: [
                 .token: device.token
             ],
             bodyParameters: [
-                .uuid:device.uuid
+                .mac: device.uuid
             ]
         )
     }

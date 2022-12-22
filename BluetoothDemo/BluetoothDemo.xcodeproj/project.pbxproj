@@ -25,6 +25,7 @@
 		173969BA29525F2B00EFEB2F /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173969B929525F2B00EFEB2F /* Endpoint.swift */; };
 		173969BC29525F9B00EFEB2F /* GlobalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173969BB29525F9B00EFEB2F /* GlobalStorage.swift */; };
 		173969BF2952648D00EFEB2F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173969BE2952648D00EFEB2F /* MainViewController.swift */; };
+		176043712954E591008F593D /* PayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176043702954E591008F593D /* PayView.swift */; };
 		17E9D1D6294A6AB200C6D354 /* FeedbackGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E9D1D5294A6AB200C6D354 /* FeedbackGenerator.swift */; };
 		17E9D1DB294A70C300C6D354 /* LoggerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E9D1DA294A70C300C6D354 /* LoggerHelper.swift */; };
 		4EDF458429536544002AFCC4 /* DeviceResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDF458329536544002AFCC4 /* DeviceResponse.swift */; };
@@ -51,6 +52,7 @@
 		173969B929525F2B00EFEB2F /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		173969BB29525F9B00EFEB2F /* GlobalStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalStorage.swift; sourceTree = "<group>"; };
 		173969BE2952648D00EFEB2F /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		176043702954E591008F593D /* PayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayView.swift; sourceTree = "<group>"; };
 		17E9D1D5294A6AB200C6D354 /* FeedbackGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackGenerator.swift; sourceTree = "<group>"; };
 		17E9D1DA294A70C300C6D354 /* LoggerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerHelper.swift; sourceTree = "<group>"; };
 		4EDF458329536544002AFCC4 /* DeviceResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceResponse.swift; sourceTree = "<group>"; };
@@ -97,6 +99,7 @@
 				171B83D32948FFDC00EE478F /* Assets.xcassets */,
 				171B83D52948FFDC00EE478F /* LaunchScreen.storyboard */,
 				171B83D82948FFDC00EE478F /* Info.plist */,
+				176043702954E591008F593D /* PayView.swift */,
 			);
 			path = BluetoothDemo;
 			sourceTree = "<group>";
@@ -235,6 +238,7 @@
 				173969BC29525F9B00EFEB2F /* GlobalStorage.swift in Sources */,
 				173969AE295210CF00EFEB2F /* Networker.swift in Sources */,
 				171B83CF2948FFDB00EE478F /* DebugViewController.swift in Sources */,
+				176043712954E591008F593D /* PayView.swift in Sources */,
 				171B83CB2948FFDB00EE478F /* AppDelegate.swift in Sources */,
 				173969BA29525F2B00EFEB2F /* Endpoint.swift in Sources */,
 				171B83E02949027700EE478F /* BluetoothManager.swift in Sources */,
@@ -397,7 +401,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = T69GUQ6FLF;
+				DEVELOPMENT_TEAM = G9AN7L738K;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BluetoothDemo/Info.plist;
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Our app uses bluetooth to find, connect and transfer data between different devices";
@@ -411,7 +415,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.1.1;
-				PRODUCT_BUNDLE_IDENTIFIER = ru.vendista.bluetoothdemo0;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.vendista.bluetoothdemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -426,7 +430,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = T69GUQ6FLF;
+				DEVELOPMENT_TEAM = G9AN7L738K;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BluetoothDemo/Info.plist;
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Our app uses bluetooth to find, connect and transfer data between different devices";
@@ -440,7 +444,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.1.1;
-				PRODUCT_BUNDLE_IDENTIFIER = ru.vendista.bluetoothdemo0;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.vendista.bluetoothdemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

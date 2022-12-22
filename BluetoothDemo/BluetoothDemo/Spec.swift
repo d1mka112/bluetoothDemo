@@ -23,11 +23,12 @@ enum Spec {
     enum Color {
         static let primary: UIColor = UIColor.white
         static let secondary: UIColor = UIColor.black
+        static let success: UIColor = UIColor(red: 0.27, green: 0.75, blue: 0.47, alpha: 1)
     }
 
     enum Images {
-        static let checkmark: UIImage = UIImage(named: "checkmark")!
-        static let checkmarkCircle: UIImage = UIImage(named: "checkmark.circle")!
+        static let checkmark: UIImage = UIImage(named: "b.checkmark")!
+        static let checkmarkCircle: UIImage = UIImage(named: "b.checkmark.circle")!
         static let card: UIImage = UIImage(named: "card")!
     }
 

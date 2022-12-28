@@ -33,6 +33,12 @@ final class MainViewController: UIViewController {
         return label
     }()
 
+    let logLabel: LogLabel = {
+        let logLabel = LogLabel()
+        logLabel.translatesAutoresizingMaskIntoConstraints = false
+        return logLabel
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Spec.Color.primary
@@ -75,6 +81,23 @@ final class MainViewController: UIViewController {
                 equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -16
             )
         ])
+
+        view.addSubview(logLabel)
+        
+        NSLayoutConstraint.activate([
+            logLabel.topAnchor.constraint(
+                equalTo: scanLabel.bottomAnchor, constant: 30
+            ),
+            logLabel.leftAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 16
+            ),
+            logLabel.rightAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -16
+            ),
+            logLabel.bottomAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16
+            ),
+        ])
     }
 }
 
@@ -103,12 +126,12 @@ extension MainViewController: BluetoothManagerDelegate {
                     self.payView.animateSuccess()
                     self.scanLabel.text = Spec.Text.scanDeviceSuccess
                 }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                    UIControl().sendAction(
-                        #selector(NSXPCConnection.suspend),
-                        to: UIApplication.shared, for: nil
-                    )
-                }
+//                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+//                    UIControl().sendAction(
+//                        #selector(NSXPCConnection.suspend),
+//                        to: UIApplication.shared, for: nil
+//                    )
+//                }
             } else {
                 FeedbackGenerator.error()
                 BluetoothManager.shared.startScanningIfCan()

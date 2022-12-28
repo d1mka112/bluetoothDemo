@@ -6,6 +6,7 @@
 //
 
 import os
+import Foundation
 
 enum LoggerHelper {
     private static var logger = Logger()
@@ -14,19 +15,48 @@ enum LoggerHelper {
     private static let warningPrefix = "⚡️"
     private static let errorPrefix = "⛔️"
 
+    private static func log(_ text: String) {
+        logger.info("\(text)")
+        LoggerStorage.shared.log(text)
+    }
+
     static func success(_ text: String) {
-        logger.info("\(infoPrefix) \(text)")
+        log("\(infoPrefix) \(text)")
     }
 
     static func info(_ text: String) {
-        logger.info("\(text)")
+        log( "\(text)")
     }
 
     static func warning(_ text: String) {
-        logger.warning("\(warningPrefix) \(text)")
+        log("\(warningPrefix) \(text)")
     }
 
     static func error(_ text: String) {
-        logger.error("\(errorPrefix) \(text)")
+        log("\(errorPrefix) \(text)")
+    }
+}
+
+protocol LoggerStorageDelegate {
+    func didLogged(text: String)
+}
+
+final class LoggerStorage {
+    static let shared = LoggerStorage()
+
+    private let loggerQueue = DispatchQueue(label: "logger_queue")
+    private var _delegates: [LoggerStorageDelegate?] = []
+
+    func log(_ text: String) {
+        loggerQueue.async { [weak self, text] in
+            guard let self = self else { return }
+            self._delegates.forEach {
+                $0?.didLogged(text: text)
+            }
+        }
+    }
+
+    func add(delegate: LoggerStorageDelegate) {
+        _delegates.append(delegate)
     }
 }

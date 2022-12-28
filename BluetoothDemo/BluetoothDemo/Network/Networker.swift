@@ -47,14 +47,14 @@ enum Networker {
             if let error = error {
                 completion(nil)
                 LoggerHelper.error(
-                    "Произошла ошибка запроса:\n\"\(String(describing: request.url))\"\n\(error)"
+                    "Произошла ошибка запроса:\n\"\(String(describing: request.url!))\"\n\(error)"
                 )
             } else if let data = data {
                 do {
-                    LoggerHelper.success("Успешный ответ на запрос\n\(String(data: data, encoding: .utf8) ?? String())")
+                    LoggerHelper.success("Успешный ответ на запрос \(request.url!)\nRaw data:\n\(String(data: data, encoding: .utf8) ?? String())")
                     let response = try snakeCaseDecoder.decode(ResponseType.self, from: data)
                     completion(response)
-                    LoggerHelper.success("Успешный ответ на запрос\n\(response)")
+                    LoggerHelper.success("Успешный ответ на запрос \(request.url!)\nConverted object:\n \(response)")
                 } catch(let error) {
                     completion(nil)
                     LoggerHelper.error("Произошла ошибка при декодировании\n\(error)")

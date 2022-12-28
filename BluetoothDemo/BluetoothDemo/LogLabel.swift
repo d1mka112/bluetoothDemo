@@ -13,6 +13,7 @@ final class LogLabel: UIScrollView {
         let label = UILabel()
         label.tintColor = Spec.Color.primary
         label.numberOfLines = 0
+        label.font = UIFont.systemFont(ofSize: 12)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -44,7 +45,7 @@ extension LogLabel: LoggerStorageDelegate {
     func didLogged(text: String) {
         DispatchQueue.main.async {
             let labelText = self.label.text ?? ""
-            self.label.text = labelText + "\n" + text
+            self.label.text = labelText + "\n\n" + text
         }
     }
 }

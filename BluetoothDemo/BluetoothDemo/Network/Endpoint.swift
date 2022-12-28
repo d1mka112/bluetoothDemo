@@ -65,7 +65,7 @@ struct Endpoint<ParameterType: Hashable & RawRepresentable & Encodable>: Endpoin
         }
 
         if let jsonData = try? JSONSerialization.data(withJSONObject: dict) {
-            LoggerHelper.success("Json: \(String(data: jsonData, encoding: .utf8) ?? String())")
+            LoggerHelper.success("Converted into json:\n\(String(data: jsonData, encoding: .utf8) ?? String())")
             return jsonData
         }
         return nil

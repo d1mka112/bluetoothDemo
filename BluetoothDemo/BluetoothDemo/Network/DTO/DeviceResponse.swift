@@ -8,5 +8,6 @@
 import Foundation
 
 struct DeviceResponse: Codable {
+    var item: String?
     var success: Bool?
 }

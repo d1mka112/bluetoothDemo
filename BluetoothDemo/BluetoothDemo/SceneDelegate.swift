@@ -18,10 +18,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         window?.makeKeyAndVisible()
-        window?.rootViewController = MainViewController()
 
         Networker.sendTokenRequest(for: Spec.Networking.user)
         BluetoothManager.shared.setupManager()
+
+        #if DEBUG
+        window?.rootViewController = DebugViewController()
+        #else
+        window?.rootViewController = MainViewController()
+        #endif
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

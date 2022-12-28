@@ -18,6 +18,8 @@ enum Spec {
         static let deviceUUID: String = "UUID Устройства"
         static let startScanButton: String = "Нажмите, чтобы начать сканирование"
         static let bringDeviceToTerminal: String = "Поднесите устройство к терминалу"
+        static let scanDeviceError: String = "Не удалось считать терминал\nповторите снова"
+        static let scanDeviceSuccess: String = "Успешно!"
     }
 
     enum Color {

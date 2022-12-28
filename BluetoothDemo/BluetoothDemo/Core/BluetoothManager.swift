@@ -16,6 +16,7 @@ protocol BluetoothManagerDelegate {
 protocol BluetoothManagerProgotol {
     func setupManager()
     func setDelegate(delegate: BluetoothManagerDelegate)
+    func setNeedsToStartScanning()
     func startScanningIfCan()
     func stopScanning()
 }
@@ -27,7 +28,15 @@ protocol BluetoothManagerProgotol {
 
     private var manager: CBCentralManager?
     private var delegate: BluetoothManagerDelegate?
-    private var canScanDevices: Bool = false
+    private var canScanDevices: Bool = false {
+        didSet {
+            if canScanDevices && isNeedsToStartScanning {
+                startScanningIfCan()
+                isNeedsToStartScanning = false
+            }
+        }
+    }
+    private var isNeedsToStartScanning: Bool = false
 
     @Atomic private var models: [String: BluetoothTagModel] = [:] {
         didSet {
@@ -60,6 +69,10 @@ protocol BluetoothManagerProgotol {
 
     func setDelegate(delegate: BluetoothManagerDelegate) {
         self.delegate = delegate
+    }
+
+    func setNeedsToStartScanning() {
+        isNeedsToStartScanning = true
     }
 
     func startScanningIfCan() {

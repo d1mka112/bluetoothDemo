@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct DeviceResponse: Codable{
+struct DeviceResponse: Codable {
     var success: Bool?
 }

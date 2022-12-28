@@ -14,7 +14,7 @@ enum EndpointFactory {
     }
     enum DeviceParameters: String, Codable {
         case token
-        case mac
+        case uuid
     }
     
 
@@ -47,7 +47,7 @@ enum EndpointFactory {
                 .token: device.token
             ],
             bodyParameters: [
-                .mac: device.uuid
+                .uuid: device.uuid
             ]
         )
     }

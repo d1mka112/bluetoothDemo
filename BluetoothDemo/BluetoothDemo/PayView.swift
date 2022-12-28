@@ -34,6 +34,12 @@ final class PayView: UIView {
         return imageView
     }()
 
+    var activityIndicatorView: UIActivityIndicatorView = {
+        let activityIndicatorView = UIActivityIndicatorView()
+        activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+        return activityIndicatorView
+    }()
+
     var isAnimating: Bool = false
 
     override var intrinsicContentSize: CGSize {
@@ -43,27 +49,34 @@ final class PayView: UIView {
     init() {
         super.init(frame: .zero)
         setupSubviews()
+        xmark.isHidden = true
+        xmark.alpha = 0
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func startAnimating() {
-        isAnimating = true
-        xmark.isHidden = true
+    func resetViews() {
         xmark.alpha = 0
-        firstAnimationBlock()
+        checkMark.alpha = 0
+        circle.tintColor = .black
+    }
+
+    func startAnimating() {
+        resetViews()
+        activityIndicatorView.startAnimating()
     }
 
     func stopAnimating() {
-        isAnimating = false
+        resetViews()
+        activityIndicatorView.stopAnimating()
     }
 
     func animateSuccess() {
+        stopAnimating()
         UIView.animate(withDuration: 0.5) {
-            self.xmark.alpha = 0
-            self.checkMark.isHidden = false
+            self.resetViews()
             self.checkMark.alpha = 1
             self.checkMark.tintColor = .systemBlue
             self.circle.tintColor = .systemBlue
@@ -71,9 +84,9 @@ final class PayView: UIView {
     }
 
     func animateError() {
+        self.stopAnimating()
         UIView.animate(withDuration: 0.5) {
-            self.xmark.isHidden = false
-            self.xmark.alpha = 1
+            self.resetViews()
             self.checkMark.alpha = 0
             self.xmark.tintColor = .systemRed
             self.circle.tintColor = .systemRed
@@ -83,6 +96,11 @@ final class PayView: UIView {
     private func firstAnimationBlock() {
         guard isAnimating else { return }
         UIView.animate(withDuration: 0.5) {
+            self.xmark.tintColor = .black
+            self.xmark.alpha = 0
+
+            self.circle.tintColor = .black
+    
             self.checkMark.alpha = 1
         } completion: { _ in
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -94,6 +112,11 @@ final class PayView: UIView {
     private func secondAnimationBlock() {
         guard isAnimating else { return }
         UIView.animate(withDuration: 0.5) {
+            self.xmark.tintColor = .black
+            self.xmark.alpha = 0
+
+            self.circle.tintColor = .black
+
             self.checkMark.alpha = 0
         } completion: { _ in
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -106,22 +129,60 @@ final class PayView: UIView {
         addSubview(circle)
         circle.addSubview(checkMark)
         circle.addSubview(xmark)
+        circle.addSubview(activityIndicatorView)
 
         NSLayoutConstraint.activate([
-            circle.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
-            circle.leftAnchor.constraint(equalTo: self.leftAnchor,constant: 10),
-            circle.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10),
-            circle.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
+            circle.topAnchor.constraint(
+                equalTo: self.topAnchor, constant: 10
+            ),
+            circle.leftAnchor.constraint(
+                equalTo: self.leftAnchor,constant: 10
+            ),
+            circle.rightAnchor.constraint(
+                equalTo: self.rightAnchor, constant: -10
+            ),
+            circle.bottomAnchor.constraint(
+                equalTo: self.bottomAnchor, constant: -10
+            ),
 
-            checkMark.topAnchor.constraint(equalTo: circle.topAnchor, constant: 15),
-            checkMark.leftAnchor.constraint(equalTo: circle.leftAnchor,constant: 15),
-            checkMark.rightAnchor.constraint(equalTo: circle.rightAnchor, constant: -15),
-            checkMark.bottomAnchor.constraint(equalTo: circle.bottomAnchor, constant: -15),
+            checkMark.topAnchor.constraint(
+                equalTo: circle.topAnchor, constant: 15
+            ),
+            checkMark.leftAnchor.constraint(
+                equalTo: circle.leftAnchor,constant: 15
+            ),
+            checkMark.rightAnchor.constraint(
+                equalTo: circle.rightAnchor, constant: -15
+            ),
+            checkMark.bottomAnchor.constraint(
+                equalTo: circle.bottomAnchor, constant: -15
+            ),
 
-            xmark.topAnchor.constraint(equalTo: circle.topAnchor, constant: 15),
-            xmark.leftAnchor.constraint(equalTo: circle.leftAnchor,constant: 15),
-            xmark.rightAnchor.constraint(equalTo: circle.rightAnchor, constant: -15),
-            xmark.bottomAnchor.constraint(equalTo: circle.bottomAnchor, constant: -15)
+            xmark.topAnchor.constraint(
+                equalTo: circle.topAnchor, constant: 15
+            ),
+            xmark.leftAnchor.constraint(
+                equalTo: circle.leftAnchor,constant: 15
+            ),
+            xmark.rightAnchor.constraint(
+                equalTo: circle.rightAnchor, constant: -15
+            ),
+            xmark.bottomAnchor.constraint(
+                equalTo: circle.bottomAnchor, constant: -15
+            ),
+
+            activityIndicatorView.topAnchor.constraint(
+                equalTo: circle.topAnchor, constant: 15
+            ),
+            activityIndicatorView.leftAnchor.constraint(
+                equalTo: circle.leftAnchor,constant: 15
+            ),
+            activityIndicatorView.rightAnchor.constraint(
+                equalTo: circle.rightAnchor, constant: -15
+            ),
+            activityIndicatorView.bottomAnchor.constraint(
+                equalTo: circle.bottomAnchor, constant: -15
+            ),
         ])
     }
 }

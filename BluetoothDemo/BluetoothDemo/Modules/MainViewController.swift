@@ -36,14 +36,9 @@ final class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Spec.Color.primary
-        // TODO: Удалить, пока только демонстрация
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            self.payView.stopAnimating()
-            self.payView.animateError()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                self.payView.animateSuccess()
-            }
-        }
+        BluetoothManager.shared.setDelegate(delegate: self)
+        BluetoothManager.shared.setNeedsToStartScanning()
+        BluetoothManager.shared.startScanningIfCan()
         setupSubviews()
     }
 
@@ -53,16 +48,79 @@ final class MainViewController: UIViewController {
         view.addSubview(scanLabel)
 
         NSLayoutConstraint.activate([
-            cardImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
-            cardImageView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 16),
-            cardImageView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -16),
+            cardImageView.topAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16
+            ),
+            cardImageView.leftAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 16
+            ),
+            cardImageView.rightAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -16
+            ),
 
-            payView.topAnchor.constraint(equalTo: cardImageView.bottomAnchor, constant: 60),
-            payView.centerXAnchor.constraint(equalTo: cardImageView.centerXAnchor),
+            payView.topAnchor.constraint(
+                equalTo: cardImageView.bottomAnchor, constant: 60
+            ),
+            payView.centerXAnchor.constraint(
+                equalTo: cardImageView.centerXAnchor
+            ),
 
-            scanLabel.topAnchor.constraint(equalTo: payView.bottomAnchor, constant: 20),
-            scanLabel.centerXAnchor.constraint(equalTo: payView.centerXAnchor),
-            scanLabel.widthAnchor.constraint(equalToConstant: 200)
+            scanLabel.topAnchor.constraint(
+                equalTo: payView.bottomAnchor, constant: 20
+            ),
+            scanLabel.leftAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.leftAnchor, constant:  16
+            ),
+            scanLabel.rightAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -16
+            )
         ])
+    }
+}
+
+extension MainViewController: BluetoothManagerDelegate {
+    func didUpdateModels(models: [BluetoothTagModel]) {
+    }
+    
+    func didReceiveDeviceWithRSSI(model: BluetoothTagModel) {
+        payView.stopAnimating()
+
+        Networker.sendDeviceRequest(
+            for: Device(
+                uuid: model.name!,
+                token: GlobalStorage.shared.token ?? ""
+            )
+        ) { [weak self] response in
+            guard
+                let self = self,
+                let isSuccess = response?.success
+            else { return }
+
+            if isSuccess {
+                FeedbackGenerator.success()
+                GlobalPlayer.paySuccess()
+                DispatchQueue.main.async {
+                    self.payView.animateSuccess()
+                    self.scanLabel.text = Spec.Text.scanDeviceSuccess
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    UIControl().sendAction(
+                        #selector(NSXPCConnection.suspend),
+                        to: UIApplication.shared, for: nil
+                    )
+                }
+            } else {
+                FeedbackGenerator.error()
+                BluetoothManager.shared.startScanningIfCan()
+                DispatchQueue.main.async {
+                    self.payView.animateError()
+                    self.scanLabel.text = Spec.Text.scanDeviceError
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    self.scanLabel.text = Spec.Text.bringDeviceToTerminal
+                    self.payView.startAnimating()
+                }
+            }
+        }
     }
 }

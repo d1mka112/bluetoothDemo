@@ -143,7 +143,7 @@ extension DebugViewController: BluetoothManagerDelegate {
         Networker.sendDeviceRequest(
             for: Device(
                 uuid: model.name!,
-                token: GlobalStorage.shared.token!
+                token: GlobalStorage.shared.token ?? ""
             )
         ) { response in
             // TODO: Обработка запроса

@@ -20,6 +20,7 @@ enum Spec {
         static let bringDeviceToTerminal: String = "Поднесите устройство к терминалу"
         static let scanDeviceError: String = "Не удалось считать терминал\nповторите снова"
         static let scanDeviceSuccess: String = "Успешно!"
+        static let switchSimulate: String = "Симулировать success = false"
     }
 
     enum Color {

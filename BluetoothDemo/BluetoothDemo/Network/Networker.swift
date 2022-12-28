@@ -33,8 +33,14 @@ enum Networker {
 
         guard let request = makeRequestFromEndpoint(endpoint: endpoint) else { return }
 
-        send(request: request, with: DeviceResponse.self) { response in
-            completion(response)
+        if GlobalStorage.shared._simulateSuccessFalse {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                completion(DeviceResponse(item: "asdasd", success: false))
+            }
+        } else {
+            send(request: request, with: DeviceResponse.self) { response in
+                completion(response)
+            }
         }
     }
 

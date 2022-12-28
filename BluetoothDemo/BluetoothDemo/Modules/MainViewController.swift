@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 final class MainViewController: UIViewController {
     let cardImageView: UIImageView = {
@@ -38,6 +39,26 @@ final class MainViewController: UIViewController {
         logLabel.translatesAutoresizingMaskIntoConstraints = false
         return logLabel
     }()
+
+    let switchSimulate: UISwitch = {
+        let switchSimulate = UISwitch()
+        switchSimulate.translatesAutoresizingMaskIntoConstraints = false
+        switchSimulate.isOn = GlobalStorage.shared._simulateSuccessFalse
+        switchSimulate.addTarget(self, action: #selector(switchDidTouch), for: .allEvents)
+        return switchSimulate
+    }()
+
+    let simulateLabel: UILabel = {
+        let label = UILabel()
+        label.text = Spec.Text.switchSimulate
+        label.numberOfLines = 0
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    @objc func switchDidTouch() {
+        GlobalStorage.shared._simulateSuccessFalse = switchSimulate.isOn
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,10 +104,29 @@ final class MainViewController: UIViewController {
         ])
 
         view.addSubview(logLabel)
-        
+        view.addSubview(switchSimulate)
+        view.addSubview(simulateLabel)
+
         NSLayoutConstraint.activate([
+            switchSimulate.topAnchor.constraint(
+                equalTo: scanLabel.bottomAnchor, constant: 20
+            ),
+            switchSimulate.rightAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -16
+            ),
+
+            simulateLabel.topAnchor.constraint(
+                equalTo: scanLabel.bottomAnchor, constant: 20
+            ),
+            simulateLabel.leftAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.leftAnchor, constant:  16
+            ),
+            simulateLabel.rightAnchor.constraint(
+                equalTo: switchSimulate.leftAnchor, constant: -16
+            ),
+
             logLabel.topAnchor.constraint(
-                equalTo: scanLabel.bottomAnchor, constant: 30
+                equalTo: simulateLabel.bottomAnchor, constant: 10
             ),
             logLabel.leftAnchor.constraint(
                 equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 16

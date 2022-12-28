@@ -80,6 +80,8 @@ protocol BluetoothManagerProgotol {
             LoggerHelper.warning("Сканирование не началось")
             return
         }
+        stopScanning()
+        LoggerStorage.shared.clear()
         manager?.scanForPeripherals(withServices: nil, options: nil)
         FeedbackGenerator.prepare()
         LoggerHelper.info("Начинаем сканирование")

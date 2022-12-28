@@ -49,8 +49,7 @@ final class PayView: UIView {
     init() {
         super.init(frame: .zero)
         setupSubviews()
-        xmark.isHidden = true
-        xmark.alpha = 0
+        resetViews()
     }
     
     required init?(coder: NSCoder) {
@@ -87,7 +86,7 @@ final class PayView: UIView {
         self.stopAnimating()
         UIView.animate(withDuration: 0.5) {
             self.resetViews()
-            self.checkMark.alpha = 0
+            self.xmark.alpha = 1
             self.xmark.tintColor = .systemRed
             self.circle.tintColor = .systemRed
         }

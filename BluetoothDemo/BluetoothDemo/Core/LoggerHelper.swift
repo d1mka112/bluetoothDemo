@@ -39,6 +39,7 @@ enum LoggerHelper {
 
 protocol LoggerStorageDelegate {
     func didLogged(text: String)
+    func clear()
 }
 
 final class LoggerStorage {
@@ -52,6 +53,15 @@ final class LoggerStorage {
             guard let self = self else { return }
             self._delegates.forEach {
                 $0?.didLogged(text: text)
+            }
+        }
+    }
+
+    func clear() {
+        loggerQueue.async { [weak self] in
+            guard let self = self else { return }
+            self._delegates.forEach {
+                $0?.clear()
             }
         }
     }

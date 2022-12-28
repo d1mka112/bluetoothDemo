@@ -58,6 +58,8 @@ final class MainViewController: UIViewController {
 
     @objc func switchDidTouch() {
         GlobalStorage.shared._simulateSuccessFalse = switchSimulate.isOn
+        BluetoothManager.shared.startScanningIfCan()
+        payView.startAnimating()
     }
 
     override func viewDidLoad() {

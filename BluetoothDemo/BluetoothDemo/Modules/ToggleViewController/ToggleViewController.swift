@@ -41,7 +41,7 @@ final class ToggleViewController: UIViewController, UITableViewDelegate, UITable
             return UITableViewCell()
         }
         cell.tag = indexPath.row
-        cell.prepareForReuse()
+        cell.updateCellByTag()
         return cell
     }
 }

@@ -34,6 +34,17 @@ final class MainViewController: VendistaViewController {
         return label
     }()
 
+    var queueTasks: [()->Void] = []
+
+    var isAccessGranted: Bool = false {
+        didSet {
+            guard !queueTasks.isEmpty else {
+                return
+            }
+            queueTasks.forEach { $0() }
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Spec.Color.primary
@@ -41,14 +52,9 @@ final class MainViewController: VendistaViewController {
         BluetoothManager.shared.setNeedsToStartScanning()
         BluetoothManager.shared.startScanningIfCan()
         setupSubviews()
+
         BiometricsManager.checkBiometrics { result, error in
-            DispatchQueue.main.async {
-                if result {
-                    self.payView.animateSuccess()
-                } else {
-                    self.payView.animateError()
-                }
-            }
+            self.isAccessGranted = result
         }
     }
 
@@ -96,44 +102,54 @@ extension MainViewController: BluetoothManagerDelegate {
     }
     
     func didReceiveDeviceWithRSSI(model: BluetoothTagModel) {
-//        payView.stopAnimating()
-//
-//        Networker.sendDeviceRequest(
-//            for: Device(
-//                uuid: model.name!,
-//                token: GlobalStorage.shared.token ?? ""
-//            )
-//        ) { [weak self] response in
-//            guard
-//                let self = self,
-//                let isSuccess = response?.success
-//            else { return }
-//
-//            if isSuccess {
-//                FeedbackGenerator.success()
-//                GlobalPlayer.paySuccess()
-//                DispatchQueue.main.async {
-//                    self.payView.animateSuccess()
-//                    self.scanLabel.text = Spec.Text.scanDeviceSuccess
-//                }
-////                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-////                    UIControl().sendAction(
-////                        #selector(NSXPCConnection.suspend),
-////                        to: UIApplication.shared, for: nil
-////                    )
-////                }
-//            } else {
-//                FeedbackGenerator.error()
-//                BluetoothManager.shared.startScanningIfCan()
-//                DispatchQueue.main.async {
-//                    self.payView.animateError()
-//                    self.scanLabel.text = Spec.Text.scanDeviceError
-//                }
+        payView.stopAnimating()
+
+        if isAccessGranted {
+            sendUUID(model: model)
+        } else {
+            queueTasks.append { [weak self] in
+                self?.sendUUID(model: model)
+            }
+        }
+    }
+
+    func sendUUID(model: BluetoothTagModel) {
+        Networker.sendDeviceRequest(
+            for: Device(
+                uuid: model.name!,
+                token: GlobalStorage.shared.token ?? ""
+            )
+        ) { [weak self] response in
+            guard
+                let self = self,
+                let isSuccess = response?.success
+            else { return }
+
+            if isSuccess {
+                FeedbackGenerator.success()
+                GlobalPlayer.paySuccess()
+                DispatchQueue.main.async {
+                    self.payView.animateSuccess()
+                    self.scanLabel.text = Spec.Text.scanDeviceSuccess
+                }
 //                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-//                    self.scanLabel.text = Spec.Text.bringDeviceToTerminal
-//                    self.payView.startAnimating()
+//                    UIControl().sendAction(
+//                        #selector(NSXPCConnection.suspend),
+//                        to: UIApplication.shared, for: nil
+//                    )
 //                }
-//            }
-//        }
+            } else {
+                FeedbackGenerator.error()
+                BluetoothManager.shared.startScanningIfCan()
+                DispatchQueue.main.async {
+                    self.payView.animateError()
+                    self.scanLabel.text = Spec.Text.scanDeviceError
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    self.scanLabel.text = Spec.Text.bringDeviceToTerminal
+                    self.payView.startAnimating()
+                }
+            }
+        }
     }
 }

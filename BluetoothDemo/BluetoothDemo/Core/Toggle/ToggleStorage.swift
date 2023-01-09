@@ -7,9 +7,9 @@
 
 import Foundation
 
-enum Toggle: String {
-    case substituteSuccess = "Toggle_Change_Success"
-    case some = "Toggle_Some"
+enum Toggle: String, Codable {
+    case substituteSuccess = "substitute_success"
+    case rescanWhenAppForeground = "rescan_devices_when_app_foreground"
 
     var isActive: Bool {
         ToggleStorage.shared.toggles.first { $0.id == self }?.value ?? false
@@ -19,7 +19,10 @@ enum Toggle: String {
 final class ToggleStorage {
     static let shared = ToggleStorage()
 
-    var toggles: [ToggleData] = [
+    @Storage<[ToggleData]>(key: "com.vendista.toggles", defaultValue: ToggleStorage._defaultToggles)
+    var toggles: [ToggleData]
+
+    private static let _defaultToggles: [ToggleData] = [
         ToggleData(
             id: .substituteSuccess,
             title: "Подменить success в запросе",
@@ -27,10 +30,10 @@ final class ToggleStorage {
             value: false
         ),
         ToggleData(
-            id: .some,
-            title: "Что-то",
-            description: "Какое-то описание тоггла",
+            id: .rescanWhenAppForeground,
+            title: "Перезапускать сканирование при выходе из фона",
+            description: "Перезапускает сканирование устройств, когда приложение ушло в бекграунд и из него вернулось",
             value: true
         )
-    ]
+     ]
 }

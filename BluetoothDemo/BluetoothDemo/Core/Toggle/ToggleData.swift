@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class ToggleData {
+struct ToggleData: Codable {
     var id: Toggle
     var title: String
     var description: String

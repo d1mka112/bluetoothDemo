@@ -35,8 +35,6 @@ final class ToggleTableViewCell: UITableViewCell {
         return toggleSwitch
     }()
 
-    private var model: ToggleData?
-
     override var reuseIdentifier: String? {
         return "ToggleTableViewCell"
     }
@@ -71,15 +69,15 @@ final class ToggleTableViewCell: UITableViewCell {
         ])
     }
 
-    func configure(model: ToggleData) {
-        self.model = model
+    func updateCellByTag() {
+        guard let model = ToggleStorage.shared.toggles[safe: tag] else { return }
         titleLabel.text = model.title
         descriptionLabel.text = model.description
         toggleSwitch.isOn = model.value
     }
 
     @objc func toggleSwitchDidTouch() {
-        model?.value.toggle()
+        ToggleStorage.shared.toggles[tag].value.toggle()
     }
 }
 #endif

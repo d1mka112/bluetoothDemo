@@ -41,11 +41,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
+        guard Toggle.rescanWhenAppForeground.isActive else { return }
         LoggerHelper.warning("Приложение вышло из бекграунда")
         BluetoothManager.shared.startScanningIfCan()
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
+        guard Toggle.rescanWhenAppForeground.isActive else { return }
         LoggerHelper.warning("Приложение ушло в бекграунд")
         BluetoothManager.shared.stopScanning()
     }

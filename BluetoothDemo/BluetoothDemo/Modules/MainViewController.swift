@@ -67,6 +67,9 @@ final class MainViewController: VendistaViewController {
             cardImageView.rightAnchor.constraint(
                 equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -16
             ),
+            cardImageView.heightAnchor.constraint(
+                equalTo: cardImageView.widthAnchor, multiplier: 13/20
+            ),
 
             payView.topAnchor.constraint(
                 equalTo: cardImageView.bottomAnchor, constant: 60

@@ -34,7 +34,11 @@ enum Spec {
     enum Images {
         static let checkmark: UIImage = UIImage(named: "b.checkmark")!
         static let checkmarkCircle: UIImage = UIImage(named: "b.checkmark.circle")!
-        static let card: UIImage = UIImage(named: "card")!
+        static let card: UIImage = UIImage(named: "sberCard")!
+    }
+
+    enum GIFs {
+//        static let bluetoothTagRead: UIImage.gifImageWith
     }
 
     enum Sound {

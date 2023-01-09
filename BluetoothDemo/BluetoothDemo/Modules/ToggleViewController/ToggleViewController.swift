@@ -36,11 +36,12 @@ final class ToggleViewController: UIViewController, UITableViewDelegate, UITable
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard
             let cell = tableView.dequeueReusableCell(withIdentifier: "ToggleTableViewCell") as? ToggleTableViewCell,
-            let model = ToggleStorage.shared.toggles[safe: indexPath.row]
+            ToggleStorage.shared.toggles[safe: indexPath.row] != nil
         else {
             return UITableViewCell()
         }
-        cell.configure(model: model)
+        cell.tag = indexPath.row
+        cell.prepareForReuse()
         return cell
     }
 }

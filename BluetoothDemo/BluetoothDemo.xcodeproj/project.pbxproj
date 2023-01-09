@@ -32,6 +32,7 @@
 		17676056296726AD002DFE20 /* LoggerStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17676055296726AD002DFE20 /* LoggerStorage.swift */; };
 		1767605A296726ED002DFE20 /* ToggleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17676059296726ED002DFE20 /* ToggleData.swift */; };
 		1767605C29672707002DFE20 /* ToggleStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1767605B29672707002DFE20 /* ToggleStorage.swift */; };
+		1781217C296CB7B000208CA5 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1781217B296CB7B000208CA5 /* Storage.swift */; };
 		17A5007C295CD7CC00BFFC85 /* LogLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A5007B295CD7CC00BFFC85 /* LogLabel.swift */; };
 		17E7CEAF29631A71004A59BE /* BiometricsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E7CEAE29631A71004A59BE /* BiometricsManager.swift */; };
 		17E7CEB129644F11004A59BE /* ToggleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E7CEB029644F11004A59BE /* ToggleViewController.swift */; };
@@ -70,6 +71,7 @@
 		17676055296726AD002DFE20 /* LoggerStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerStorage.swift; sourceTree = "<group>"; };
 		17676059296726ED002DFE20 /* ToggleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleData.swift; sourceTree = "<group>"; };
 		1767605B29672707002DFE20 /* ToggleStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleStorage.swift; sourceTree = "<group>"; };
+		1781217B296CB7B000208CA5 /* Storage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		17A5007B295CD7CC00BFFC85 /* LogLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogLabel.swift; sourceTree = "<group>"; };
 		17E7CEAE29631A71004A59BE /* BiometricsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricsManager.swift; sourceTree = "<group>"; };
 		17E7CEB029644F11004A59BE /* ToggleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleViewController.swift; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 		172124CE294F569100DE386D /* Wrappers */ = {
 			isa = PBXGroup;
 			children = (
+				1781217B296CB7B000208CA5 /* Storage.swift */,
 				172124CC294F526700DE386D /* Atomic.swift */,
 			);
 			path = Wrappers;
@@ -318,6 +321,7 @@
 				4EDF458429536544002AFCC4 /* DeviceResponse.swift in Sources */,
 				171B83E22949193C00EE478F /* Spec.swift in Sources */,
 				172124CD294F526700DE386D /* Atomic.swift in Sources */,
+				1781217C296CB7B000208CA5 /* Storage.swift in Sources */,
 				17E9D1D6294A6AB200C6D354 /* FeedbackGenerator.swift in Sources */,
 				17E9D1DB294A70C300C6D354 /* LoggerHelper.swift in Sources */,
 				173969B729525EE600EFEB2F /* EndpointFactory.swift in Sources */,
@@ -486,6 +490,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -515,6 +520,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

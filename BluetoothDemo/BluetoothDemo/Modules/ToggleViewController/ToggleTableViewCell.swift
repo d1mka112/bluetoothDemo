@@ -13,6 +13,7 @@ final class ToggleTableViewCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.tintColor = Spec.Color.primary
+        label.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         label.textAlignment = .left
         return label
     }()

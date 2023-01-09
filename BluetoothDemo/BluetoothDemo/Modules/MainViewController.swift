@@ -8,11 +8,11 @@
 import UIKit
 import AVFoundation
 
-final class MainViewController: UIViewController {
+final class MainViewController: VendistaViewController {
     let cardImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = Spec.Images.card
-        imageView.contentMode = .scaleAspectFill
+        imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -33,34 +33,6 @@ final class MainViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-
-    let logLabel: LogLabel = {
-        let logLabel = LogLabel()
-        logLabel.translatesAutoresizingMaskIntoConstraints = false
-        return logLabel
-    }()
-
-    let switchSimulate: UISwitch = {
-        let switchSimulate = UISwitch()
-        switchSimulate.translatesAutoresizingMaskIntoConstraints = false
-        switchSimulate.isOn = GlobalStorage.shared._simulateSuccessFalse
-        switchSimulate.addTarget(self, action: #selector(switchDidTouch), for: .allEvents)
-        return switchSimulate
-    }()
-
-    let simulateLabel: UILabel = {
-        let label = UILabel()
-        label.text = Spec.Text.switchSimulate
-        label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-
-    @objc func switchDidTouch() {
-        GlobalStorage.shared._simulateSuccessFalse = switchSimulate.isOn
-        BluetoothManager.shared.startScanningIfCan()
-        payView.startAnimating()
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -103,42 +75,6 @@ final class MainViewController: UIViewController {
             scanLabel.rightAnchor.constraint(
                 equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -16
             )
-        ])
-
-        view.addSubview(logLabel)
-        view.addSubview(switchSimulate)
-        view.addSubview(simulateLabel)
-
-        NSLayoutConstraint.activate([
-            switchSimulate.topAnchor.constraint(
-                equalTo: scanLabel.bottomAnchor, constant: 20
-            ),
-            switchSimulate.rightAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -16
-            ),
-
-            simulateLabel.topAnchor.constraint(
-                equalTo: scanLabel.bottomAnchor, constant: 20
-            ),
-            simulateLabel.leftAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.leftAnchor, constant:  16
-            ),
-            simulateLabel.rightAnchor.constraint(
-                equalTo: switchSimulate.leftAnchor, constant: -16
-            ),
-
-            logLabel.topAnchor.constraint(
-                equalTo: simulateLabel.bottomAnchor, constant: 10
-            ),
-            logLabel.leftAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 16
-            ),
-            logLabel.rightAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -16
-            ),
-            logLabel.bottomAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16
-            ),
         ])
     }
 }

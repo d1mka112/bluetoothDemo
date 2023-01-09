@@ -12,7 +12,4 @@ final class GlobalStorage {
 
     var minimalRSSI: Int = -40
     var token: String?
-
-    // For debug only
-    var _simulateSuccessFalse: Bool = false
 }

@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		171B83CB2948FFDB00EE478F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171B83CA2948FFDB00EE478F /* AppDelegate.swift */; };
 		171B83CD2948FFDB00EE478F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171B83CC2948FFDB00EE478F /* SceneDelegate.swift */; };
-		171B83CF2948FFDB00EE478F /* DebugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171B83CE2948FFDB00EE478F /* DebugViewController.swift */; };
+		171B83CF2948FFDB00EE478F /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171B83CE2948FFDB00EE478F /* TestViewController.swift */; };
 		171B83D22948FFDB00EE478F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 171B83D02948FFDB00EE478F /* Main.storyboard */; };
 		171B83D42948FFDC00EE478F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 171B83D32948FFDC00EE478F /* Assets.xcassets */; };
 		171B83D72948FFDC00EE478F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 171B83D52948FFDC00EE478F /* LaunchScreen.storyboard */; };
@@ -26,7 +26,17 @@
 		173969BC29525F9B00EFEB2F /* GlobalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173969BB29525F9B00EFEB2F /* GlobalStorage.swift */; };
 		173969BF2952648D00EFEB2F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173969BE2952648D00EFEB2F /* MainViewController.swift */; };
 		176043712954E591008F593D /* PayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176043702954E591008F593D /* PayView.swift */; };
+		1767604F29670C72002DFE20 /* Collection+safeIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1767604E29670C71002DFE20 /* Collection+safeIndex.swift */; };
+		17676051296723A7002DFE20 /* ModalDebugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17676050296723A7002DFE20 /* ModalDebugViewController.swift */; };
+		1767605429672405002DFE20 /* ToggleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1767605329672405002DFE20 /* ToggleTableViewCell.swift */; };
+		17676056296726AD002DFE20 /* LoggerStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17676055296726AD002DFE20 /* LoggerStorage.swift */; };
+		1767605A296726ED002DFE20 /* ToggleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17676059296726ED002DFE20 /* ToggleData.swift */; };
+		1767605C29672707002DFE20 /* ToggleStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1767605B29672707002DFE20 /* ToggleStorage.swift */; };
 		17A5007C295CD7CC00BFFC85 /* LogLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A5007B295CD7CC00BFFC85 /* LogLabel.swift */; };
+		17E7CEAF29631A71004A59BE /* BiometricsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E7CEAE29631A71004A59BE /* BiometricsManager.swift */; };
+		17E7CEB129644F11004A59BE /* ToggleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E7CEB029644F11004A59BE /* ToggleViewController.swift */; };
+		17E7CEB3296453A3004A59BE /* LogsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E7CEB2296453A3004A59BE /* LogsViewController.swift */; };
+		17E7CEB62964A820004A59BE /* VendistaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E7CEB52964A820004A59BE /* VendistaViewController.swift */; };
 		17E9D1D6294A6AB200C6D354 /* FeedbackGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E9D1D5294A6AB200C6D354 /* FeedbackGenerator.swift */; };
 		17E9D1DB294A70C300C6D354 /* LoggerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E9D1DA294A70C300C6D354 /* LoggerHelper.swift */; };
 		4EDF458429536544002AFCC4 /* DeviceResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDF458329536544002AFCC4 /* DeviceResponse.swift */; };
@@ -36,7 +46,7 @@
 		171B83C72948FFDB00EE478F /* BluetoothDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BluetoothDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		171B83CA2948FFDB00EE478F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		171B83CC2948FFDB00EE478F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		171B83CE2948FFDB00EE478F /* DebugViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugViewController.swift; sourceTree = "<group>"; };
+		171B83CE2948FFDB00EE478F /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		171B83D12948FFDB00EE478F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		171B83D32948FFDC00EE478F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		171B83D62948FFDC00EE478F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -54,7 +64,17 @@
 		173969BB29525F9B00EFEB2F /* GlobalStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalStorage.swift; sourceTree = "<group>"; };
 		173969BE2952648D00EFEB2F /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		176043702954E591008F593D /* PayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayView.swift; sourceTree = "<group>"; };
+		1767604E29670C71002DFE20 /* Collection+safeIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+safeIndex.swift"; sourceTree = "<group>"; };
+		17676050296723A7002DFE20 /* ModalDebugViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalDebugViewController.swift; sourceTree = "<group>"; };
+		1767605329672405002DFE20 /* ToggleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleTableViewCell.swift; sourceTree = "<group>"; };
+		17676055296726AD002DFE20 /* LoggerStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerStorage.swift; sourceTree = "<group>"; };
+		17676059296726ED002DFE20 /* ToggleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleData.swift; sourceTree = "<group>"; };
+		1767605B29672707002DFE20 /* ToggleStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleStorage.swift; sourceTree = "<group>"; };
 		17A5007B295CD7CC00BFFC85 /* LogLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogLabel.swift; sourceTree = "<group>"; };
+		17E7CEAE29631A71004A59BE /* BiometricsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricsManager.swift; sourceTree = "<group>"; };
+		17E7CEB029644F11004A59BE /* ToggleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleViewController.swift; sourceTree = "<group>"; };
+		17E7CEB2296453A3004A59BE /* LogsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogsViewController.swift; sourceTree = "<group>"; };
+		17E7CEB52964A820004A59BE /* VendistaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VendistaViewController.swift; sourceTree = "<group>"; };
 		17E9D1D5294A6AB200C6D354 /* FeedbackGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackGenerator.swift; sourceTree = "<group>"; };
 		17E9D1DA294A70C300C6D354 /* LoggerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerHelper.swift; sourceTree = "<group>"; };
 		4EDF458329536544002AFCC4 /* DeviceResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceResponse.swift; sourceTree = "<group>"; };
@@ -90,6 +110,7 @@
 		171B83C92948FFDB00EE478F /* BluetoothDemo */ = {
 			isa = PBXGroup;
 			children = (
+				17E7CEB42964A808004A59BE /* Extensions */,
 				173969BD2952632900EFEB2F /* Modules */,
 				173969B129525EAA00EFEB2F /* Network */,
 				171B83E32949194F00EE478F /* Models */,
@@ -110,12 +131,14 @@
 		171B83DE2949026300EE478F /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				17676058296726DE002DFE20 /* Toggle */,
+				17676057296726BA002DFE20 /* Logger */,
 				172124CE294F569100DE386D /* Wrappers */,
 				171B83DF2949027700EE478F /* BluetoothManager.swift */,
 				17E9D1D5294A6AB200C6D354 /* FeedbackGenerator.swift */,
-				17E9D1DA294A70C300C6D354 /* LoggerHelper.swift */,
 				172124CA294F478B00DE386D /* Player.swift */,
 				173969BB29525F9B00EFEB2F /* GlobalStorage.swift */,
+				17E7CEAE29631A71004A59BE /* BiometricsManager.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -160,10 +183,49 @@
 		173969BD2952632900EFEB2F /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				171B83CE2948FFDB00EE478F /* DebugViewController.swift */,
+				17676052296723D3002DFE20 /* ToggleViewController */,
+				17E7CEB52964A820004A59BE /* VendistaViewController.swift */,
+				171B83CE2948FFDB00EE478F /* TestViewController.swift */,
 				173969BE2952648D00EFEB2F /* MainViewController.swift */,
+				17E7CEB2296453A3004A59BE /* LogsViewController.swift */,
+				17676050296723A7002DFE20 /* ModalDebugViewController.swift */,
 			);
 			path = Modules;
+			sourceTree = "<group>";
+		};
+		17676052296723D3002DFE20 /* ToggleViewController */ = {
+			isa = PBXGroup;
+			children = (
+				17E7CEB029644F11004A59BE /* ToggleViewController.swift */,
+				1767605329672405002DFE20 /* ToggleTableViewCell.swift */,
+			);
+			path = ToggleViewController;
+			sourceTree = "<group>";
+		};
+		17676057296726BA002DFE20 /* Logger */ = {
+			isa = PBXGroup;
+			children = (
+				17E9D1DA294A70C300C6D354 /* LoggerHelper.swift */,
+				17676055296726AD002DFE20 /* LoggerStorage.swift */,
+			);
+			path = Logger;
+			sourceTree = "<group>";
+		};
+		17676058296726DE002DFE20 /* Toggle */ = {
+			isa = PBXGroup;
+			children = (
+				17676059296726ED002DFE20 /* ToggleData.swift */,
+				1767605B29672707002DFE20 /* ToggleStorage.swift */,
+			);
+			path = Toggle;
+			sourceTree = "<group>";
+		};
+		17E7CEB42964A808004A59BE /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				1767604E29670C71002DFE20 /* Collection+safeIndex.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -239,23 +301,33 @@
 			files = (
 				173969B529525ED100EFEB2F /* AuthorizationResponse.swift in Sources */,
 				173969BC29525F9B00EFEB2F /* GlobalStorage.swift in Sources */,
+				1767605A296726ED002DFE20 /* ToggleData.swift in Sources */,
+				17E7CEAF29631A71004A59BE /* BiometricsManager.swift in Sources */,
 				173969AE295210CF00EFEB2F /* Networker.swift in Sources */,
-				171B83CF2948FFDB00EE478F /* DebugViewController.swift in Sources */,
+				17676051296723A7002DFE20 /* ModalDebugViewController.swift in Sources */,
+				171B83CF2948FFDB00EE478F /* TestViewController.swift in Sources */,
 				176043712954E591008F593D /* PayView.swift in Sources */,
+				17E7CEB3296453A3004A59BE /* LogsViewController.swift in Sources */,
 				171B83CB2948FFDB00EE478F /* AppDelegate.swift in Sources */,
 				173969BA29525F2B00EFEB2F /* Endpoint.swift in Sources */,
 				171B83E02949027700EE478F /* BluetoothManager.swift in Sources */,
+				17676056296726AD002DFE20 /* LoggerStorage.swift in Sources */,
+				1767605C29672707002DFE20 /* ToggleStorage.swift in Sources */,
 				173969BF2952648D00EFEB2F /* MainViewController.swift in Sources */,
+				17E7CEB62964A820004A59BE /* VendistaViewController.swift in Sources */,
 				4EDF458429536544002AFCC4 /* DeviceResponse.swift in Sources */,
 				171B83E22949193C00EE478F /* Spec.swift in Sources */,
 				172124CD294F526700DE386D /* Atomic.swift in Sources */,
 				17E9D1D6294A6AB200C6D354 /* FeedbackGenerator.swift in Sources */,
 				17E9D1DB294A70C300C6D354 /* LoggerHelper.swift in Sources */,
 				173969B729525EE600EFEB2F /* EndpointFactory.swift in Sources */,
+				1767605429672405002DFE20 /* ToggleTableViewCell.swift in Sources */,
 				17A5007C295CD7CC00BFFC85 /* LogLabel.swift in Sources */,
 				173969B029524D1D00EFEB2F /* User.swift in Sources */,
 				172124CB294F478B00DE386D /* Player.swift in Sources */,
 				171B83CD2948FFDB00EE478F /* SceneDelegate.swift in Sources */,
+				17E7CEB129644F11004A59BE /* ToggleViewController.swift in Sources */,
+				1767604F29670C72002DFE20 /* Collection+safeIndex.swift in Sources */,
 				171B83E52949196200EE478F /* BluetoothTagModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

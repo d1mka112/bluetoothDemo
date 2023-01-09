@@ -26,8 +26,7 @@ final class LogLabel: UITextView {
 extension LogLabel: LoggerStorageDelegate {
     func didLogged(text: String) {
         DispatchQueue.main.async {
-            let labelText = self.text ?? ""
-            self.text = "\(labelText)\n\n\(text)"
+            self.text = text
         }
     }
 

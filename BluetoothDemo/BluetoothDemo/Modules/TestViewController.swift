@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DebugViewController: UIViewController {
+class TestViewController: UIViewController {
     var infoLabel: UILabel = {
         let label = UILabel()
         label.text = Spec.Text.deviceUUID
@@ -138,7 +138,7 @@ class DebugViewController: UIViewController {
     }
 }
 
-extension DebugViewController: BluetoothManagerDelegate {
+extension TestViewController: BluetoothManagerDelegate {
     func didReceiveDeviceWithRSSI(model: BluetoothTagModel) {
         Networker.sendDeviceRequest(
             for: Device(

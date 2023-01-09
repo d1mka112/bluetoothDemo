@@ -1,41 +1,11 @@
 //
-//  LoggerHelper.swift
+//  LoggerStorage.swift
 //  BluetoothDemo
 //
-//  Created by Dmitry Leukhin on 14.12.2022.
+//  Created by Dmitry Leukhin on 05.01.2023.
 //
 
-import os
 import Foundation
-
-enum LoggerHelper {
-    private static var logger = Logger()
-
-    private static let infoPrefix = "✅"
-    private static let warningPrefix = "⚡️"
-    private static let errorPrefix = "⛔️"
-
-    private static func log(_ text: String) {
-        logger.info("\(text)")
-        LoggerStorage.shared.log(text)
-    }
-
-    static func success(_ text: String) {
-        log("\(infoPrefix) \(text)")
-    }
-
-    static func info(_ text: String) {
-        log( "\(text)")
-    }
-
-    static func warning(_ text: String) {
-        log("\(warningPrefix) \(text)")
-    }
-
-    static func error(_ text: String) {
-        log("\(errorPrefix) \(text)")
-    }
-}
 
 protocol LoggerStorageDelegate {
     func didLogged(text: String)
@@ -47,12 +17,14 @@ final class LoggerStorage {
 
     private let loggerQueue = DispatchQueue(label: "logger_queue")
     private var _delegates: [LoggerStorageDelegate?] = []
+    @Atomic private var message: String = String()
 
     func log(_ text: String) {
         loggerQueue.async { [weak self, text] in
             guard let self = self else { return }
+            self.message = "\(self.message)\n\n\(text)"
             self._delegates.forEach {
-                $0?.didLogged(text: text)
+                $0?.didLogged(text: self.message)
             }
         }
     }
@@ -68,5 +40,9 @@ final class LoggerStorage {
 
     func add(delegate: LoggerStorageDelegate) {
         _delegates.append(delegate)
+        loggerQueue.async { [weak self] in
+            guard let self = self else { return }
+            delegate.didLogged(text: self.message)
+        }
     }
 }

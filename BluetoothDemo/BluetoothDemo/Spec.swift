@@ -15,6 +15,7 @@ enum Spec {
     }
 
     enum Text {
+        static let biometricReasonForUser: String = "Пожалуйста, подтвердите личность, чтобы продолжить"
         static let deviceUUID: String = "UUID Устройства"
         static let startScanButton: String = "Нажмите, чтобы начать сканирование"
         static let bringDeviceToTerminal: String = "Поднесите устройство к терминалу"
@@ -25,6 +26,7 @@ enum Spec {
 
     enum Color {
         static let primary: UIColor = UIColor.white
+        static let gray: UIColor = UIColor.gray
         static let secondary: UIColor = UIColor.black
         static let success: UIColor = UIColor(red: 0.27, green: 0.75, blue: 0.47, alpha: 1)
     }

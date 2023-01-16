@@ -33,6 +33,9 @@
 		1767605A296726ED002DFE20 /* ToggleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17676059296726ED002DFE20 /* ToggleData.swift */; };
 		1767605C29672707002DFE20 /* ToggleStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1767605B29672707002DFE20 /* ToggleStorage.swift */; };
 		1781217C296CB7B000208CA5 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1781217B296CB7B000208CA5 /* Storage.swift */; };
+		179EB2552975E2BA00D2BD62 /* bringDeviceToReader.gif in Resources */ = {isa = PBXBuildFile; fileRef = 179EB2522975E2BA00D2BD62 /* bringDeviceToReader.gif */; };
+		179EB2562975E2BA00D2BD62 /* reject.gif in Resources */ = {isa = PBXBuildFile; fileRef = 179EB2532975E2BA00D2BD62 /* reject.gif */; };
+		179EB2572975E2BA00D2BD62 /* success.gif in Resources */ = {isa = PBXBuildFile; fileRef = 179EB2542975E2BA00D2BD62 /* success.gif */; };
 		17A5007C295CD7CC00BFFC85 /* LogLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A5007B295CD7CC00BFFC85 /* LogLabel.swift */; };
 		17E7CEAF29631A71004A59BE /* BiometricsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E7CEAE29631A71004A59BE /* BiometricsManager.swift */; };
 		17E7CEB129644F11004A59BE /* ToggleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E7CEB029644F11004A59BE /* ToggleViewController.swift */; };
@@ -73,6 +76,9 @@
 		17676059296726ED002DFE20 /* ToggleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleData.swift; sourceTree = "<group>"; };
 		1767605B29672707002DFE20 /* ToggleStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleStorage.swift; sourceTree = "<group>"; };
 		1781217B296CB7B000208CA5 /* Storage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
+		179EB2522975E2BA00D2BD62 /* bringDeviceToReader.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = bringDeviceToReader.gif; sourceTree = "<group>"; };
+		179EB2532975E2BA00D2BD62 /* reject.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = reject.gif; sourceTree = "<group>"; };
+		179EB2542975E2BA00D2BD62 /* success.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = success.gif; sourceTree = "<group>"; };
 		17A5007B295CD7CC00BFFC85 /* LogLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogLabel.swift; sourceTree = "<group>"; };
 		17E7CEAE29631A71004A59BE /* BiometricsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricsManager.swift; sourceTree = "<group>"; };
 		17E7CEB029644F11004A59BE /* ToggleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleViewController.swift; sourceTree = "<group>"; };
@@ -127,6 +133,7 @@
 		171B83C92948FFDB00EE478F /* BluetoothDemo */ = {
 			isa = PBXGroup;
 			children = (
+				179EB2512975E26B00D2BD62 /* Resources */,
 				17E7CEB42964A808004A59BE /* Extensions */,
 				173969BD2952632900EFEB2F /* Modules */,
 				173969B129525EAA00EFEB2F /* Network */,
@@ -238,6 +245,16 @@
 			path = Toggle;
 			sourceTree = "<group>";
 		};
+		179EB2512975E26B00D2BD62 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				179EB2522975E2BA00D2BD62 /* bringDeviceToReader.gif */,
+				179EB2532975E2BA00D2BD62 /* reject.gif */,
+				179EB2542975E2BA00D2BD62 /* success.gif */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		17E7CEB42964A808004A59BE /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -252,7 +269,6 @@
 				8547F80D3EEBD8CCC1D2C9C1 /* Pods-BluetoothDemo.debug.xcconfig */,
 				233378D107ECB2FA38A68B3B /* Pods-BluetoothDemo.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -318,6 +334,9 @@
 				171B83D72948FFDC00EE478F /* LaunchScreen.storyboard in Resources */,
 				171B83D42948FFDC00EE478F /* Assets.xcassets in Resources */,
 				171B83D22948FFDB00EE478F /* Main.storyboard in Resources */,
+				179EB2552975E2BA00D2BD62 /* bringDeviceToReader.gif in Resources */,
+				179EB2572975E2BA00D2BD62 /* success.gif in Resources */,
+				179EB2562975E2BA00D2BD62 /* reject.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

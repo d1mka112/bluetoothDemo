@@ -20,6 +20,7 @@ final class MainViewController: VendistaViewController {
 
     let payView: GIFImageView = {
         let gifImageView = GIFImageView()
+        gifImageView.animationRepeatCount = 0
         gifImageView.translatesAutoresizingMaskIntoConstraints = false
         return gifImageView
     }()
@@ -56,6 +57,8 @@ final class MainViewController: VendistaViewController {
         BiometricsManager.checkBiometrics { result, error in
             self.isAccessGranted = result
         }
+        payView.animate(withGIFNamed: Spec.GIFs.bringDeviceToReader)
+        payView.startAnimatingGIF()
     }
 
     private func setupSubviews() {
@@ -78,13 +81,13 @@ final class MainViewController: VendistaViewController {
             ),
 
             payView.topAnchor.constraint(
-                equalTo: cardImageView.bottomAnchor, constant: 60
+                equalTo: cardImageView.bottomAnchor
             ),
             payView.centerXAnchor.constraint(
                 equalTo: cardImageView.centerXAnchor
             ),
             payView.widthAnchor.constraint(
-                equalTo: cardImageView.widthAnchor, multiplier: 1/2
+                equalTo: cardImageView.widthAnchor, multiplier: 0.8
             ),
             payView.heightAnchor.constraint(
                 equalTo: payView.widthAnchor, multiplier: 3/4
@@ -111,7 +114,7 @@ extension MainViewController: BluetoothManagerDelegate {
     }
 
     func didStopScanning() {
-        payView.stopAnimating()
+        payView.stopAnimatingGIF()
 //        scanLabel.text = Spec.Text.scanStopped
     }
 
@@ -119,7 +122,7 @@ extension MainViewController: BluetoothManagerDelegate {
     }
 
     func didReceiveDeviceWithRSSI(model: BluetoothTagModel) {
-        payView.stopAnimating()
+        payView.stopAnimatingGIF()
 
         if isAccessGranted {
             sendUUID(model: model)

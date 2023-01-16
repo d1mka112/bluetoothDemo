@@ -25,7 +25,7 @@ enum Spec {
     }
 
     enum Color {
-        static let primary: UIColor = UIColor.white
+        static let primary: UIColor = UIColor(white: 0.89, alpha: 1)
         static let gray: UIColor = UIColor.gray
         static let secondary: UIColor = UIColor.black
         static let success: UIColor = UIColor(red: 0.27, green: 0.75, blue: 0.47, alpha: 1)

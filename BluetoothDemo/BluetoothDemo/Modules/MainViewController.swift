@@ -7,6 +7,7 @@
 
 import UIKit
 import AVFoundation
+import Gifu
 
 final class MainViewController: VendistaViewController {
     let cardImageView: UIImageView = {
@@ -17,22 +18,21 @@ final class MainViewController: VendistaViewController {
         return imageView
     }()
 
-    let payView: PayView = {
-        let payView = PayView()
-        payView.startAnimating()
-        payView.translatesAutoresizingMaskIntoConstraints = false
-        return payView
+    let payView: GIFImageView = {
+        let gifImageView = GIFImageView()
+        gifImageView.translatesAutoresizingMaskIntoConstraints = false
+        return gifImageView
     }()
 
-    let scanLabel: UILabel = {
-        let label = UILabel()
-        label.tintColor = Spec.Color.primary
-        label.text = Spec.Text.bringDeviceToTerminal
-        label.textAlignment = .center
-        label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+//    let scanLabel: UILabel = {
+//        let label = UILabel()
+//        label.tintColor = Spec.Color.primary
+//        label.text = Spec.Text.bringDeviceToTerminal
+//        label.textAlignment = .center
+//        label.numberOfLines = 0
+//        label.translatesAutoresizingMaskIntoConstraints = false
+//        return label
+//    }()
 
     var queueTasks: [()->Void] = []
 
@@ -61,7 +61,7 @@ final class MainViewController: VendistaViewController {
     private func setupSubviews() {
         view.addSubview(cardImageView)
         view.addSubview(payView)
-        view.addSubview(scanLabel)
+//        view.addSubview(scanLabel)
 
         NSLayoutConstraint.activate([
             cardImageView.topAnchor.constraint(
@@ -83,24 +83,41 @@ final class MainViewController: VendistaViewController {
             payView.centerXAnchor.constraint(
                 equalTo: cardImageView.centerXAnchor
             ),
+            payView.widthAnchor.constraint(
+                equalTo: cardImageView.widthAnchor, multiplier: 1/2
+            ),
+            payView.heightAnchor.constraint(
+                equalTo: payView.widthAnchor, multiplier: 3/4
+            ),
 
-            scanLabel.topAnchor.constraint(
-                equalTo: payView.bottomAnchor, constant: 20
-            ),
-            scanLabel.leftAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.leftAnchor, constant:  16
-            ),
-            scanLabel.rightAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -16
-            )
+//            scanLabel.topAnchor.constraint(
+//                equalTo: payView.bottomAnchor, constant: 20
+//            ),
+//            scanLabel.leftAnchor.constraint(
+//                equalTo: view.safeAreaLayoutGuide.leftAnchor, constant:  16
+//            ),
+//            scanLabel.rightAnchor.constraint(
+//                equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -16
+//            )
         ])
     }
 }
 
 extension MainViewController: BluetoothManagerDelegate {
+    func didStartScanning() {
+        payView.animate(withGIFNamed: Spec.GIFs.bringDeviceToReader)
+        payView.startAnimatingGIF()
+//        scanLabel.text = Spec.Text.bringDeviceToTerminal
+    }
+
+    func didStopScanning() {
+        payView.stopAnimating()
+//        scanLabel.text = Spec.Text.scanStopped
+    }
+
     func didUpdateModels(models: [BluetoothTagModel]) {
     }
-    
+
     func didReceiveDeviceWithRSSI(model: BluetoothTagModel) {
         payView.stopAnimating()
 
@@ -129,8 +146,9 @@ extension MainViewController: BluetoothManagerDelegate {
                 FeedbackGenerator.success()
                 GlobalPlayer.paySuccess()
                 DispatchQueue.main.async {
-                    self.payView.animateSuccess()
-                    self.scanLabel.text = Spec.Text.scanDeviceSuccess
+                    self.payView.animate(withGIFNamed: Spec.GIFs.success)
+                    self.payView.startAnimatingGIF()
+//                    self.scanLabel.text = Spec.Text.scanDeviceSuccess
                 }
 //                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
 //                    UIControl().sendAction(
@@ -142,12 +160,14 @@ extension MainViewController: BluetoothManagerDelegate {
                 FeedbackGenerator.error()
                 BluetoothManager.shared.startScanningIfCan()
                 DispatchQueue.main.async {
-                    self.payView.animateError()
-                    self.scanLabel.text = Spec.Text.scanDeviceError
+                    self.payView.animate(withGIFNamed: Spec.GIFs.reject)
+                    self.payView.startAnimatingGIF()
+//                    self.scanLabel.text = Spec.Text.scanDeviceError
                 }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                    self.scanLabel.text = Spec.Text.bringDeviceToTerminal
-                    self.payView.startAnimating()
+//                    self.scanLabel.text = Spec.Text.bringDeviceToTerminal
+                    self.payView.animate(withGIFNamed: Spec.GIFs.bringDeviceToReader)
+                    self.payView.startAnimatingGIF()
                 }
             }
         }

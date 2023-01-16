@@ -139,6 +139,12 @@ class TestViewController: UIViewController {
 }
 
 extension TestViewController: BluetoothManagerDelegate {
+    func didStartScanning() {
+    }
+
+    func didStopScanning() {
+    }
+
     func didReceiveDeviceWithRSSI(model: BluetoothTagModel) {
         Networker.sendDeviceRequest(
             for: Device(

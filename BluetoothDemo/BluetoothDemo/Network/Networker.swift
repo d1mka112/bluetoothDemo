@@ -60,7 +60,7 @@ enum Networker {
                     LoggerHelper.success("Успешный ответ на запрос \(request.url!)\nRaw data:\n\(String(data: data, encoding: .utf8) ?? String())")
                     let response = try snakeCaseDecoder.decode(ResponseType.self, from: data)
                     completion(response)
-                    LoggerHelper.success("Успешный ответ на запрос \(request.url!)\nConverted object:\n \(response)")
+//                    LoggerHelper.success("Успешный ответ на запрос \(request.url!)\nConverted object:\n \(response)")
                 } catch(let error) {
                     completion(nil)
                     LoggerHelper.error("Произошла ошибка при декодировании\n\(error)")

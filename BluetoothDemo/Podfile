@@ -3,7 +3,7 @@ platform :ios, '13.0'
 
 target 'BluetoothDemo' do
   # Comment the next line if you don't want to use dynamic frameworks
-  pod 'Moya', '~> 15.0'
+  pod 'Gifu'
 
   # Pods for BluetoothDemo
 

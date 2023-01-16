@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ToggleData: Codable {
+struct ToggleData: Codable, Hashable {
     var id: Toggle
     var title: String
     var description: String
@@ -18,5 +18,11 @@ struct ToggleData: Codable {
         self.title = title
         self.description = description
         self.value = value
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+        hasher.combine(title)
+        hasher.combine(description)
     }
 }

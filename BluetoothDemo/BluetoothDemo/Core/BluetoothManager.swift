@@ -9,6 +9,8 @@ import Foundation
 import CoreBluetooth
 
 protocol BluetoothManagerDelegate {
+    func didStartScanning()
+    func didStopScanning()
     func didReceiveDeviceWithRSSI(model: BluetoothTagModel)
     func didUpdateModels(models: [BluetoothTagModel])
 }
@@ -83,6 +85,7 @@ protocol BluetoothManagerProgotol {
         stopScanning()
         LoggerStorage.shared.clear()
         manager?.scanForPeripherals(withServices: nil, options: nil)
+        delegate?.didStartScanning()
         FeedbackGenerator.prepare()
         LoggerHelper.info("Начинаем сканирование")
     }
@@ -93,6 +96,7 @@ protocol BluetoothManagerProgotol {
         }
         peripherals.removeAll()
         manager?.stopScan()
+        delegate?.didStopScanning()
     }
 }
 

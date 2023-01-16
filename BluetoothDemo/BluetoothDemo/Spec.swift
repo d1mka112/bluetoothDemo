@@ -20,8 +20,8 @@ enum Spec {
         static let startScanButton: String = "Нажмите, чтобы начать сканирование"
         static let bringDeviceToTerminal: String = "Поднесите устройство к терминалу"
         static let scanDeviceError: String = "Не удалось считать терминал\nповторите снова"
+        static let scanStopped: String = "Сканирование завершено"
         static let scanDeviceSuccess: String = "Успешно!"
-        static let switchSimulate: String = "Симулировать success = false"
     }
 
     enum Color {
@@ -38,6 +38,9 @@ enum Spec {
     }
 
     enum GIFs {
+        static let bringDeviceToReader: String = "bringDeviceToReader"
+        static let success: String = "success"
+        static let reject: String = "reject"
 //        static let bluetoothTagRead: UIImage.gifImageWith
     }
 

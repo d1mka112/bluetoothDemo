@@ -25,6 +25,8 @@
 		173969BA29525F2B00EFEB2F /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173969B929525F2B00EFEB2F /* Endpoint.swift */; };
 		173969BC29525F9B00EFEB2F /* GlobalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173969BB29525F9B00EFEB2F /* GlobalStorage.swift */; };
 		173969BF2952648D00EFEB2F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173969BE2952648D00EFEB2F /* MainViewController.swift */; };
+		17400D1F2975E7CD00EAC625 /* bring_debug.gif in Resources */ = {isa = PBXBuildFile; fileRef = 17400D1D2975E7CD00EAC625 /* bring_debug.gif */; };
+		17400D202975E7CD00EAC625 /* success_debug.gif in Resources */ = {isa = PBXBuildFile; fileRef = 17400D1E2975E7CD00EAC625 /* success_debug.gif */; };
 		176043712954E591008F593D /* PayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176043702954E591008F593D /* PayView.swift */; };
 		1767604F29670C72002DFE20 /* Collection+safeIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1767604E29670C71002DFE20 /* Collection+safeIndex.swift */; };
 		17676051296723A7002DFE20 /* ModalDebugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17676050296723A7002DFE20 /* ModalDebugViewController.swift */; };
@@ -68,6 +70,8 @@
 		173969B929525F2B00EFEB2F /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		173969BB29525F9B00EFEB2F /* GlobalStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalStorage.swift; sourceTree = "<group>"; };
 		173969BE2952648D00EFEB2F /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		17400D1D2975E7CD00EAC625 /* bring_debug.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = bring_debug.gif; sourceTree = "<group>"; };
+		17400D1E2975E7CD00EAC625 /* success_debug.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = success_debug.gif; sourceTree = "<group>"; };
 		176043702954E591008F593D /* PayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayView.swift; sourceTree = "<group>"; };
 		1767604E29670C71002DFE20 /* Collection+safeIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+safeIndex.swift"; sourceTree = "<group>"; };
 		17676050296723A7002DFE20 /* ModalDebugViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalDebugViewController.swift; sourceTree = "<group>"; };
@@ -248,6 +252,8 @@
 		179EB2512975E26B00D2BD62 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				17400D1E2975E7CD00EAC625 /* success_debug.gif */,
+				17400D1D2975E7CD00EAC625 /* bring_debug.gif */,
 				179EB2522975E2BA00D2BD62 /* bringDeviceToReader.gif */,
 				179EB2532975E2BA00D2BD62 /* reject.gif */,
 				179EB2542975E2BA00D2BD62 /* success.gif */,
@@ -334,8 +340,10 @@
 				171B83D72948FFDC00EE478F /* LaunchScreen.storyboard in Resources */,
 				171B83D42948FFDC00EE478F /* Assets.xcassets in Resources */,
 				171B83D22948FFDB00EE478F /* Main.storyboard in Resources */,
+				17400D202975E7CD00EAC625 /* success_debug.gif in Resources */,
 				179EB2552975E2BA00D2BD62 /* bringDeviceToReader.gif in Resources */,
 				179EB2572975E2BA00D2BD62 /* success.gif in Resources */,
+				17400D1F2975E7CD00EAC625 /* bring_debug.gif in Resources */,
 				179EB2562975E2BA00D2BD62 /* reject.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -556,9 +564,11 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BluetoothDemo/Info.plist;
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Our app uses bluetooth to find, connect and transfer data between different devices";
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "Это приложение хочет использовать ваши биометрические данные в качестве подтверждения оплаты";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
@@ -587,9 +597,11 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BluetoothDemo/Info.plist;
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Our app uses bluetooth to find, connect and transfer data between different devices";
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "Это приложение хочет использовать ваши биометрические данные в качестве подтверждения оплаты";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.2;

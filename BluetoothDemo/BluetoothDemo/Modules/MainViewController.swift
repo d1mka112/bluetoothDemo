@@ -20,6 +20,7 @@ final class MainViewController: VendistaViewController {
 
     let payView: GIFImageView = {
         let gifImageView = GIFImageView()
+        gifImageView.contentMode = .scaleAspectFit
         gifImageView.animationRepeatCount = 0
         gifImageView.translatesAutoresizingMaskIntoConstraints = false
         return gifImageView

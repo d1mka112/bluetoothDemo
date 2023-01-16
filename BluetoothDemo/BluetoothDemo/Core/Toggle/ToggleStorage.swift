@@ -12,6 +12,7 @@ enum Toggle: String, Codable, Hashable {
     case forceUpdateToggles = "force_update_toggles"
     case substituteSuccess = "substitute_success"
     case rescanWhenAppForeground = "rescan_devices_when_app_foreground"
+    case gifTest = "gif_test"
 
     var isActive: Bool {
         ToggleStorage.shared.toggles.first { $0.id == self }?.value ?? false
@@ -24,11 +25,26 @@ final class ToggleStorage {
 
     static let shared = ToggleStorage(forceUpdate: ToggleStorage._forceUpdateToggles)
 
+    #if DEBUG
+    private static let _forceUpdateToggles: Bool = true
+    #else
     private static let _forceUpdateToggles: Bool = false
+    #endif
 
     private init(forceUpdate: Bool = false) {
         if forceUpdate || toggles.hashValue != ToggleStorage._defaultToggles.hashValue {
             toggles = ToggleStorage._defaultToggles
+            #if DEBUG
+            if !toggles.contains(where: { $0.id == .gifTest}) {
+                toggles.append(
+                    ToggleData(
+                        id: .gifTest,
+                        title: "Тестирование GIF",
+                        description: "Включает GIF для проверки работы"
+                    )
+                )
+            }
+            #endif
         }
     }
 

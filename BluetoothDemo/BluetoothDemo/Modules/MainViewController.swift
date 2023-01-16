@@ -150,7 +150,7 @@ extension MainViewController: BluetoothManagerDelegate {
                 FeedbackGenerator.success()
                 GlobalPlayer.paySuccess()
                 DispatchQueue.main.async {
-                    self.payView.animate(withGIFNamed: Spec.GIFs.success)
+                    self.payView.animate(withGIFNamed: Spec.GIFs.success, loopCount: 1)
                     self.payView.startAnimatingGIF()
 //                    self.scanLabel.text = Spec.Text.scanDeviceSuccess
                 }
@@ -164,14 +164,16 @@ extension MainViewController: BluetoothManagerDelegate {
                 FeedbackGenerator.error()
                 BluetoothManager.shared.startScanningIfCan()
                 DispatchQueue.main.async {
-                    self.payView.animate(withGIFNamed: Spec.GIFs.reject)
+                    self.payView.animate(
+                        withGIFNamed: Spec.GIFs.reject,
+                        loopCount: 1,
+                        animationBlock:  {
+                            self.payView.animate(withGIFNamed: Spec.GIFs.bringDeviceToReader)
+                            self.payView.startAnimatingGIF()
+//                              self.scanLabel.text = Spec.Text.bringDeviceToTerminal
+                    })
                     self.payView.startAnimatingGIF()
 //                    self.scanLabel.text = Spec.Text.scanDeviceError
-                }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-//                    self.scanLabel.text = Spec.Text.bringDeviceToTerminal
-                    self.payView.animate(withGIFNamed: Spec.GIFs.bringDeviceToReader)
-                    self.payView.startAnimatingGIF()
                 }
             }
         }

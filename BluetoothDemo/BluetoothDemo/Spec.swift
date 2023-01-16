@@ -39,18 +39,18 @@ enum Spec {
 
     enum GIFs {
         static var bringDeviceToReader: String {
-            #if DEBUG
-            return "bring_debug"
-            #else
-            return "bringDeviceToReader"
-            #endif
+            if Toggle.gifTest.isActive {
+                return "bring_debug"
+            } else {
+                return "bringDeviceToReader"
+            }
         }
         static var success: String {
-            #if DEBUG
-            return "success_debug"
-            #else
-            return "success"
-            #endif
+            if Toggle.gifTest.isActive {
+                return "success_debug"
+            } else {
+                return "success"
+            }
         }
         static let reject: String = "reject"
 //        static let bluetoothTagRead: UIImage.gifImageWith

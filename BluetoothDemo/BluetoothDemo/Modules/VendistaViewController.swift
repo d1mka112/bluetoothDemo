@@ -10,7 +10,7 @@ import UIKit
 
 
 internal class VendistaViewController: UIViewController {
-    #if DEBUG
+    #if PRODUCT
     override var canBecomeFirstResponder: Bool {
         true
     }

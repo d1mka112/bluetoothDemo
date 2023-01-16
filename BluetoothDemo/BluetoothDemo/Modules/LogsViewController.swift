@@ -4,7 +4,7 @@
 //
 //  Created by Dmitry Leukhin on 03.01.2023.
 //
-#if DEBUG
+#if PRODUCT
 import UIKit
 
 final class LogsViewController: UIViewController {

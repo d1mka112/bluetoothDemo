@@ -58,8 +58,6 @@ final class MainViewController: VendistaViewController {
         BiometricsManager.checkBiometrics { result, error in
             self.isAccessGranted = result
         }
-        payView.animate(withGIFNamed: Spec.GIFs.bringDeviceToReader)
-        payView.startAnimatingGIF()
     }
 
     private func setupSubviews() {
@@ -110,12 +108,10 @@ final class MainViewController: VendistaViewController {
 extension MainViewController: BluetoothManagerDelegate {
     func didStartScanning() {
         payView.animate(withGIFNamed: Spec.GIFs.bringDeviceToReader)
-        payView.startAnimatingGIF()
 //        scanLabel.text = Spec.Text.bringDeviceToTerminal
     }
 
     func didStopScanning() {
-        payView.stopAnimatingGIF()
 //        scanLabel.text = Spec.Text.scanStopped
     }
 
@@ -123,8 +119,6 @@ extension MainViewController: BluetoothManagerDelegate {
     }
 
     func didReceiveDeviceWithRSSI(model: BluetoothTagModel) {
-        payView.stopAnimatingGIF()
-
         if isAccessGranted {
             sendUUID(model: model)
         } else {
@@ -147,33 +141,31 @@ extension MainViewController: BluetoothManagerDelegate {
             else { return }
 
             if isSuccess {
-                FeedbackGenerator.success()
-                GlobalPlayer.paySuccess()
                 DispatchQueue.main.async {
+                    FeedbackGenerator.success()
+                    GlobalPlayer.paySuccess()
                     self.payView.animate(withGIFNamed: Spec.GIFs.success, loopCount: 1)
-                    self.payView.startAnimatingGIF()
 //                    self.scanLabel.text = Spec.Text.scanDeviceSuccess
                 }
-//                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-//                    UIControl().sendAction(
-//                        #selector(NSXPCConnection.suspend),
-//                        to: UIApplication.shared, for: nil
-//                    )
-//                }
+                if Toggle.shutDownWhenSuccess.isActive {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        UIControl().sendAction(
+                            #selector(NSXPCConnection.suspend),
+                            to: UIApplication.shared, for: nil
+                        )
+                    }
+                }
             } else {
-                FeedbackGenerator.error()
-                BluetoothManager.shared.startScanningIfCan()
                 DispatchQueue.main.async {
+                    FeedbackGenerator.error()
                     self.payView.animate(
                         withGIFNamed: Spec.GIFs.reject,
                         loopCount: 1,
                         animationBlock:  {
-                            self.payView.animate(withGIFNamed: Spec.GIFs.bringDeviceToReader)
-                            self.payView.startAnimatingGIF()
+                            BluetoothManager.shared.startScanningIfCan()
 //                              self.scanLabel.text = Spec.Text.bringDeviceToTerminal
                     })
-                    self.payView.startAnimatingGIF()
-//                    self.scanLabel.text = Spec.Text.scanDeviceError
+//                      self.scanLabel.text = Spec.Text.scanDeviceError
                 }
             }
         }

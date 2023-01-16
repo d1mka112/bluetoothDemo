@@ -14,6 +14,8 @@ final class ToggleViewController: UIViewController, UITableViewDelegate, UITable
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        view.backgroundColor = Spec.Color.primary
+        tableView.backgroundColor = Spec.Color.primary
         tableView.delegate = self
         tableView.dataSource = self
         tableView.translatesAutoresizingMaskIntoConstraints = false

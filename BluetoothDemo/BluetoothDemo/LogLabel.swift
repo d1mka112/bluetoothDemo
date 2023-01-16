@@ -15,6 +15,7 @@ final class LogLabel: UITextView {
         isEditable = false
         alwaysBounceVertical = true
         contentInset = .zero
+        backgroundColor = Spec.Color.primary
         LoggerStorage.shared.add(delegate: self)
     }
     

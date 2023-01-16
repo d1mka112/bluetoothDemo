@@ -12,6 +12,7 @@ enum Toggle: String, Codable, Hashable {
     case forceUpdateToggles = "force_update_toggles"
     case substituteSuccess = "substitute_success"
     case rescanWhenAppForeground = "rescan_devices_when_app_foreground"
+    case shutDownWhenSuccess = "shut_down_when_success"
     case gifTest = "gif_test"
 
     var isActive: Bool {
@@ -40,7 +41,7 @@ final class ToggleStorage {
                     ToggleData(
                         id: .gifTest,
                         title: "Тестирование GIF",
-                        description: "Включает GIF для проверки работы"
+                        description: "Включает GIF для проверки работы прозрачного фона"
                     )
                 )
             }
@@ -51,7 +52,7 @@ final class ToggleStorage {
     private static let _defaultToggles: [ToggleData] = [
         ToggleData(
             id: .forceUpdateToggles,
-            title: "Сбросить пна дефолтные значения",
+            title: "Сбросить на дефолтные значения",
             description: "Сбрасывает все тогглы, на дефолтные значения",
             value: false
         ),
@@ -66,6 +67,12 @@ final class ToggleStorage {
             title: "Перезапускать сканирование при выходе из фона",
             description: "Перезапускает сканирование устройств, когда приложение ушло в бекграунд и из него вернулось",
             value: true
-        )
+        ),
+        ToggleData(
+            id: .shutDownWhenSuccess,
+            title: "Скрывать приложение, когда оплата прошла успешно",
+            description: "Эмулирует двойное нажатие home и скрывает приложение",
+            value: false
+        ),
      ]
 }

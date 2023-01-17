@@ -54,9 +54,27 @@ final class MainViewController: VendistaViewController {
         BluetoothManager.shared.setNeedsToStartScanning()
         BluetoothManager.shared.startScanningIfCan()
         setupSubviews()
+        setupNotifications()
+    }
 
-        BiometricsManager.checkBiometrics { result, error in
-            self.isAccessGranted = result
+    private func setupNotifications() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(appMovedToBackground),
+            name: UIApplication.willEnterForegroundNotification,
+            object: nil
+        )
+    }
+
+    @objc func appMovedToBackground() {
+        if !isAccessGranted {
+            BiometricsManager.checkBiometrics { result, error in
+                if result {
+                    self.isAccessGranted = result
+                } else {
+                    SuspendHelper.suspend()
+                }
+            }
         }
     }
 
@@ -103,6 +121,34 @@ final class MainViewController: VendistaViewController {
 //            )
         ])
     }
+
+    private func doSuccess() {
+        DispatchQueue.main.async {
+            FeedbackGenerator.success()
+            GlobalPlayer.paySuccess()
+            self.payView.animate(
+                withGIFNamed: Spec.GIFs.success,
+                loopCount: 1
+            )
+        }
+
+        if Toggle.shutDownWhenSuccess.isActive {
+            SuspendHelper.suspend(after: 2)
+        }
+    }
+
+    private func doError() {
+        DispatchQueue.main.async {
+            FeedbackGenerator.error()
+            self.payView.animate(
+                withGIFNamed: Spec.GIFs.reject,
+                loopCount: 1,
+                animationBlock:  {
+                    BluetoothManager.shared.startScanningIfCan()
+                }
+            )
+        }
+    }
 }
 
 extension MainViewController: BluetoothManagerDelegate {
@@ -135,38 +181,12 @@ extension MainViewController: BluetoothManagerDelegate {
                 token: GlobalStorage.shared.token ?? ""
             )
         ) { [weak self] response in
-            guard
-                let self = self,
-                let isSuccess = response?.success
-            else { return }
+            guard let isSuccess = response?.success else { return }
 
             if isSuccess {
-                DispatchQueue.main.async {
-                    FeedbackGenerator.success()
-                    GlobalPlayer.paySuccess()
-                    self.payView.animate(withGIFNamed: Spec.GIFs.success, loopCount: 1)
-//                    self.scanLabel.text = Spec.Text.scanDeviceSuccess
-                }
-                if Toggle.shutDownWhenSuccess.isActive {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                        UIControl().sendAction(
-                            #selector(NSXPCConnection.suspend),
-                            to: UIApplication.shared, for: nil
-                        )
-                    }
-                }
+                self?.doSuccess()
             } else {
-                DispatchQueue.main.async {
-                    FeedbackGenerator.error()
-                    self.payView.animate(
-                        withGIFNamed: Spec.GIFs.reject,
-                        loopCount: 1,
-                        animationBlock:  {
-                            BluetoothManager.shared.startScanningIfCan()
-//                              self.scanLabel.text = Spec.Text.bringDeviceToTerminal
-                    })
-//                      self.scanLabel.text = Spec.Text.scanDeviceError
-                }
+                self?.doError()
             }
         }
     }

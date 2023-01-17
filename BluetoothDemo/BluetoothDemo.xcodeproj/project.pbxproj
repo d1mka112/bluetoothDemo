@@ -39,6 +39,7 @@
 		179EB2562975E2BA00D2BD62 /* reject.gif in Resources */ = {isa = PBXBuildFile; fileRef = 179EB2532975E2BA00D2BD62 /* reject.gif */; };
 		179EB2572975E2BA00D2BD62 /* success.gif in Resources */ = {isa = PBXBuildFile; fileRef = 179EB2542975E2BA00D2BD62 /* success.gif */; };
 		17A5007C295CD7CC00BFFC85 /* LogLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A5007B295CD7CC00BFFC85 /* LogLabel.swift */; };
+		17E1D03A2977174600FAFB82 /* SuspendHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E1D0392977174600FAFB82 /* SuspendHelper.swift */; };
 		17E7CEAF29631A71004A59BE /* BiometricsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E7CEAE29631A71004A59BE /* BiometricsManager.swift */; };
 		17E7CEB129644F11004A59BE /* ToggleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E7CEB029644F11004A59BE /* ToggleViewController.swift */; };
 		17E7CEB3296453A3004A59BE /* LogsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E7CEB2296453A3004A59BE /* LogsViewController.swift */; };
@@ -84,6 +85,7 @@
 		179EB2532975E2BA00D2BD62 /* reject.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = reject.gif; sourceTree = "<group>"; };
 		179EB2542975E2BA00D2BD62 /* success.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = success.gif; sourceTree = "<group>"; };
 		17A5007B295CD7CC00BFFC85 /* LogLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogLabel.swift; sourceTree = "<group>"; };
+		17E1D0392977174600FAFB82 /* SuspendHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuspendHelper.swift; sourceTree = "<group>"; };
 		17E7CEAE29631A71004A59BE /* BiometricsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricsManager.swift; sourceTree = "<group>"; };
 		17E7CEB029644F11004A59BE /* ToggleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleViewController.swift; sourceTree = "<group>"; };
 		17E7CEB2296453A3004A59BE /* LogsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogsViewController.swift; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 				172124CA294F478B00DE386D /* Player.swift */,
 				173969BB29525F9B00EFEB2F /* GlobalStorage.swift */,
 				17E7CEAE29631A71004A59BE /* BiometricsManager.swift */,
+				17E1D0392977174600FAFB82 /* SuspendHelper.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -385,6 +388,7 @@
 				1767605A296726ED002DFE20 /* ToggleData.swift in Sources */,
 				17E7CEAF29631A71004A59BE /* BiometricsManager.swift in Sources */,
 				173969AE295210CF00EFEB2F /* Networker.swift in Sources */,
+				17E1D03A2977174600FAFB82 /* SuspendHelper.swift in Sources */,
 				17676051296723A7002DFE20 /* ModalDebugViewController.swift in Sources */,
 				171B83CF2948FFDB00EE478F /* TestViewController.swift in Sources */,
 				176043712954E591008F593D /* PayView.swift in Sources */,
@@ -560,7 +564,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = G9AN7L738K;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BluetoothDemo/Info.plist;
@@ -593,7 +597,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = G9AN7L738K;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BluetoothDemo/Info.plist;

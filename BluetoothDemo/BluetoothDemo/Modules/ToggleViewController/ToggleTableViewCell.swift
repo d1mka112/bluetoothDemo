@@ -13,7 +13,7 @@ final class ToggleTableViewCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.tintColor = Spec.Color.primary
-        label.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        label.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
         label.textAlignment = .left
         return label
     }()
@@ -60,9 +60,9 @@ final class ToggleTableViewCell: UITableViewCell {
             titleLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 8),
             titleLabel.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: 8),
 
-            toggleSwitch.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 2),
-            toggleSwitch.leftAnchor.constraint(equalTo: titleLabel.rightAnchor, constant: 2),
-            toggleSwitch.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor, constant: -2),
+            toggleSwitch.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 4),
+            toggleSwitch.leftAnchor.constraint(equalTo: titleLabel.rightAnchor, constant: 4),
+            toggleSwitch.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor, constant: -4),
 
             descriptionLabel.topAnchor.constraint(equalTo: toggleSwitch.bottomAnchor, constant: 8),
             descriptionLabel.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: 8),

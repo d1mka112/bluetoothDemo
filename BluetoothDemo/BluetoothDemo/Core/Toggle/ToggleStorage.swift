@@ -26,7 +26,7 @@ final class ToggleStorage {
 
     static let shared = ToggleStorage(forceUpdate: ToggleStorage._forceUpdateToggles)
 
-    #if PRODUCT
+    #if DEBUG
     private static let _forceUpdateToggles: Bool = true
     #else
     private static let _forceUpdateToggles: Bool = false
@@ -35,7 +35,7 @@ final class ToggleStorage {
     private init(forceUpdate: Bool = false) {
         if forceUpdate || toggles.hashValue != ToggleStorage._defaultToggles.hashValue {
             toggles = ToggleStorage._defaultToggles
-            #if PRODUCT
+            #if DEBUG
             if !toggles.contains(where: { $0.id == .gifTest}) {
                 toggles.append(
                     ToggleData(

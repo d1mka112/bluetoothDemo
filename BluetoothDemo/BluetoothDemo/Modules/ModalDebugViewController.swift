@@ -4,7 +4,7 @@
 //
 //  Created by Dmitry Leukhin on 05.01.2023.
 //
-#if PRODUCT
+#if DEBUG
 import UIKit
 
 final class ModalDebugViewController: UIViewController {

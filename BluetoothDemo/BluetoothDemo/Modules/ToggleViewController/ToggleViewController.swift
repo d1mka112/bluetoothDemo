@@ -7,7 +7,7 @@
 
 import UIKit
 
-#if PRODUCT
+#if DEBUG
 final class ToggleViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     let tableView = UITableView()

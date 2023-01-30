@@ -7,7 +7,7 @@
 
 import UIKit
 
-#if PRODUCT
+#if DEBUG
 final class ToggleTableViewCell: UITableViewCell {
     private let titleLabel: UILabel = {
         let label = UILabel()

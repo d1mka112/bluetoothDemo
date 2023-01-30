@@ -18,10 +18,10 @@ enum Spec {
         static let biometricReasonForUser: String = "Пожалуйста, подтвердите личность, чтобы продолжить"
         static let deviceUUID: String = "UUID Устройства"
         static let startScanButton: String = "Нажмите, чтобы начать сканирование"
-        static let bringDeviceToTerminal: String = "Поднесите устройство к терминалу"
-        static let scanDeviceError: String = "Не удалось считать терминал\nповторите снова"
+        static let bringDeviceToTerminal: String = "Поднесите устройство к считывателю"
+        static let scanDeviceError: String = "Отказ"
         static let scanStopped: String = "Сканирование завершено"
-        static let scanDeviceSuccess: String = "Успешно!"
+        static let scanDeviceSuccess: String = "Успешная оплата"
     }
 
     enum Color {
@@ -53,10 +53,15 @@ enum Spec {
             }
         }
         static let reject: String = "reject"
-//        static let bluetoothTagRead: UIImage.gifImageWith
     }
 
     enum Sound {
         static let paySuccess: String = "paySuccess"
+    }
+}
+
+extension Optional where Wrapped: UIColor {
+    var cgColor: CGColor {
+        self != nil ? self.cgColor : UIColor.black.cgColor
     }
 }

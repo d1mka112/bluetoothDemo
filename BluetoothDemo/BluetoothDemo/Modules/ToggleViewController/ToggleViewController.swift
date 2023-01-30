@@ -46,5 +46,13 @@ final class ToggleViewController: UIViewController, UITableViewDelegate, UITable
         cell.updateCellByTag()
         return cell
     }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: false)
+        guard 
+            let cell = tableView.cellForRow(at: indexPath) as? ToggleTableViewCell 
+        else { return }
+        cell.toggleSwitchDidTouch()
+    }
 }
 #endif

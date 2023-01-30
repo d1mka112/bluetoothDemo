@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1710DA94298089DF007A6922 /* Успешная-оплата_4.gif in Resources */ = {isa = PBXBuildFile; fileRef = 1710DA93298089DF007A6922 /* Успешная-оплата_4.gif */; };
 		171B83CB2948FFDB00EE478F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171B83CA2948FFDB00EE478F /* AppDelegate.swift */; };
 		171B83CD2948FFDB00EE478F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171B83CC2948FFDB00EE478F /* SceneDelegate.swift */; };
 		171B83CF2948FFDB00EE478F /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171B83CE2948FFDB00EE478F /* TestViewController.swift */; };
@@ -51,6 +52,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1710DA93298089DF007A6922 /* Успешная-оплата_4.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "Успешная-оплата_4.gif"; sourceTree = "<group>"; };
 		171B83C72948FFDB00EE478F /* BluetoothDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BluetoothDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		171B83CA2948FFDB00EE478F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		171B83CC2948FFDB00EE478F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -255,6 +257,7 @@
 		179EB2512975E26B00D2BD62 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				1710DA93298089DF007A6922 /* Успешная-оплата_4.gif */,
 				17400D1E2975E7CD00EAC625 /* success_debug.gif */,
 				17400D1D2975E7CD00EAC625 /* bring_debug.gif */,
 				179EB2522975E2BA00D2BD62 /* bringDeviceToReader.gif */,
@@ -346,6 +349,7 @@
 				17400D202975E7CD00EAC625 /* success_debug.gif in Resources */,
 				179EB2552975E2BA00D2BD62 /* bringDeviceToReader.gif in Resources */,
 				179EB2572975E2BA00D2BD62 /* success.gif in Resources */,
+				1710DA94298089DF007A6922 /* Успешная-оплата_4.gif in Resources */,
 				17400D1F2975E7CD00EAC625 /* bring_debug.gif in Resources */,
 				179EB2562975E2BA00D2BD62 /* reject.gif in Resources */,
 			);
@@ -582,7 +586,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.3.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ru.vendista.bluetoothdemo;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.vendista.bluetoothdemo2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -616,7 +620,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.3.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ru.vendista.bluetoothdemo;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.vendista.bluetoothdemo2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;

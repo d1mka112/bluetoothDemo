@@ -37,7 +37,7 @@ class TestViewController: UIViewController {
         return label
     }()
 
-    var button: UIButton = {
+    lazy var button: UIButton = {
         let button = UIButton()
         button.setTitle(Spec.Text.startScanButton, for: .normal)
         button.setTitleColor(.black, for: .normal)
@@ -46,7 +46,7 @@ class TestViewController: UIViewController {
         return button
     }()
 
-    var stepper: UIStepper = {
+    lazy var stepper: UIStepper = {
         let stepper = UIStepper()
         stepper.maximumValue = 0
         stepper.minimumValue = -200

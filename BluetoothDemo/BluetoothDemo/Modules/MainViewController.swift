@@ -60,13 +60,23 @@ final class MainViewController: VendistaViewController {
     private func setupNotifications() {
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(appMovedToBackground),
+            selector: #selector(appMovedToForeground),
             name: UIApplication.willEnterForegroundNotification,
             object: nil
         )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(appMovedToBackground),
+            name: UIApplication.didEnterBackgroundNotification,
+            object: nil
+        )
+    }
+    
+    @objc func appMovedToBackground() { 
+        isAccessGranted = false
     }
 
-    @objc func appMovedToBackground() {
+    @objc func appMovedToForeground() {
         if !isAccessGranted {
             BiometricsManager.checkBiometrics { result, error in
                 if result {

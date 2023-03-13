@@ -48,6 +48,7 @@ enum Spec {
         static let card: UIImage = UIImage(named: "sberCard")!
         static let logo: UIImage = UIImage(named: "logo")!
         static let device: UIImage = UIImage(named: "device")!
+        static let speechBubble: UIImage = UIImage(named: "speech.bubble")!
     }
 
     enum GIFs {

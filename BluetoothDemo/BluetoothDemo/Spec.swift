@@ -8,10 +8,18 @@
 import UIKit
 
 enum Spec {
+    static var deviceId: String { 
+        UIDevice.current.identifierForVendor?.uuidString ?? ""
+    }
+
     enum Networking {
         static let user: User = User(login: "part", password: "part")
+
         static let host: String = "178.57.218.210"
         static let port: Int = 198
+
+        static let tuganHost: String = "t.vendista.ru"
+        static let tuganPort: Int = 2112
     }
 
     enum Text {
@@ -29,12 +37,17 @@ enum Spec {
         static let gray: UIColor = UIColor.gray
         static let secondary: UIColor = UIColor.black
         static let success: UIColor = UIColor(red: 0.27, green: 0.75, blue: 0.47, alpha: 1)
+        static let accent: UIColor = UIColor(red: 0.384, green: 0.702, blue: 0.655, alpha: 1)
+        static let background: UIColor = UIColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 1)
+        static let lightGray: UIColor = UIColor(red: 0.965, green: 0.969, blue: 0.988, alpha: 1)
     }
 
     enum Images {
         static let checkmark: UIImage = UIImage(named: "b.checkmark")!
         static let checkmarkCircle: UIImage = UIImage(named: "b.checkmark.circle")!
         static let card: UIImage = UIImage(named: "sberCard")!
+        static let logo: UIImage = UIImage(named: "logo")!
+        static let device: UIImage = UIImage(named: "device")!
     }
 
     enum GIFs {

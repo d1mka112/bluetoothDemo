@@ -14,7 +14,41 @@ enum Networker {
         return decoder
     }()
 
+    static func sendSMSCodeRequest(
+        for phone: String,
+        completion: @escaping (SMSCodeResponse?) -> Void
+    ) {
+        let phone = Phone(phone: phone, uuid: Spec.deviceId)
+        let endpoint = EndpointFactory.makeSMSCodeEndpoint(from: phone)
+
+        guard let request = makeRequestFromEndpoint(endpoint: endpoint) else { 
+            completion(nil)
+            return 
+        }
+
+        send(request: request, with: SMSCodeResponse.self) { response in
+           completion(response)
+        }
+    }
+
     static func sendTokenRequest(
+        for code: PhoneCode,
+        completion: @escaping (TokenResponse?) -> Void
+    ) {
+        let endpoint = EndpointFactory.makeTokenEndpoint(from: code)
+
+        guard let request = makeRequestFromEndpoint(endpoint: endpoint) else {
+            completion(nil)
+            return 
+        }
+
+        send(request: request, with: TokenResponse.self) { response in
+            GlobalStorage.shared.token = response?.token
+            completion(response)
+        }
+    }
+
+    static func sendTokenRequestOld(
         for user: User
     ) {
         let endpoint = EndpointFactory.makeAuthorizationEndpoint(from: user)
@@ -25,6 +59,7 @@ enum Networker {
             GlobalStorage.shared.token = response?.token
         }
     }
+
     static func sendDeviceRequest(
         for device: Device,
         completion: @escaping (DeviceResponse?) -> Void
@@ -60,7 +95,6 @@ enum Networker {
                     LoggerHelper.success("Успешный ответ на запрос \(request.url!)\nRaw data:\n\(String(data: data, encoding: .utf8) ?? String())")
                     let response = try snakeCaseDecoder.decode(ResponseType.self, from: data)
                     completion(response)
-//                    LoggerHelper.success("Успешный ответ на запрос \(request.url!)\nConverted object:\n \(response)")
                 } catch(let error) {
                     completion(nil)
                     LoggerHelper.error("Произошла ошибка при декодировании\n\(error)")

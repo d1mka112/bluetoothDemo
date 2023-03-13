@@ -16,7 +16,48 @@ enum EndpointFactory {
         case token
         case uuid
     }
-    
+    enum SMSCodeParameters: String, Codable {
+        case phone
+        case uuid
+    }
+    enum PhoneCodeParameters: String, Codable {
+        case code
+        case uuid
+        case phone
+    }
+
+    static func makeSMSCodeEndpoint(from phone: Phone) -> Endpoint<SMSCodeParameters> {
+        Endpoint(
+            type: .post, 
+            scheme: .https, 
+            host: Spec.Networking.tuganHost, 
+            port: Spec.Networking.tuganPort,
+            path: "/smscode", 
+            headerParametes: [:], 
+            urlParameters: [
+                .phone: phone.phone,
+                .uuid: phone.uuid
+            ], 
+            bodyParameters: [:]
+        )
+    }
+
+    static func makeTokenEndpoint(from code: PhoneCode) -> Endpoint<PhoneCodeParameters> {
+        Endpoint(
+            type: .post, 
+            scheme: .https, 
+            host: Spec.Networking.tuganHost, 
+            port: Spec.Networking.tuganPort,
+            path: "/token", 
+            headerParametes: [:], 
+            urlParameters: [
+                .code: code.code,
+                .phone: code.phone,
+                .uuid: code.uuid
+            ], 
+            bodyParameters: [:]
+        )
+    }
 
     static func makeAuthorizationEndpoint(from user: User) -> Endpoint<AuthorizationParameters> {
         Endpoint(
@@ -33,6 +74,7 @@ enum EndpointFactory {
             bodyParameters: [:]
         )
     }
+
     static func makeDeviceEndpoint(from device: Device) -> Endpoint<DeviceParameters> {
         Endpoint(
             type: .post,

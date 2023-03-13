@@ -17,10 +17,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.makeKeyAndVisible()
 
         LoggerHelper.warning("Приложение запущено")
-        Networker.sendTokenRequest(for: Spec.Networking.user)
+        Networker.sendTokenRequestOld(for: Spec.Networking.user)
         BluetoothManager.shared.setupManager()
 
-        window?.rootViewController = MainViewController()
+        let navigationController = UINavigationController(rootViewController: UIViewController())
+        navigationController.pushViewController(AuthorizationController(), animated: true)
+        window?.rootViewController = navigationController
+//        window?.rootViewController = MainViewController()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

@@ -33,7 +33,7 @@ class AuthorizationController: VendistaViewController {
 
     let titleLabel: UILabel = {
         let label = UILabel().prepareForConstrains()
-        label.text = "Авторизация"
+        label.text = "Авторизация | Номер телефона"
         label.textAlignment = .center
         label.numberOfLines = 0
         label.font = .systemFont(ofSize: 22, weight: .medium)
@@ -59,11 +59,9 @@ class AuthorizationController: VendistaViewController {
     }()
 
     let sendButton: UIButton = {
-        let button = UIButton().prepareForConstrains()
+        let button = HighlightingButton().prepareForConstrains()
         button.setTitle("Отправить", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = Spec.Color.accent
-        button.layer.cornerRadius = 10
         return button
     }()
 
@@ -80,10 +78,30 @@ class AuthorizationController: VendistaViewController {
     }()
 
     @objc func sendButtonDidTapped() {
-//      Нужна валидация по номеру
+        guard 
+            let phoneNumber = inputTextField.text,
+            Validation.isValidPhone(phone: phoneNumber) 
+        else {
+            AlertHelper.make(title: "Ошибка", message: "Номер набран неправильно")
+            return
+        }
 
-        Networker.sendSMSCodeRequest(for: inputTextField.text ?? "") { response in 
-//        navigationController?.pushViewController(AuthorizationController(), animated: true)
+        Networker.sendSMSCodeRequest(for: phoneNumber) { [weak self, phoneNumber] response in 
+            guard let response = response else {
+                AlertHelper.make()
+                return
+            }
+
+            if response.result {
+                DispatchQueue.main.async {
+                    self?.navigationController?.pushViewController(
+                        PhoneCodeController(phoneNumber: phoneNumber),
+                        animated: true
+                    )
+                }
+            } else if let error = response.error {
+                AlertHelper.make(title: "Ошибка", message: error)
+            } 
         }
     }
 

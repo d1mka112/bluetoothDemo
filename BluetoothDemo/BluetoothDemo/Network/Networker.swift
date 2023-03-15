@@ -32,10 +32,12 @@ enum Networker {
     }
 
     static func sendTokenRequest(
-        for code: PhoneCode,
+        for code: String,
+        phone: String,
         completion: @escaping (TokenResponse?) -> Void
     ) {
-        let endpoint = EndpointFactory.makeTokenEndpoint(from: code)
+        let phoneCode = PhoneCode(code: code, uuid: Spec.deviceId, phone: phone)
+        let endpoint = EndpointFactory.makeTokenEndpoint(from: phoneCode)
 
         guard let request = makeRequestFromEndpoint(endpoint: endpoint) else {
             completion(nil)

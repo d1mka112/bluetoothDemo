@@ -20,8 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         Networker.sendTokenRequestOld(for: Spec.Networking.user)
         BluetoothManager.shared.setupManager()
 
-        let navigationController = UINavigationController(rootViewController: UIViewController())
-        navigationController.pushViewController(AuthorizationController(), animated: true)
+        let navigationController = UINavigationController(rootViewController: AuthorizationController())
         window?.rootViewController = navigationController
 //        window?.rootViewController = MainViewController()
     }

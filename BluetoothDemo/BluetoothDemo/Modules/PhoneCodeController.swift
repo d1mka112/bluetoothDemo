@@ -34,7 +34,7 @@ class PhoneCodeController: VendistaViewController {
     
     let titleLabel: UILabel = {
         let label = UILabel().prepareForConstrains()
-        label.text = "Авторизация"
+        label.text = "Авторизация | Код"
         label.textAlignment = .center
         label.numberOfLines = 0
         label.font = .systemFont(ofSize: 22, weight: .medium)
@@ -42,9 +42,9 @@ class PhoneCodeController: VendistaViewController {
         return label
     }()
     
-    let descriptionLabel: UILabel = {
+    lazy var descriptionLabel: UILabel = {
         let label = UILabel().prepareForConstrains()
-        label.text = "SMS с кодом отправлен на телефона"
+        label.text = "SMS с кодом отправлен на номер телефона: \(self.phoneNumber)"
         label.textAlignment = .center
         label.numberOfLines = 0
         label.font = .systemFont(ofSize: 16)
@@ -60,11 +60,9 @@ class PhoneCodeController: VendistaViewController {
     }()
     
     let sendButton: UIButton = {
-        let button = UIButton().prepareForConstrains()
+        let button = HighlightingButton().prepareForConstrains()
         button.setTitle("Отправить", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = Spec.Color.accent
-        button.layer.cornerRadius = 10
         return button
     }()
     
@@ -79,6 +77,45 @@ class PhoneCodeController: VendistaViewController {
         stackView.spacing = 16
         return stackView
     }()
+
+    var phoneNumber: String
+
+    init(phoneNumber: String) {
+        self.phoneNumber = phoneNumber
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc func sendButtonDidTapped() {
+        guard 
+            let code = inputTextField.text,
+            Validation.isValidCode(code: code) 
+        else {
+            AlertHelper.make(title: "Ошибка", message: "Код набран неправильно")
+            return
+        }
+
+        Networker.sendTokenRequest(for: code, phone: phoneNumber) { [weak self, phoneNumber] response in 
+            guard let response = response else {
+                AlertHelper.make()
+                return
+            }
+
+            if response.result {
+                DispatchQueue.main.async {
+                    self?.navigationController?.pushViewController(
+                        MainViewController(), 
+                        animated: true
+                    )
+                }
+            } else if let error = response.error {
+                AlertHelper.make(title: "Ошибка", message: error)
+            } 
+        }
+    }
     
     @objc func handleKeyboardShowing(notification: NSNotification) {
         guard
@@ -117,7 +154,7 @@ class PhoneCodeController: VendistaViewController {
     }
     
     private func setupSubviews() {
-        //sendButton.addTarget(self, action: #selector(sendButtonDidTapped), for: .touchUpInside)
+        sendButton.addTarget(self, action: #selector(sendButtonDidTapped), for: .touchUpInside)
 
         view.addSubview(scrollView)
         scrollView.addSubview(vStackView)

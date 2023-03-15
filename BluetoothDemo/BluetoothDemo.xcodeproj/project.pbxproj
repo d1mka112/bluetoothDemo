@@ -44,6 +44,9 @@
 		179EB2562975E2BA00D2BD62 /* reject.gif in Resources */ = {isa = PBXBuildFile; fileRef = 179EB2532975E2BA00D2BD62 /* reject.gif */; };
 		179EB2572975E2BA00D2BD62 /* success.gif in Resources */ = {isa = PBXBuildFile; fileRef = 179EB2542975E2BA00D2BD62 /* success.gif */; };
 		17A5007C295CD7CC00BFFC85 /* LogLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A5007B295CD7CC00BFFC85 /* LogLabel.swift */; };
+		17C29F6929C240DE003FAC3F /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C29F6829C240DE003FAC3F /* Validation.swift */; };
+		17C29F6B29C24228003FAC3F /* AlertHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C29F6A29C24228003FAC3F /* AlertHelper.swift */; };
+		17C29F6D29C24652003FAC3F /* HighlightingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C29F6C29C24652003FAC3F /* HighlightingButton.swift */; };
 		17E1D03A2977174600FAFB82 /* SuspendHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E1D0392977174600FAFB82 /* SuspendHelper.swift */; };
 		17E7CEAF29631A71004A59BE /* BiometricsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E7CEAE29631A71004A59BE /* BiometricsManager.swift */; };
 		17E7CEB129644F11004A59BE /* ToggleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E7CEB029644F11004A59BE /* ToggleViewController.swift */; };
@@ -99,6 +102,9 @@
 		179EB2532975E2BA00D2BD62 /* reject.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = reject.gif; sourceTree = "<group>"; };
 		179EB2542975E2BA00D2BD62 /* success.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = success.gif; sourceTree = "<group>"; };
 		17A5007B295CD7CC00BFFC85 /* LogLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogLabel.swift; sourceTree = "<group>"; };
+		17C29F6829C240DE003FAC3F /* Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
+		17C29F6A29C24228003FAC3F /* AlertHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertHelper.swift; sourceTree = "<group>"; };
+		17C29F6C29C24652003FAC3F /* HighlightingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightingButton.swift; sourceTree = "<group>"; };
 		17E1D0392977174600FAFB82 /* SuspendHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuspendHelper.swift; sourceTree = "<group>"; };
 		17E7CEAE29631A71004A59BE /* BiometricsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricsManager.swift; sourceTree = "<group>"; };
 		17E7CEB029644F11004A59BE /* ToggleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleViewController.swift; sourceTree = "<group>"; };
@@ -188,6 +194,8 @@
 				173969BB29525F9B00EFEB2F /* GlobalStorage.swift */,
 				17E7CEAE29631A71004A59BE /* BiometricsManager.swift */,
 				17E1D0392977174600FAFB82 /* SuspendHelper.swift */,
+				17C29F6829C240DE003FAC3F /* Validation.swift */,
+				17C29F6A29C24228003FAC3F /* AlertHelper.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -218,6 +226,7 @@
 				176043702954E591008F593D /* PayView.swift */,
 				17A5007B295CD7CC00BFFC85 /* LogLabel.swift */,
 				17FB945729BE5BB0000A9B65 /* TextField.swift */,
+				17C29F6C29C24652003FAC3F /* HighlightingButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -427,6 +436,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				173969B529525ED100EFEB2F /* AuthorizationResponse.swift in Sources */,
+				17C29F6B29C24228003FAC3F /* AlertHelper.swift in Sources */,
 				173969BC29525F9B00EFEB2F /* GlobalStorage.swift in Sources */,
 				1767605A296726ED002DFE20 /* ToggleData.swift in Sources */,
 				17FB945829BE5BB0000A9B65 /* TextField.swift in Sources */,
@@ -434,6 +444,7 @@
 				17327A1629BFB6FE0060B00A /* SMSCodeResponse.swift in Sources */,
 				173969AE295210CF00EFEB2F /* Networker.swift in Sources */,
 				17E1D03A2977174600FAFB82 /* SuspendHelper.swift in Sources */,
+				17C29F6D29C24652003FAC3F /* HighlightingButton.swift in Sources */,
 				17676051296723A7002DFE20 /* ModalDebugViewController.swift in Sources */,
 				4EB4C33B29C0AE2B00721B68 /* PhoneCodeController.swift in Sources */,
 				171B83CF2948FFDB00EE478F /* TestViewController.swift in Sources */,
@@ -460,6 +471,7 @@
 				17A5007C295CD7CC00BFFC85 /* LogLabel.swift in Sources */,
 				173969B029524D1D00EFEB2F /* User.swift in Sources */,
 				172124CB294F478B00DE386D /* Player.swift in Sources */,
+				17C29F6929C240DE003FAC3F /* Validation.swift in Sources */,
 				17327A1229BFAEB70060B00A /* NavigationBarAppearance.swift in Sources */,
 				171B83CD2948FFDB00EE478F /* SceneDelegate.swift in Sources */,
 				17E7CEB129644F11004A59BE /* ToggleViewController.swift in Sources */,

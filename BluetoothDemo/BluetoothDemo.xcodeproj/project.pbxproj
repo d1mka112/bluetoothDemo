@@ -54,6 +54,7 @@
 		17FB945429BE3B91000A9B65 /* AuthorizationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FB945329BE3B91000A9B65 /* AuthorizationController.swift */; };
 		17FB945629BE3D81000A9B65 /* UIView+prepare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FB945529BE3D81000A9B65 /* UIView+prepare.swift */; };
 		17FB945829BE5BB0000A9B65 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FB945729BE5BB0000A9B65 /* TextField.swift */; };
+		4EB4C33B29C0AE2B00721B68 /* PhoneCodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB4C33A29C0AE2B00721B68 /* PhoneCodeController.swift */; };
 		4EDF458429536544002AFCC4 /* DeviceResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDF458329536544002AFCC4 /* DeviceResponse.swift */; };
 		AE456AFD7E28A902077D95B5 /* libPods-BluetoothDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 88B5AE4F66FC4E32F0AA073E /* libPods-BluetoothDemo.a */; };
 /* End PBXBuildFile section */
@@ -109,6 +110,7 @@
 		17FB945529BE3D81000A9B65 /* UIView+prepare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+prepare.swift"; sourceTree = "<group>"; };
 		17FB945729BE5BB0000A9B65 /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		233378D107ECB2FA38A68B3B /* Pods-BluetoothDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BluetoothDemo.release.xcconfig"; path = "Target Support Files/Pods-BluetoothDemo/Pods-BluetoothDemo.release.xcconfig"; sourceTree = "<group>"; };
+		4EB4C33A29C0AE2B00721B68 /* PhoneCodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneCodeController.swift; sourceTree = "<group>"; };
 		4EDF458329536544002AFCC4 /* DeviceResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceResponse.swift; sourceTree = "<group>"; };
 		8547F80D3EEBD8CCC1D2C9C1 /* Pods-BluetoothDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BluetoothDemo.debug.xcconfig"; path = "Target Support Files/Pods-BluetoothDemo/Pods-BluetoothDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		88B5AE4F66FC4E32F0AA073E /* libPods-BluetoothDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BluetoothDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -248,6 +250,7 @@
 				17FB945229BE3B5E000A9B65 /* Debug */,
 				173969BE2952648D00EFEB2F /* MainViewController.swift */,
 				17FB945329BE3B91000A9B65 /* AuthorizationController.swift */,
+				4EB4C33A29C0AE2B00721B68 /* PhoneCodeController.swift */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -432,6 +435,7 @@
 				173969AE295210CF00EFEB2F /* Networker.swift in Sources */,
 				17E1D03A2977174600FAFB82 /* SuspendHelper.swift in Sources */,
 				17676051296723A7002DFE20 /* ModalDebugViewController.swift in Sources */,
+				4EB4C33B29C0AE2B00721B68 /* PhoneCodeController.swift in Sources */,
 				171B83CF2948FFDB00EE478F /* TestViewController.swift in Sources */,
 				176043712954E591008F593D /* PayView.swift in Sources */,
 				17E7CEB3296453A3004A59BE /* LogsViewController.swift in Sources */,

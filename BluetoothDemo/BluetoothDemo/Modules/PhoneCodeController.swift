@@ -44,7 +44,7 @@ class PhoneCodeController: VendistaViewController {
     
     lazy var descriptionLabel: UILabel = {
         let label = UILabel().prepareForConstrains()
-        label.text = "SMS с кодом отправлен на номер телефона: \(self.phoneNumber)"
+        label.text = "SMS с кодом отправлен на номер телефона \n\(self.phoneNumber)"
         label.textAlignment = .center
         label.numberOfLines = 0
         label.font = .systemFont(ofSize: 16)
@@ -79,6 +79,8 @@ class PhoneCodeController: VendistaViewController {
     }()
 
     var phoneNumber: String
+
+    var tapGesture: UIGestureRecognizer?
 
     init(phoneNumber: String) {
         self.phoneNumber = phoneNumber
@@ -116,8 +118,13 @@ class PhoneCodeController: VendistaViewController {
             } 
         }
     }
+
+    @objc func didTapOnScreen() {
+        view.endEditing(true)
+    }
     
     @objc func handleKeyboardShowing(notification: NSNotification) {
+        tapGesture?.isEnabled = true
         guard
             let userInfo = notification.userInfo,
             let keyboardFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
@@ -131,6 +138,8 @@ class PhoneCodeController: VendistaViewController {
     }
 
     @objc func handleKeyboardHiding(notification: NSNotification) {
+        tapGesture?.isEnabled = false
+        scrollView.contentInset = Constants.insets
     }
     
     override func viewDidLoad() {
@@ -139,8 +148,11 @@ class PhoneCodeController: VendistaViewController {
 
         scrollView.contentInset = Constants.insets
 
+        tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapOnScreen))
+        view.addGestureRecognizer(tapGesture!)
+
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardShowing(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardShowing(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardHiding(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
     override func viewWillAppear(_ animated: Bool) {

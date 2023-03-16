@@ -6,13 +6,27 @@
 //
 
 import UIKit
+import SafariServices
 
-enum AlertHelper {
-    static func make(title: String = "Ошибка", message: String = "Неизвестная ошибка") {
+enum ControllerHelper {
+
+    static var topController: UIViewController? {
+        UIApplication.shared.keyWindow?.rootViewController?.topMostViewController
+    }
+
+    static func pushSafari(url: String) {
+        guard  let url = URL(string: url) else { return }
+
         DispatchQueue.main.async {
-            guard let controller = UIApplication.shared.keyWindow?.rootViewController else {
-                return
-            }
+            guard let controller = topController else { return }
+            let safariController = SFSafariViewController(url: url)
+            controller.present(safariController, animated: true)
+        }
+    }
+
+    static func pushAlert(title: String = "Ошибка", message: String = "Неизвестная ошибка") {
+        DispatchQueue.main.async {
+            guard let controller = topController else { return }
 
             var alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
 

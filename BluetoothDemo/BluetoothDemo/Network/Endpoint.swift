@@ -27,6 +27,7 @@ protocol EndpointRepresentable {
 
 enum HeaderParameters: String, Hashable, RawRepresentable, Encodable {
     case contentType = "Content-Type"
+    case token = "token"
 }
 
 struct Endpoint<ParameterType: Hashable & RawRepresentable & Encodable>: EndpointRepresentable {

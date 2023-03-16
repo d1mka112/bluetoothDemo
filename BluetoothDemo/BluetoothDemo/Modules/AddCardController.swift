@@ -15,23 +15,6 @@ class AddCardController: VendistaViewController {
         static let offset: CGFloat = -32
     }
 
-//    let logoImageView: UIView = {
-//        let imageView = UIImageView(image: Spec.Images.logoBlack).prepareForConstrains()
-//        imageView.contentMode = .scaleAspectFit
-//        return imageView
-//    }()
-    
-    
-    let titleLabel: UILabel = {
-        let label = UILabel().prepareForConstrains()
-        label.text = "Новая карта"
-        label.textAlignment = .center
-        label.numberOfLines = 0
-        label.font = .systemFont(ofSize: 22, weight: .medium)
-        label.textColor = .black
-        return label
-    }()
-
     let inputTextField: UITextField = {
         let textField = TextField().prepareForConstrains()
         textField.placeholder = "Введите номер карты"
@@ -63,7 +46,17 @@ class AddCardController: VendistaViewController {
     var tapGesture: UIGestureRecognizer?
 
     @objc func sendButtonDidTapped() {
-        
+        guard
+            let cardNumber = inputTextField.text,
+            Validation.isValidCardNumber(cardNumber: cardNumber) 
+        else {
+            return
+        }
+
+        Networker.sendUserCard(for: cardNumber) { response in
+            guard let attachUrl = response?.attachUrl else { return }
+            ControllerHelper.pushSafari(url: attachUrl)
+        }
     }
 
     @objc func didTapOnScreen() {
@@ -82,7 +75,9 @@ class AddCardController: VendistaViewController {
         let convertFrame = vStackView.convert(inputTextField.frame, to: scrollView)
         let visibleOffset = scrollView.frame.height - keyboardFrame.height
         let offset = convertFrame.maxY + 64 - visibleOffset - 18
-        scrollView.setContentOffset(.init(x: .zero, y: offset), animated: true)
+        if offset > 0 {
+            scrollView.setContentOffset(.init(x: .zero, y: offset), animated: true)
+        }
     }
 
     @objc func handleKeyboardHiding(notification: NSNotification) {
@@ -104,9 +99,9 @@ class AddCardController: VendistaViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-//        navigationItem.titleView = logoImageView
         navigationItem.title = "Новая карта"
 
+        navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.standardAppearance = NavigationBarAppearance.other()
         navigationController?.navigationBar.scrollEdgeAppearance = NavigationBarAppearance.other()
         navigationController?.navigationBar.compactAppearance = NavigationBarAppearance.other()
@@ -124,7 +119,6 @@ class AddCardController: VendistaViewController {
         vStackView.addArrangedSubview(sendButton)
 
         NSLayoutConstraint.activate([
-//            logoImageView.heightAnchor.constraint(equalToConstant: 35),
 
             sendButton.heightAnchor.constraint(equalTo: inputTextField.heightAnchor),
 
@@ -133,7 +127,6 @@ class AddCardController: VendistaViewController {
             scrollView.rightAnchor.constraint(equalTo: view.rightAnchor),
             scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
 
-//            vStackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             vStackView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor, constant: Constants.offset),
             vStackView.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 16),
             vStackView.rightAnchor.constraint(equalTo: scrollView.rightAnchor, constant: -16),

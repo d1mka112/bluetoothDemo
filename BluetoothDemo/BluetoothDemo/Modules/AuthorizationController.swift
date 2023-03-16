@@ -11,29 +11,13 @@ class AuthorizationController: VendistaViewController {
 
     enum Constants {
         static let insets: UIEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 60, right: 0)
-        static let offset: CGFloat = -32
+        static let offset: CGFloat = 64
     }
-
-    let logoImageView: UIView = {
-        let imageView = UIImageView(image: Spec.Images.logoBlack).prepareForConstrains()
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }()
 
     let descriptionImageView: UIImageView = {
         let imageView = UIImageView(image: Spec.Images.device).prepareForConstrains()
         imageView.contentMode = .scaleAspectFit
         return imageView
-    }()
-
-    let titleLabel: UILabel = {
-        let label = UILabel().prepareForConstrains()
-        label.text = "Номер телефона"
-        label.textAlignment = .center
-        label.numberOfLines = 0
-        label.font = .systemFont(ofSize: 18, weight: .medium)
-        label.textColor = .black
-        return label
     }()
 
     let descriptionLabel: UILabel = {
@@ -80,13 +64,13 @@ class AuthorizationController: VendistaViewController {
             let phoneNumber = inputTextField.text,
             Validation.isValidPhone(phone: phoneNumber) 
         else {
-            AlertHelper.make(title: "Ошибка", message: "Номер набран неправильно")
+            ControllerHelper.pushAlert(title: "Ошибка", message: "Номер набран неправильно")
             return
         }
 
         Networker.sendSMSCodeRequest(for: phoneNumber) { [weak self, phoneNumber] response in 
             guard let response = response else {
-                AlertHelper.make()
+                ControllerHelper.pushAlert()
                 return
             }
 
@@ -98,7 +82,7 @@ class AuthorizationController: VendistaViewController {
                     )
                 }
             } else if let error = response.error {
-                AlertHelper.make(title: "Ошибка", message: error)
+                ControllerHelper.pushAlert(title: "Ошибка", message: error)
             } 
         }
     }
@@ -119,7 +103,9 @@ class AuthorizationController: VendistaViewController {
         let convertFrame = vStackView.convert(inputTextField.frame, to: scrollView)
         let visibleOffset = scrollView.frame.height - keyboardFrame.height
         let offset = convertFrame.maxY + 64 - visibleOffset - 18
-        scrollView.setContentOffset(.init(x: .zero, y: offset), animated: true)
+        if offset < 0 {
+            scrollView.setContentOffset(.init(x: .zero, y: offset), animated: true)
+        }
     }
 
     @objc func handleKeyboardHiding(notification: NSNotification) {
@@ -141,7 +127,6 @@ class AuthorizationController: VendistaViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-//        navigationItem.titleView = logoImageView
         navigationItem.title = "Номер телефона"
 
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -158,8 +143,6 @@ class AuthorizationController: VendistaViewController {
         view.addSubview(scrollView)
         scrollView.addSubview(vStackView)
 
-//        vStackView.addArrangedSubview(titleLabel)
-//        vStackView.setCustomSpacing(30, after: titleLabel)
         vStackView.addArrangedSubview(descriptionImageView)
         vStackView.setCustomSpacing(30, after: descriptionImageView)
         vStackView.addArrangedSubview(descriptionLabel)
@@ -167,7 +150,6 @@ class AuthorizationController: VendistaViewController {
         vStackView.addArrangedSubview(sendButton)
 
         NSLayoutConstraint.activate([
-            logoImageView.heightAnchor.constraint(equalToConstant: 35),
 
             sendButton.heightAnchor.constraint(equalTo: inputTextField.heightAnchor),
 
@@ -176,8 +158,7 @@ class AuthorizationController: VendistaViewController {
             scrollView.rightAnchor.constraint(equalTo: view.rightAnchor),
             scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
 
-//            vStackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            vStackView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor, constant: Constants.offset),
+            vStackView.bottomAnchor.constraint(equalTo: scrollView.centerYAnchor, constant: Constants.offset),
             vStackView.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 16),
             vStackView.rightAnchor.constraint(equalTo: scrollView.rightAnchor, constant: -16),
             vStackView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -32)

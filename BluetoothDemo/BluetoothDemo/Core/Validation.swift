@@ -19,4 +19,10 @@ enum Validation {
         let phoneTest = NSPredicate(format: "SELF MATCHES %@", phoneRegex)
         return phoneTest.evaluate(with: code)
     }
+
+    static func isValidCardNumber(cardNumber: String) -> Bool {
+        let phoneRegex = "^[0-9]{16}$"
+        let phoneTest = NSPredicate(format: "SELF MATCHES %@", phoneRegex)
+        return phoneTest.evaluate(with: cardNumber)
+    }
 }

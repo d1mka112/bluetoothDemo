@@ -22,6 +22,9 @@
 		172496A029C3B42800ECDB5C /* successNew.gif in Resources */ = {isa = PBXBuildFile; fileRef = 1724969D29C3B42800ECDB5C /* successNew.gif */; };
 		172496A129C3B42800ECDB5C /* bringDeviceToReaderNew.gif in Resources */ = {isa = PBXBuildFile; fileRef = 1724969E29C3B42800ECDB5C /* bringDeviceToReaderNew.gif */; };
 		172496A229C3B42800ECDB5C /* rejectNew.gif in Resources */ = {isa = PBXBuildFile; fileRef = 1724969F29C3B42800ECDB5C /* rejectNew.gif */; };
+		172496A429C3C80700ECDB5C /* UserCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 172496A329C3C80700ECDB5C /* UserCard.swift */; };
+		172496A629C3C9EB00ECDB5C /* UserCardResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 172496A529C3C9EB00ECDB5C /* UserCardResponse.swift */; };
+		172496A829C3CDD900ECDB5C /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 172496A729C3CDD900ECDB5C /* AlertController.swift */; };
 		17327A1229BFAEB70060B00A /* NavigationBarAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17327A1129BFAEB70060B00A /* NavigationBarAppearance.swift */; };
 		17327A1429BFB4960060B00A /* Phone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17327A1329BFB4960060B00A /* Phone.swift */; };
 		17327A1629BFB6FE0060B00A /* SMSCodeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17327A1529BFB6FE0060B00A /* SMSCodeResponse.swift */; };
@@ -49,7 +52,7 @@
 		179EB2572975E2BA00D2BD62 /* success.gif in Resources */ = {isa = PBXBuildFile; fileRef = 179EB2542975E2BA00D2BD62 /* success.gif */; };
 		17A5007C295CD7CC00BFFC85 /* LogLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A5007B295CD7CC00BFFC85 /* LogLabel.swift */; };
 		17C29F6929C240DE003FAC3F /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C29F6829C240DE003FAC3F /* Validation.swift */; };
-		17C29F6B29C24228003FAC3F /* AlertHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C29F6A29C24228003FAC3F /* AlertHelper.swift */; };
+		17C29F6B29C24228003FAC3F /* ControllerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C29F6A29C24228003FAC3F /* ControllerHelper.swift */; };
 		17C29F6D29C24652003FAC3F /* HighlightingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C29F6C29C24652003FAC3F /* HighlightingButton.swift */; };
 		17E1D03A2977174600FAFB82 /* SuspendHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E1D0392977174600FAFB82 /* SuspendHelper.swift */; };
 		17E7CEAF29631A71004A59BE /* BiometricsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E7CEAE29631A71004A59BE /* BiometricsManager.swift */; };
@@ -84,6 +87,9 @@
 		1724969D29C3B42800ECDB5C /* successNew.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = successNew.gif; sourceTree = "<group>"; };
 		1724969E29C3B42800ECDB5C /* bringDeviceToReaderNew.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = bringDeviceToReaderNew.gif; sourceTree = "<group>"; };
 		1724969F29C3B42800ECDB5C /* rejectNew.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = rejectNew.gif; sourceTree = "<group>"; };
+		172496A329C3C80700ECDB5C /* UserCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCard.swift; sourceTree = "<group>"; };
+		172496A529C3C9EB00ECDB5C /* UserCardResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCardResponse.swift; sourceTree = "<group>"; };
+		172496A729C3CDD900ECDB5C /* AlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
 		17327A1129BFAEB70060B00A /* NavigationBarAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarAppearance.swift; sourceTree = "<group>"; };
 		17327A1329BFB4960060B00A /* Phone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phone.swift; sourceTree = "<group>"; };
 		17327A1529BFB6FE0060B00A /* SMSCodeResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSCodeResponse.swift; sourceTree = "<group>"; };
@@ -111,7 +117,7 @@
 		179EB2542975E2BA00D2BD62 /* success.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = success.gif; sourceTree = "<group>"; };
 		17A5007B295CD7CC00BFFC85 /* LogLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogLabel.swift; sourceTree = "<group>"; };
 		17C29F6829C240DE003FAC3F /* Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
-		17C29F6A29C24228003FAC3F /* AlertHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertHelper.swift; sourceTree = "<group>"; };
+		17C29F6A29C24228003FAC3F /* ControllerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControllerHelper.swift; sourceTree = "<group>"; };
 		17C29F6C29C24652003FAC3F /* HighlightingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightingButton.swift; sourceTree = "<group>"; };
 		17E1D0392977174600FAFB82 /* SuspendHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuspendHelper.swift; sourceTree = "<group>"; };
 		17E7CEAE29631A71004A59BE /* BiometricsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricsManager.swift; sourceTree = "<group>"; };
@@ -153,6 +159,7 @@
 		171B83BE2948FFDB00EE478F = {
 			isa = PBXGroup;
 			children = (
+				172496A729C3CDD900ECDB5C /* AlertController.swift */,
 				17327A1129BFAEB70060B00A /* NavigationBarAppearance.swift */,
 				171B83C92948FFDB00EE478F /* BluetoothDemo */,
 				171B83C82948FFDB00EE478F /* Products */,
@@ -203,7 +210,7 @@
 				17E7CEAE29631A71004A59BE /* BiometricsManager.swift */,
 				17E1D0392977174600FAFB82 /* SuspendHelper.swift */,
 				17C29F6829C240DE003FAC3F /* Validation.swift */,
-				17C29F6A29C24228003FAC3F /* AlertHelper.swift */,
+				17C29F6A29C24228003FAC3F /* ControllerHelper.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -215,6 +222,7 @@
 				173969AF29524D1D00EFEB2F /* User.swift */,
 				17327A1329BFB4960060B00A /* Phone.swift */,
 				17327A1729BFB8D90060B00A /* PhoneCode.swift */,
+				172496A329C3C80700ECDB5C /* UserCard.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -257,6 +265,7 @@
 				4EDF458329536544002AFCC4 /* DeviceResponse.swift */,
 				17327A1529BFB6FE0060B00A /* SMSCodeResponse.swift */,
 				17327A1929BFBA180060B00A /* TokenResponse.swift */,
+				172496A529C3C9EB00ECDB5C /* UserCardResponse.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -451,7 +460,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				173969B529525ED100EFEB2F /* AuthorizationResponse.swift in Sources */,
-				17C29F6B29C24228003FAC3F /* AlertHelper.swift in Sources */,
+				17C29F6B29C24228003FAC3F /* ControllerHelper.swift in Sources */,
 				173969BC29525F9B00EFEB2F /* GlobalStorage.swift in Sources */,
 				1767605A296726ED002DFE20 /* ToggleData.swift in Sources */,
 				17FB945829BE5BB0000A9B65 /* TextField.swift in Sources */,
@@ -464,6 +473,7 @@
 				4EB4C33B29C0AE2B00721B68 /* PhoneCodeController.swift in Sources */,
 				171B83CF2948FFDB00EE478F /* TestViewController.swift in Sources */,
 				176043712954E591008F593D /* PayView.swift in Sources */,
+				172496A429C3C80700ECDB5C /* UserCard.swift in Sources */,
 				17E7CEB3296453A3004A59BE /* LogsViewController.swift in Sources */,
 				171B83CB2948FFDB00EE478F /* AppDelegate.swift in Sources */,
 				173969BA29525F2B00EFEB2F /* Endpoint.swift in Sources */,
@@ -473,9 +483,11 @@
 				1767605C29672707002DFE20 /* ToggleStorage.swift in Sources */,
 				173969BF2952648D00EFEB2F /* MainViewController.swift in Sources */,
 				17E7CEB62964A820004A59BE /* VendistaViewController.swift in Sources */,
+				172496A629C3C9EB00ECDB5C /* UserCardResponse.swift in Sources */,
 				4EDF458429536544002AFCC4 /* DeviceResponse.swift in Sources */,
 				1724969C29C3B15000ECDB5C /* AddCardController.swift in Sources */,
 				171B83E22949193C00EE478F /* Spec.swift in Sources */,
+				172496A829C3CDD900ECDB5C /* AlertController.swift in Sources */,
 				172124CD294F526700DE386D /* Atomic.swift in Sources */,
 				1781217C296CB7B000208CA5 /* Storage.swift in Sources */,
 				17E9D1D6294A6AB200C6D354 /* FeedbackGenerator.swift in Sources */,

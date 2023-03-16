@@ -50,6 +50,23 @@ enum Networker {
         }
     }
 
+    static func sendUserCard(
+        for card: String,
+        completion: @escaping (UserCardResponse?) -> Void
+    ) {
+        let userCard = UserCard(cardNumber: card)
+        let endpoint = EndpointFactory.makeUserCardEndpoint(from: userCard)
+
+        guard let request = makeRequestFromEndpoint(endpoint: endpoint) else {
+            completion(nil)
+            return
+        }
+
+        send(request: request, with: UserCardResponse.self) { response in
+            completion(response)
+        }
+    }
+
     static func sendTokenRequestOld(
         for user: User
     ) {

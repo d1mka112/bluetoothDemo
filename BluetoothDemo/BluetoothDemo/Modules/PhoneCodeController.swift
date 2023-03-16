@@ -12,31 +12,15 @@ class PhoneCodeController: VendistaViewController {
     
     enum Constants {
         static let insets: UIEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 60, right: 0)
-        static let offset: CGFloat = -32
+        static let offset: CGFloat = 64
     }
-
-    let logoImageView: UIView = {
-        let imageView = UIImageView(image: Spec.Images.logoBlack).prepareForConstrains()
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }()
     
     let descriptionImageView: UIImageView = {
         let imageView = UIImageView(image: Spec.Images.speechBubble).prepareForConstrains()
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
-    
-//    let titleLabel: UILabel = {
-//        let label = UILabel().prepareForConstrains()
-//        label.text = "Код"
-//        label.textAlignment = .center
-//        label.numberOfLines = 0
-//        label.font = .systemFont(ofSize: 22, weight: .medium)
-//        label.textColor = .black
-//        return label
-//    }()
-    
+
     lazy var descriptionLabel: UILabel = {
         let label = UILabel().prepareForConstrains()
         label.text = "SMS с кодом отправлен на номер телефона \n\(self.phoneNumber)"
@@ -92,13 +76,13 @@ class PhoneCodeController: VendistaViewController {
             let code = inputTextField.text,
             Validation.isValidCode(code: code) 
         else {
-            AlertHelper.make(title: "Ошибка", message: "Код набран неправильно")
+            ControllerHelper.pushAlert(title: "Ошибка", message: "Код набран неправильно")
             return
         }
 
-        Networker.sendTokenRequest(for: code, phone: phoneNumber) { [weak self, phoneNumber] response in 
+        Networker.sendTokenRequest(for: code, phone: phoneNumber) { [weak self] response in 
             guard let response = response else {
-                AlertHelper.make()
+                ControllerHelper.pushAlert()
                 return
             }
 
@@ -107,7 +91,7 @@ class PhoneCodeController: VendistaViewController {
                     self?.navigationController?.setViewControllers([MainViewController()], animated: true)
                 }
             } else if let error = response.error {
-                AlertHelper.make(title: "Ошибка", message: error)
+                ControllerHelper.pushAlert(title: "Ошибка", message: error)
             } 
         }
     }
@@ -128,7 +112,9 @@ class PhoneCodeController: VendistaViewController {
         let convertFrame = vStackView.convert(inputTextField.frame, to: scrollView)
         let visibleOffset = scrollView.frame.height - keyboardFrame.height
         let offset = convertFrame.maxY + 64 - visibleOffset - 18
-        scrollView.setContentOffset(.init(x: .zero, y: offset), animated: true)
+        if offset < 0 {
+            scrollView.setContentOffset(.init(x: .zero, y: offset), animated: true)
+        }
     }
 
     @objc func handleKeyboardHiding(notification: NSNotification) {
@@ -150,15 +136,14 @@ class PhoneCodeController: VendistaViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-//        navigationItem.titleView = logoImageView
-        navigationItem.title = "Код"
+        navigationItem.title = "SMS Код"
 
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.standardAppearance = NavigationBarAppearance.other()
         navigationController?.navigationBar.scrollEdgeAppearance = NavigationBarAppearance.other()
         navigationController?.navigationBar.compactAppearance = NavigationBarAppearance.other()
 
-        navigationController?.navigationBar.tintColor = .white
+        navigationController?.navigationBar.tintColor = .black
     }
     
     private func setupSubviews() {
@@ -167,8 +152,6 @@ class PhoneCodeController: VendistaViewController {
         view.addSubview(scrollView)
         scrollView.addSubview(vStackView)
 
-//        vStackView.addArrangedSubview(titleLabel)
-//        vStackView.setCustomSpacing(60, after: titleLabel)
         vStackView.addArrangedSubview(descriptionImageView)
         vStackView.setCustomSpacing(60, after: descriptionImageView)
         vStackView.addArrangedSubview(descriptionLabel)
@@ -176,8 +159,6 @@ class PhoneCodeController: VendistaViewController {
         vStackView.addArrangedSubview(sendButton)
 
         NSLayoutConstraint.activate([
-            logoImageView.heightAnchor.constraint(equalToConstant: 35),
-
             sendButton.heightAnchor.constraint(equalTo: inputTextField.heightAnchor),
 
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -185,8 +166,7 @@ class PhoneCodeController: VendistaViewController {
             scrollView.rightAnchor.constraint(equalTo: view.rightAnchor),
             scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
 
-//            vStackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            vStackView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor, constant: Constants.offset),
+            vStackView.bottomAnchor.constraint(equalTo: scrollView.centerYAnchor, constant: Constants.offset),
             vStackView.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 16),
             vStackView.rightAnchor.constraint(equalTo: scrollView.rightAnchor, constant: -16),
             vStackView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -32)

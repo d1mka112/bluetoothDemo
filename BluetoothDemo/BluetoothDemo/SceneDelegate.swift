@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //        Networker.sendTokenRequestOld(for: Spec.Networking.user)
         BluetoothManager.shared.setupManager()
 
-        let rootViewController = (GlobalStorage.shared.token == nil) ? 
+        let rootViewController = (GlobalStorage.shared.token != nil) ? 
             MainViewController() : 
             AuthorizationController()
 

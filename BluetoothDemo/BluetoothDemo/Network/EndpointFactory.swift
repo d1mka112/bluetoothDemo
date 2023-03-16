@@ -25,6 +25,9 @@ enum EndpointFactory {
         case uuid
         case phone
     }
+    enum UserCardsParameters: String, Codable {
+        case cardNumber
+    }
 
     static func makeSMSCodeEndpoint(from phone: Phone) -> Endpoint<SMSCodeParameters> {
         Endpoint(
@@ -56,6 +59,24 @@ enum EndpointFactory {
                 .uuid: code.uuid
             ], 
             bodyParameters: [:]
+        )
+    }
+
+    static func makeUserCardEndpoint(from userCard: UserCard) -> Endpoint<UserCardsParameters> {
+        Endpoint(
+            type: .post, 
+            scheme: .https, 
+            host: Spec.Networking.tuganHost, 
+            port: Spec.Networking.tuganPort,
+            path: "/usercards", 
+            headerParametes: [
+                .contentType: "application/json",
+                .token: GlobalStorage.shared.token ?? ""
+            ], 
+            urlParameters: [:], 
+            bodyParameters: [
+                .cardNumber: userCard.cardNumber
+            ]
         )
     }
 

@@ -17,7 +17,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.makeKeyAndVisible()
 
         LoggerHelper.warning("Приложение запущено")
-//        Networker.sendTokenRequestOld(for: Spec.Networking.user)
         BluetoothManager.shared.setupManager()
 
         let rootViewController = (GlobalStorage.shared.token != nil) ? 
@@ -26,7 +25,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let navigationController = UINavigationController(rootViewController: rootViewController)
         window?.rootViewController = navigationController
-//        window?.rootViewController = MainViewController()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

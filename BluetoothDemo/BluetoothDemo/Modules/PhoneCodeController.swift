@@ -153,7 +153,7 @@ class PhoneCodeController: VendistaViewController {
         scrollView.addSubview(vStackView)
 
         vStackView.addArrangedSubview(descriptionImageView)
-        vStackView.setCustomSpacing(60, after: descriptionImageView)
+        vStackView.setCustomSpacing(30, after: descriptionImageView)
         vStackView.addArrangedSubview(descriptionLabel)
         vStackView.addArrangedSubview(inputTextField)
         vStackView.addArrangedSubview(sendButton)

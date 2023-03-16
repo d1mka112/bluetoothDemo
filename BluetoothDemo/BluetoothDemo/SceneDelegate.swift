@@ -17,10 +17,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.makeKeyAndVisible()
 
         LoggerHelper.warning("Приложение запущено")
-        Networker.sendTokenRequestOld(for: Spec.Networking.user)
+//        Networker.sendTokenRequestOld(for: Spec.Networking.user)
         BluetoothManager.shared.setupManager()
 
-        let navigationController = UINavigationController(rootViewController: AuthorizationController())
+        let rootViewController = (GlobalStorage.shared.token == nil) ? 
+            MainViewController() : 
+            AuthorizationController()
+
+        let navigationController = UINavigationController(rootViewController: rootViewController)
         window?.rootViewController = navigationController
 //        window?.rootViewController = MainViewController()
     }

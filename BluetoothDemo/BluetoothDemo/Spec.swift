@@ -47,6 +47,7 @@ enum Spec {
         static let checkmarkCircle: UIImage = UIImage(named: "b.checkmark.circle")!
         static let card: UIImage = UIImage(named: "sberCard")!
         static let logo: UIImage = UIImage(named: "logo")!
+        static let logoBlack: UIImage = UIImage(named: "logo.black")!
         static let device: UIImage = UIImage(named: "device")!
         static let speechBubble: UIImage = UIImage(named: "speech.bubble")!
     }

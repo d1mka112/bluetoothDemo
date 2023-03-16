@@ -11,17 +11,12 @@ import UIKit
 class PhoneCodeController: VendistaViewController {
     
     enum Constants {
-        static let insets: UIEdgeInsets = UIEdgeInsets(top: 60, left: 0, bottom: 60, right: 0)
+        static let insets: UIEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 60, right: 0)
+        static let offset: CGFloat = -32
     }
-    
-    let topView: UIView = {
-        let view = UIView().prepareForConstrains()
-        view.backgroundColor = Spec.Color.background
-        return view
-    }()
 
     let logoImageView: UIView = {
-        let imageView = UIImageView(image: Spec.Images.logo).prepareForConstrains()
+        let imageView = UIImageView(image: Spec.Images.logoBlack).prepareForConstrains()
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
@@ -32,23 +27,23 @@ class PhoneCodeController: VendistaViewController {
         return imageView
     }()
     
-    let titleLabel: UILabel = {
-        let label = UILabel().prepareForConstrains()
-        label.text = "Авторизация | Код"
-        label.textAlignment = .center
-        label.numberOfLines = 0
-        label.font = .systemFont(ofSize: 22, weight: .medium)
-        label.textColor = .black
-        return label
-    }()
+//    let titleLabel: UILabel = {
+//        let label = UILabel().prepareForConstrains()
+//        label.text = "Код"
+//        label.textAlignment = .center
+//        label.numberOfLines = 0
+//        label.font = .systemFont(ofSize: 22, weight: .medium)
+//        label.textColor = .black
+//        return label
+//    }()
     
     lazy var descriptionLabel: UILabel = {
         let label = UILabel().prepareForConstrains()
         label.text = "SMS с кодом отправлен на номер телефона \n\(self.phoneNumber)"
+        label.textColor = Spec.Color.gray
         label.textAlignment = .center
         label.numberOfLines = 0
         label.font = .systemFont(ofSize: 16)
-        label.textColor = .black
         return label
     }()
     
@@ -56,6 +51,7 @@ class PhoneCodeController: VendistaViewController {
         let textField = TextField().prepareForConstrains()
         textField.placeholder = "Введите код из SMS"
         textField.textColor = UIColor.black
+        textField.keyboardType = .numberPad
         return textField
     }()
     
@@ -108,10 +104,7 @@ class PhoneCodeController: VendistaViewController {
 
             if response.result {
                 DispatchQueue.main.async {
-                    self?.navigationController?.pushViewController(
-                        MainViewController(), 
-                        animated: true
-                    )
+                    self?.navigationController?.setViewControllers([MainViewController()], animated: true)
                 }
             } else if let error = response.error {
                 AlertHelper.make(title: "Ошибка", message: error)
@@ -132,14 +125,15 @@ class PhoneCodeController: VendistaViewController {
             return
         }
 
-        var contentInset = Constants.insets
-        contentInset.bottom = contentInset.bottom + keyboardFrame.size.height
-        scrollView.contentInset = contentInset
+        let convertFrame = vStackView.convert(inputTextField.frame, to: scrollView)
+        let visibleOffset = scrollView.frame.height - keyboardFrame.height
+        let offset = convertFrame.maxY + 64 - visibleOffset - 18
+        scrollView.setContentOffset(.init(x: .zero, y: offset), animated: true)
     }
 
     @objc func handleKeyboardHiding(notification: NSNotification) {
         tapGesture?.isEnabled = false
-        scrollView.contentInset = Constants.insets
+        scrollView.setContentOffset(.zero, animated: true)
     }
     
     override func viewDidLoad() {
@@ -156,11 +150,13 @@ class PhoneCodeController: VendistaViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        navigationItem.titleView = logoImageView
+//        navigationItem.titleView = logoImageView
+        navigationItem.title = "Код"
 
-        navigationController?.navigationBar.standardAppearance = NavigationBarAppearance.main()
-        navigationController?.navigationBar.scrollEdgeAppearance = NavigationBarAppearance.main()
-        navigationController?.navigationBar.compactAppearance = NavigationBarAppearance.main()
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.standardAppearance = NavigationBarAppearance.other()
+        navigationController?.navigationBar.scrollEdgeAppearance = NavigationBarAppearance.other()
+        navigationController?.navigationBar.compactAppearance = NavigationBarAppearance.other()
 
         navigationController?.navigationBar.tintColor = .white
     }
@@ -171,8 +167,8 @@ class PhoneCodeController: VendistaViewController {
         view.addSubview(scrollView)
         scrollView.addSubview(vStackView)
 
-        vStackView.addArrangedSubview(titleLabel)
-        vStackView.setCustomSpacing(60, after: titleLabel)
+//        vStackView.addArrangedSubview(titleLabel)
+//        vStackView.setCustomSpacing(60, after: titleLabel)
         vStackView.addArrangedSubview(descriptionImageView)
         vStackView.setCustomSpacing(60, after: descriptionImageView)
         vStackView.addArrangedSubview(descriptionLabel)
@@ -189,7 +185,8 @@ class PhoneCodeController: VendistaViewController {
             scrollView.rightAnchor.constraint(equalTo: view.rightAnchor),
             scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
 
-            vStackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+//            vStackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            vStackView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor, constant: Constants.offset),
             vStackView.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 16),
             vStackView.rightAnchor.constraint(equalTo: scrollView.rightAnchor, constant: -16),
             vStackView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -32)

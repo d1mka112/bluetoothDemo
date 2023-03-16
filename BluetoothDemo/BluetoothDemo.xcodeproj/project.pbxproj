@@ -18,6 +18,10 @@
 		171B83E52949196200EE478F /* BluetoothTagModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171B83E42949196200EE478F /* BluetoothTagModel.swift */; };
 		172124CB294F478B00DE386D /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 172124CA294F478B00DE386D /* Player.swift */; };
 		172124CD294F526700DE386D /* Atomic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 172124CC294F526700DE386D /* Atomic.swift */; };
+		1724969C29C3B15000ECDB5C /* AddCardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1724969B29C3B15000ECDB5C /* AddCardController.swift */; };
+		172496A029C3B42800ECDB5C /* successNew.gif in Resources */ = {isa = PBXBuildFile; fileRef = 1724969D29C3B42800ECDB5C /* successNew.gif */; };
+		172496A129C3B42800ECDB5C /* bringDeviceToReaderNew.gif in Resources */ = {isa = PBXBuildFile; fileRef = 1724969E29C3B42800ECDB5C /* bringDeviceToReaderNew.gif */; };
+		172496A229C3B42800ECDB5C /* rejectNew.gif in Resources */ = {isa = PBXBuildFile; fileRef = 1724969F29C3B42800ECDB5C /* rejectNew.gif */; };
 		17327A1229BFAEB70060B00A /* NavigationBarAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17327A1129BFAEB70060B00A /* NavigationBarAppearance.swift */; };
 		17327A1429BFB4960060B00A /* Phone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17327A1329BFB4960060B00A /* Phone.swift */; };
 		17327A1629BFB6FE0060B00A /* SMSCodeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17327A1529BFB6FE0060B00A /* SMSCodeResponse.swift */; };
@@ -76,6 +80,10 @@
 		171B83E42949196200EE478F /* BluetoothTagModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothTagModel.swift; sourceTree = "<group>"; };
 		172124CA294F478B00DE386D /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		172124CC294F526700DE386D /* Atomic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Atomic.swift; sourceTree = "<group>"; };
+		1724969B29C3B15000ECDB5C /* AddCardController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCardController.swift; sourceTree = "<group>"; };
+		1724969D29C3B42800ECDB5C /* successNew.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = successNew.gif; sourceTree = "<group>"; };
+		1724969E29C3B42800ECDB5C /* bringDeviceToReaderNew.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = bringDeviceToReaderNew.gif; sourceTree = "<group>"; };
+		1724969F29C3B42800ECDB5C /* rejectNew.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = rejectNew.gif; sourceTree = "<group>"; };
 		17327A1129BFAEB70060B00A /* NavigationBarAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarAppearance.swift; sourceTree = "<group>"; };
 		17327A1329BFB4960060B00A /* Phone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phone.swift; sourceTree = "<group>"; };
 		17327A1529BFB6FE0060B00A /* SMSCodeResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSCodeResponse.swift; sourceTree = "<group>"; };
@@ -260,6 +268,7 @@
 				173969BE2952648D00EFEB2F /* MainViewController.swift */,
 				17FB945329BE3B91000A9B65 /* AuthorizationController.swift */,
 				4EB4C33A29C0AE2B00721B68 /* PhoneCodeController.swift */,
+				1724969B29C3B15000ECDB5C /* AddCardController.swift */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -294,6 +303,9 @@
 		179EB2512975E26B00D2BD62 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				1724969F29C3B42800ECDB5C /* rejectNew.gif */,
+				1724969E29C3B42800ECDB5C /* bringDeviceToReaderNew.gif */,
+				1724969D29C3B42800ECDB5C /* successNew.gif */,
 				17400D1E2975E7CD00EAC625 /* success_debug.gif */,
 				17400D1D2975E7CD00EAC625 /* bring_debug.gif */,
 				179EB2522975E2BA00D2BD62 /* bringDeviceToReader.gif */,
@@ -392,12 +404,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				172496A229C3B42800ECDB5C /* rejectNew.gif in Resources */,
 				171B83D72948FFDC00EE478F /* LaunchScreen.storyboard in Resources */,
 				171B83D42948FFDC00EE478F /* Assets.xcassets in Resources */,
 				171B83D22948FFDB00EE478F /* Main.storyboard in Resources */,
 				17400D202975E7CD00EAC625 /* success_debug.gif in Resources */,
+				172496A129C3B42800ECDB5C /* bringDeviceToReaderNew.gif in Resources */,
 				179EB2552975E2BA00D2BD62 /* bringDeviceToReader.gif in Resources */,
 				179EB2572975E2BA00D2BD62 /* success.gif in Resources */,
+				172496A029C3B42800ECDB5C /* successNew.gif in Resources */,
 				17400D1F2975E7CD00EAC625 /* bring_debug.gif in Resources */,
 				179EB2562975E2BA00D2BD62 /* reject.gif in Resources */,
 			);
@@ -459,6 +474,7 @@
 				173969BF2952648D00EFEB2F /* MainViewController.swift in Sources */,
 				17E7CEB62964A820004A59BE /* VendistaViewController.swift in Sources */,
 				4EDF458429536544002AFCC4 /* DeviceResponse.swift in Sources */,
+				1724969C29C3B15000ECDB5C /* AddCardController.swift in Sources */,
 				171B83E22949193C00EE478F /* Spec.swift in Sources */,
 				172124CD294F526700DE386D /* Atomic.swift in Sources */,
 				1781217C296CB7B000208CA5 /* Storage.swift in Sources */,

@@ -36,6 +36,11 @@ final class MainViewController: VendistaViewController {
 //        return label
 //    }()
 
+    lazy var cardBarButton: UIBarButtonItem = {
+        let barButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(cardBarButtonDidTapped))
+        return barButton
+    }()
+
     var queueTasks: [()->Void] = []
 
     var isAccessGranted: Bool = false {
@@ -55,6 +60,19 @@ final class MainViewController: VendistaViewController {
         BluetoothManager.shared.startScanningIfCan()
         setupSubviews()
         setupNotifications()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        navigationItem.title = "TuganPay"
+        navigationItem.rightBarButtonItem = cardBarButton
+
+        navigationController?.navigationBar.standardAppearance = NavigationBarAppearance.main()
+        navigationController?.navigationBar.scrollEdgeAppearance = NavigationBarAppearance.main()
+        navigationController?.navigationBar.compactAppearance = NavigationBarAppearance.main()
+
+        navigationController?.navigationBar.tintColor = .black
     }
 
     private func setupNotifications() {
@@ -86,6 +104,10 @@ final class MainViewController: VendistaViewController {
                 }
             }
         }
+    }
+
+    @objc func cardBarButtonDidTapped() {
+        navigationController?.pushViewController(AddCardController(), animated: true)
     }
 
     private func setupSubviews() {
@@ -185,19 +207,19 @@ extension MainViewController: BluetoothManagerDelegate {
     }
 
     func sendUUID(model: BluetoothTagModel) {
-        Networker.sendDeviceRequest(
-            for: Device(
-                uuid: model.name!,
-                token: GlobalStorage.shared.token ?? ""
-            )
-        ) { [weak self] response in
-            guard let isSuccess = response?.success else { return }
-
-            if isSuccess {
-                self?.doSuccess()
-            } else {
-                self?.doError()
-            }
-        }
+//        Networker.sendDeviceRequest(
+//            for: Device(
+//                uuid: model.name!,
+//                token: GlobalStorage.shared.token ?? ""
+//            )
+//        ) { [weak self] response in
+//            guard let isSuccess = response?.success else { return }
+//
+//            if isSuccess {
+//                self?.doSuccess()
+//            } else {
+//                self?.doError()
+//            }
+//        }
     }
 }

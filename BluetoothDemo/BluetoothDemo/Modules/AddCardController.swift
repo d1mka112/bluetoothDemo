@@ -1,66 +1,52 @@
 //
-//  AuthorizationController.swift
+//  AddCardController.swift
 //  BluetoothDemo
 //
-//  Created by d.leukhin on 12.03.2023.
+//  Created by r.mustafin on 14.03.2023.
 //
 
+import Foundation
 import UIKit
 
-class AuthorizationController: VendistaViewController {
-
+class AddCardController: VendistaViewController {
+    
     enum Constants {
         static let insets: UIEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 60, right: 0)
         static let offset: CGFloat = -32
     }
 
-    let logoImageView: UIView = {
-        let imageView = UIImageView(image: Spec.Images.logoBlack).prepareForConstrains()
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }()
-
-    let descriptionImageView: UIImageView = {
-        let imageView = UIImageView(image: Spec.Images.device).prepareForConstrains()
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }()
-
+//    let logoImageView: UIView = {
+//        let imageView = UIImageView(image: Spec.Images.logoBlack).prepareForConstrains()
+//        imageView.contentMode = .scaleAspectFit
+//        return imageView
+//    }()
+    
+    
     let titleLabel: UILabel = {
         let label = UILabel().prepareForConstrains()
-        label.text = "Номер телефона"
+        label.text = "Новая карта"
         label.textAlignment = .center
         label.numberOfLines = 0
-        label.font = .systemFont(ofSize: 18, weight: .medium)
+        label.font = .systemFont(ofSize: 22, weight: .medium)
         label.textColor = .black
-        return label
-    }()
-
-    let descriptionLabel: UILabel = {
-        let label = UILabel().prepareForConstrains()
-        label.text = "SMS с кодом будет отправлен на указанный вами номер телефона"
-        label.textColor = Spec.Color.gray
-        label.textAlignment = .center
-        label.numberOfLines = 0
-        label.font = .systemFont(ofSize: 16)
         return label
     }()
 
     let inputTextField: UITextField = {
         let textField = TextField().prepareForConstrains()
-        textField.placeholder = "Введите номер"
+        textField.placeholder = "Введите номер карты"
         textField.textColor = UIColor.black
-        textField.keyboardType = .phonePad
+        textField.keyboardType = .numberPad
         return textField
     }()
-
+    
     let sendButton: UIButton = {
         let button = HighlightingButton().prepareForConstrains()
-        button.setTitle("Отправить", for: .normal)
+        button.setTitle("Добавить карту", for: .normal)
         button.setTitleColor(.white, for: .normal)
         return button
     }()
-
+    
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView().prepareForConstrains()
         return scrollView
@@ -70,50 +56,27 @@ class AuthorizationController: VendistaViewController {
         let stackView = UIStackView().prepareForConstrains()
         stackView.axis = .vertical
         stackView.spacing = 16
+        stackView.distribution = .equalCentering
         return stackView
     }()
 
     var tapGesture: UIGestureRecognizer?
 
     @objc func sendButtonDidTapped() {
-        guard 
-            let phoneNumber = inputTextField.text,
-            Validation.isValidPhone(phone: phoneNumber) 
-        else {
-            AlertHelper.make(title: "Ошибка", message: "Номер набран неправильно")
-            return
-        }
-
-        Networker.sendSMSCodeRequest(for: phoneNumber) { [weak self, phoneNumber] response in 
-            guard let response = response else {
-                AlertHelper.make()
-                return
-            }
-
-            if response.result {
-                DispatchQueue.main.async {
-                    self?.navigationController?.pushViewController(
-                        PhoneCodeController(phoneNumber: phoneNumber),
-                        animated: true
-                    )
-                }
-            } else if let error = response.error {
-                AlertHelper.make(title: "Ошибка", message: error)
-            } 
-        }
+        
     }
 
     @objc func didTapOnScreen() {
         view.endEditing(true)
     }
-
+    
     @objc func handleKeyboardShowing(notification: NSNotification) {
         tapGesture?.isEnabled = true
-        guard 
+        guard
             let userInfo = notification.userInfo,
             let keyboardFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
-        else { 
-            return 
+        else {
+            return
         }
 
         let convertFrame = vStackView.convert(inputTextField.frame, to: scrollView)
@@ -126,7 +89,7 @@ class AuthorizationController: VendistaViewController {
         tapGesture?.isEnabled = false
         scrollView.setContentOffset(.zero, animated: true)
     }
-
+    
     override func viewDidLoad() {
         view.backgroundColor = Spec.Color.lightGray
         setupSubviews()
@@ -142,32 +105,26 @@ class AuthorizationController: VendistaViewController {
 
     override func viewWillAppear(_ animated: Bool) {
 //        navigationItem.titleView = logoImageView
-        navigationItem.title = "Номер телефона"
+        navigationItem.title = "Новая карта"
 
-        navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.standardAppearance = NavigationBarAppearance.other()
         navigationController?.navigationBar.scrollEdgeAppearance = NavigationBarAppearance.other()
         navigationController?.navigationBar.compactAppearance = NavigationBarAppearance.other()
 
         navigationController?.navigationBar.tintColor = .black
     }
-
+    
     private func setupSubviews() {
         sendButton.addTarget(self, action: #selector(sendButtonDidTapped), for: .touchUpInside)
 
         view.addSubview(scrollView)
         scrollView.addSubview(vStackView)
 
-//        vStackView.addArrangedSubview(titleLabel)
-//        vStackView.setCustomSpacing(30, after: titleLabel)
-        vStackView.addArrangedSubview(descriptionImageView)
-        vStackView.setCustomSpacing(30, after: descriptionImageView)
-        vStackView.addArrangedSubview(descriptionLabel)
         vStackView.addArrangedSubview(inputTextField)
         vStackView.addArrangedSubview(sendButton)
 
         NSLayoutConstraint.activate([
-            logoImageView.heightAnchor.constraint(equalToConstant: 35),
+//            logoImageView.heightAnchor.constraint(equalToConstant: 35),
 
             sendButton.heightAnchor.constraint(equalTo: inputTextField.heightAnchor),
 
@@ -183,4 +140,7 @@ class AuthorizationController: VendistaViewController {
             vStackView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -32)
         ])
     }
+    
 }
+
+

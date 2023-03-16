@@ -10,7 +10,13 @@ import UIKit
 enum NavigationBarAppearance {
     static func main() -> UINavigationBarAppearance {
         let appearance = UINavigationBarAppearance()
-        appearance.backgroundColor = Spec.Color.background
+        appearance.backgroundColor = Spec.Color.primary
+        return appearance
+    }
+
+    static func other() -> UINavigationBarAppearance {
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = .clear
         return appearance
     }
 }

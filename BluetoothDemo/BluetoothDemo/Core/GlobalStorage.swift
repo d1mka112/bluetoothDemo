@@ -11,5 +11,5 @@ final class GlobalStorage {
     static let shared = GlobalStorage()
 
     var minimalRSSI: Int = -40
-    var token: String?
+    @Storage(key: "com.vendista.token", defaultValue: nil) var token: String?
 }

@@ -13,18 +13,20 @@ class AddCardController: VendistaViewController {
     enum Constants {
         static let insets: UIEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 60, right: 0)
         static let offset: CGFloat = -32
+        static let format: String = "NNNN NNNN NNNN NNNN"
     }
 
     let inputTextField: UITextField = {
         let textField = TextField().prepareForConstrains()
         textField.placeholder = "Введите номер карты"
-        textField.textColor = UIColor.black
+        textField.textFormat = Constants.format
+        textField.textColor = Spec.Color.secondary
         textField.keyboardType = .numberPad
         return textField
     }()
     
     let sendButton: UIButton = {
-        let button = HighlightingButton().prepareForConstrains()
+        let button = TuganButton().prepareForConstrains()
         button.setTitle("Добавить карту", for: .normal)
         button.setTitleColor(.white, for: .normal)
         return button
@@ -47,15 +49,18 @@ class AddCardController: VendistaViewController {
 
     @objc func sendButtonDidTapped() {
         guard
-            let cardNumber = inputTextField.text,
+            let cardNumber = inputTextField.text?.onlyDigits,
             Validation.isValidCardNumber(cardNumber: cardNumber) 
         else {
+            ControllerHelper.pushAlert(title: "Ошибка", message: "Номер карты введен некорректно")
             return
         }
 
         Networker.sendUserCard(for: cardNumber) { response in
             guard let attachUrl = response?.attachUrl else { return }
-            ControllerHelper.pushSafari(url: attachUrl)
+            Networker.sendGetUserCards() { _ in
+                ControllerHelper.pushSafari(url: attachUrl)
+            } 
         }
     }
 
@@ -106,7 +111,7 @@ class AddCardController: VendistaViewController {
         navigationController?.navigationBar.scrollEdgeAppearance = NavigationBarAppearance.other()
         navigationController?.navigationBar.compactAppearance = NavigationBarAppearance.other()
 
-        navigationController?.navigationBar.tintColor = .black
+        navigationController?.navigationBar.tintColor = Spec.Color.secondary
     }
     
     private func setupSubviews() {

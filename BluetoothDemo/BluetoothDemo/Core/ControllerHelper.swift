@@ -24,14 +24,16 @@ enum ControllerHelper {
         }
     }
 
-    static func pushAlert(title: String = "Ошибка", message: String = "Неизвестная ошибка") {
+    static func pushAlert(title: String = "Ошибка", message: String = "Неизвестная ошибка", completion: (() -> Void)? = nil) {
         DispatchQueue.main.async {
             guard let controller = topController else { return }
 
             var alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
 
             alertController.addAction(
-                UIAlertAction(title: "OK", style: .default)
+                UIAlertAction(title: "OK", style: .default) { _ in 
+                    completion?()
+                } 
             )
 
             controller.present(alertController, animated: true)

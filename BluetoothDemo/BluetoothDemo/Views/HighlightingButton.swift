@@ -16,7 +16,6 @@ class HighlightingButton: UIButton {
         static let durationBeforeHighlight: CGFloat = 0.2
         static let alphaHighlighted: CGFloat = 0.6
         static let alphaDefault: CGFloat = 1
-
         static let cornerRadius: CGFloat = 10
     }
 
@@ -28,18 +27,17 @@ class HighlightingButton: UIButton {
         }
     }
 
-    public override init(frame: CGRect) {
+    override init(frame: CGRect) {
         super.init(frame: frame)
 
         setupAppearance()
     }
 
-    public required init?(coder: NSCoder) {
+    required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func setupAppearance() {
+    func setupAppearance() {
         layer.cornerRadius = Constants.cornerRadius
-        backgroundColor = Spec.Color.accent
     }
 }

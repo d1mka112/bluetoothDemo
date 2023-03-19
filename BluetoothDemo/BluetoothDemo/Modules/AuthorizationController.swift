@@ -12,6 +12,7 @@ class AuthorizationController: VendistaViewController {
     enum Constants {
         static let insets: UIEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 60, right: 0)
         static let offset: CGFloat = 64
+//        static let format: String = "+7 (NNN) NNN NN-NN"
     }
 
     let descriptionImageView: UIImageView = {
@@ -33,13 +34,14 @@ class AuthorizationController: VendistaViewController {
     let inputTextField: UITextField = {
         let textField = TextField().prepareForConstrains()
         textField.placeholder = "Введите номер"
-        textField.textColor = UIColor.black
+//        textField.textFormat = Constants.format
+        textField.textColor = Spec.Color.secondary
         textField.keyboardType = .phonePad
         return textField
     }()
 
     let sendButton: UIButton = {
-        let button = HighlightingButton().prepareForConstrains()
+        let button = TuganButton().prepareForConstrains()
         button.setTitle("Отправить", for: .normal)
         button.setTitleColor(.white, for: .normal)
         return button
@@ -61,7 +63,7 @@ class AuthorizationController: VendistaViewController {
 
     @objc func sendButtonDidTapped() {
         guard 
-            let phoneNumber = inputTextField.text,
+            let phoneNumber = inputTextField.text?.onlyDigits,
             Validation.isValidPhone(phone: phoneNumber) 
         else {
             ControllerHelper.pushAlert(title: "Ошибка", message: "Номер набран неправильно")
@@ -134,7 +136,7 @@ class AuthorizationController: VendistaViewController {
         navigationController?.navigationBar.scrollEdgeAppearance = NavigationBarAppearance.other()
         navigationController?.navigationBar.compactAppearance = NavigationBarAppearance.other()
 
-        navigationController?.navigationBar.tintColor = .black
+        navigationController?.navigationBar.tintColor = Spec.Color.secondary
     }
 
     private func setupSubviews() {

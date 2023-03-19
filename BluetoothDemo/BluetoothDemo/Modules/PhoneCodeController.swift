@@ -13,6 +13,7 @@ class PhoneCodeController: VendistaViewController {
     enum Constants {
         static let insets: UIEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 60, right: 0)
         static let offset: CGFloat = 64
+        static let format: String = "N (NNN) NNN NN-NN"
     }
     
     let descriptionImageView: UIImageView = {
@@ -23,7 +24,7 @@ class PhoneCodeController: VendistaViewController {
 
     lazy var descriptionLabel: UILabel = {
         let label = UILabel().prepareForConstrains()
-        label.text = "SMS с кодом отправлен на номер телефона \n\(self.phoneNumber)"
+        label.text = "SMS с кодом отправлен на номер телефона \n\(self.phoneNumber.format(Constants.format, oldString: self.phoneNumber))"
         label.textColor = Spec.Color.gray
         label.textAlignment = .center
         label.numberOfLines = 0
@@ -34,13 +35,13 @@ class PhoneCodeController: VendistaViewController {
     let inputTextField: UITextField = {
         let textField = TextField().prepareForConstrains()
         textField.placeholder = "Введите код из SMS"
-        textField.textColor = UIColor.black
+        textField.textColor = Spec.Color.secondary
         textField.keyboardType = .numberPad
         return textField
     }()
     
     let sendButton: UIButton = {
-        let button = HighlightingButton().prepareForConstrains()
+        let button = TuganButton().prepareForConstrains()
         button.setTitle("Отправить", for: .normal)
         button.setTitleColor(.white, for: .normal)
         return button
@@ -143,7 +144,7 @@ class PhoneCodeController: VendistaViewController {
         navigationController?.navigationBar.scrollEdgeAppearance = NavigationBarAppearance.other()
         navigationController?.navigationBar.compactAppearance = NavigationBarAppearance.other()
 
-        navigationController?.navigationBar.tintColor = .black
+        navigationController?.navigationBar.tintColor = Spec.Color.secondary
     }
     
     private func setupSubviews() {

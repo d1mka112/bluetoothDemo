@@ -10,6 +10,7 @@ import Foundation
 enum RequestType: String {
     case get = "GET"
     case post = "POST"
+    case delete = "DELETE"
 }
 
 enum RequestScheme: String {
@@ -28,6 +29,7 @@ protocol EndpointRepresentable {
 enum HeaderParameters: String, Hashable, RawRepresentable, Encodable {
     case contentType = "Content-Type"
     case token = "token"
+    case accept = "accept"
 }
 
 struct Endpoint<ParameterType: Hashable & RawRepresentable & Encodable>: EndpointRepresentable {
@@ -39,6 +41,7 @@ struct Endpoint<ParameterType: Hashable & RawRepresentable & Encodable>: Endpoin
     var headerParametes: [HeaderParameters: String]
     var urlParameters: [ParameterType: String]
     var bodyParameters: [ParameterType: String]
+    var codableParameter: Codable?
 
     var url: String {
         var components = URLComponents()
@@ -47,15 +50,22 @@ struct Endpoint<ParameterType: Hashable & RawRepresentable & Encodable>: Endpoin
         components.path = path
         components.port = port
 
-        components.queryItems = urlParameters.compactMap {
+        let queryItems: [URLQueryItem] = urlParameters.compactMap {
             guard let key = $0.key.rawValue as? String else { return nil }
             return URLQueryItem(name: key, value: $0.value)
-        }
+        } 
+        components.queryItems = !queryItems.isEmpty ? queryItems : nil
 
         return components.string ?? String()
     }
         
     var body: Data? {
+        if let codable = codableParameter,
+           let jsonData = try? JSONEncoder().encode(codable) {
+            LoggerHelper.success("Converted into json:\n\(String(data: jsonData, encoding: .utf8) ?? String())")
+            return jsonData
+        }
+
         guard !bodyParameters.isEmpty else { return nil }
 
         let dict = bodyParameters.reduce([String:String]()) { (dict, parameter) in
@@ -69,6 +79,7 @@ struct Endpoint<ParameterType: Hashable & RawRepresentable & Encodable>: Endpoin
             LoggerHelper.success("Converted into json:\n\(String(data: jsonData, encoding: .utf8) ?? String())")
             return jsonData
         }
+
         return nil
     }
 }

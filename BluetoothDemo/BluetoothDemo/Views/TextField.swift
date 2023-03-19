@@ -13,6 +13,8 @@ class TextField: UITextField, UITextFieldDelegate {
 
     var placeholderColor: UIColor? { didSet { updatePlaceholder() } }
 
+    var textFormat: String = ""
+
     override var placeholder: String? { didSet { updatePlaceholder() } }
 
     override init(frame: CGRect) {
@@ -60,5 +62,20 @@ class TextField: UITextField, UITextFieldDelegate {
                 .foregroundColor: placeholderColor ?? .clear
             ]
         )
+    }
+
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let text = textField.text else {
+            return true
+        }
+        let lastText = (text as NSString).replacingCharacters(in: range, with: string) as String
+
+        if !textFormat.isEmpty {
+            textField.text = lastText.format(textFormat, oldString: text)
+        } else {
+            return true
+        }
+
+        return false
     }
 }

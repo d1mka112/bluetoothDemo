@@ -33,7 +33,7 @@ protocol BluetoothManagerProgotol {
     private var canScanDevices: Bool = false {
         didSet {
             if canScanDevices && isNeedsToStartScanning {
-                startScanningIfCan()
+//                startScanningIfCan()
                 isNeedsToStartScanning = false
             }
         }
@@ -135,17 +135,20 @@ extension BluetoothManager: CBCentralManagerDelegate {
 
 extension BluetoothManager: CBPeripheralDelegate {
     func peripheral(_ peripheral: CBPeripheral, didReadRSSI RSSI: NSNumber, error: Error?) {
-        LoggerHelper.info("Прочитан RSSI:\(RSSI.intValue) - \(peripheral.identifier.description)")
+//        LoggerHelper.info("Прочитан RSSI:\(RSSI.intValue) - \(peripheral.identifier.description)")
 
         guard let peripheral = peripherals[peripheral.identifier.description] else { return }
 
         let model = BluetoothTagModel(rssi: RSSI.intValue, name: peripheral.identifier.description, deviceName: peripheral.name)
         models[peripheral.identifier.description] = model
 
-        if model.rssi >= GlobalStorage.shared.minimalRSSI {
+        if model.rssi >= GlobalStorage.shared.minimalRSSI,
+           let name = model.deviceName,
+           !name.lowercased().contains("apple"),
+           !name.lowercased().contains("airpods") {
             stopScanning()
-            delegate?.didReceiveDeviceWithRSSI(model: model)
             LoggerHelper.success("Найден подходящий peripheral \(peripheral.description)\nRSSI:\(RSSI.intValue)")
+            delegate?.didReceiveDeviceWithRSSI(model: model)
         } else {
             queue.async {
                 peripheral.readRSSI()

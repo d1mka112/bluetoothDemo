@@ -8,6 +8,9 @@
 import Foundation
 
 enum EndpointFactory {
+    enum EmptyParameters: String, Codable { 
+        case none
+    }
     enum AuthorizationParameters: String, Codable {
         case login
         case password
@@ -27,6 +30,9 @@ enum EndpointFactory {
     }
     enum UserCardsParameters: String, Codable {
         case cardNumber
+    }
+    enum BleListParameters: String, Codable {
+        case ble
     }
 
     static func makeSMSCodeEndpoint(from phone: Phone) -> Endpoint<SMSCodeParameters> {
@@ -77,6 +83,72 @@ enum EndpointFactory {
             bodyParameters: [
                 .cardNumber: userCard.cardNumber
             ]
+        )
+    }
+
+    static func makeGetUserCardsEndpoint() -> Endpoint<EmptyParameters> {
+        Endpoint(
+            type: .get,
+            scheme: .https, 
+            host: Spec.Networking.tuganHost, 
+            port: Spec.Networking.tuganPort,
+            path: "/usercards", 
+            headerParametes: [
+                .token: GlobalStorage.shared.token ?? "",
+                .accept: "text/plain"
+            ],
+            urlParameters: [:],
+            bodyParameters: [:]
+        )
+    }
+
+    static func makeDeleteUserCardEndpoint(from id: Int) -> Endpoint<EmptyParameters> {
+        Endpoint(
+            type: .delete,
+            scheme: .https, 
+            host: Spec.Networking.tuganHost, 
+            port: Spec.Networking.tuganPort,
+            path: "/usercards/\(id)", 
+            headerParametes: [
+                .token: GlobalStorage.shared.token ?? "",
+                .accept: "text/plain"
+            ],
+            urlParameters: [:],
+            bodyParameters: [:]
+        )
+    }
+
+    static func makeBleListEndpoint(from bleList: BleList) -> Endpoint<EmptyParameters> {
+        Endpoint(
+            type: .post,
+            scheme: .https, 
+            host: Spec.Networking.tuganHost, 
+            port: Spec.Networking.tuganPort,
+            path: "/blelist", 
+            headerParametes: [
+                .token: GlobalStorage.shared.token ?? "",
+                .contentType: "application/json",
+                .accept: "text/plain"
+            ],
+            urlParameters: [:],
+            bodyParameters: [:],
+            codableParameter: bleList
+        )
+    }
+
+    static func makeCardImageEndpoint() -> Endpoint<EmptyParameters> {
+        Endpoint(
+            type: .get,
+            scheme: .https, 
+            host: Spec.Networking.tuganHost, 
+            port: Spec.Networking.tuganPort,
+            path: "/cardimage", 
+            headerParametes: [
+                .token: GlobalStorage.shared.token ?? "",
+                .accept: "text/plain"
+            ],
+            urlParameters: [:],
+            bodyParameters: [:]
         )
     }
 

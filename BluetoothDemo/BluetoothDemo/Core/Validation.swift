@@ -9,7 +9,8 @@ import Foundation
 
 enum Validation {
     static func isValidPhone(phone: String) -> Bool {
-        let phoneRegex = "^[0-9]{11}$"
+        let phoneRegex = "^(\\+7|[0-9])[0-9]{10}$"
+//        let phoneRegex = "^[0-9]{11}$"
         let phoneTest = NSPredicate(format: "SELF MATCHES %@", phoneRegex)
         return phoneTest.evaluate(with: phone)
     }

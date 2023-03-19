@@ -9,6 +9,7 @@ import Foundation
 import AVFoundation
 
 enum Toggle: String, Codable, Hashable {
+    case sendBleListRequest = "send_ble_list_request"
     case forceUpdateToggles = "force_update_toggles"
     case substituteSuccess = "substitute_success"
     case rescanWhenAppForeground = "rescan_devices_when_app_foreground"
@@ -33,23 +34,29 @@ final class ToggleStorage {
     #endif
 
     private init(forceUpdate: Bool = false) {
-        if forceUpdate || toggles.hashValue != ToggleStorage._defaultToggles.hashValue {
-            toggles = ToggleStorage._defaultToggles
-            #if DEBUG
-            if !toggles.contains(where: { $0.id == .gifTest}) {
-                toggles.append(
-                    ToggleData(
-                        id: .gifTest,
-                        title: "Тестирование GIF",
-                        description: "Включает GIF для проверки работы прозрачного фона"
-                    )
-                )
-            }
-            #endif
-        }
+//        if forceUpdate || toggles.hashValue != ToggleStorage._defaultToggles.hashValue {
+//            toggles = ToggleStorage._defaultToggles
+//            #if DEBUG
+//            if !toggles.contains(where: { $0.id == .gifTest}) {
+//                toggles.append(
+//                    ToggleData(
+//                        id: .gifTest,
+//                        title: "Тестирование GIF",
+//                        description: "Включает GIF для проверки работы прозрачного фона"
+//                    )
+//                )
+//            }
+//            #endif
+//        }
     }
 
     private static let _defaultToggles: [ToggleData] = [
+        ToggleData(
+            id: .sendBleListRequest, 
+            title: "Отправлять запрос bleList", 
+            description: "Включает отправку запроса bleList, как только было прочитано bluetooth устройство",
+            value: true
+        ),
         ToggleData(
             id: .forceUpdateToggles,
             title: "Сбросить на дефолтные значения",

@@ -12,4 +12,6 @@ final class GlobalStorage {
 
     var minimalRSSI: Int = -40
     @Storage(key: "com.vendista.token", defaultValue: nil) var token: String?
+
+    @Storage(key: "com.vendista.cards", defaultValue: nil) var cards: UserCardsResponse?
 }

@@ -11,11 +11,26 @@ import Gifu
 
 final class MainViewController: VendistaViewController {
     let cardImageView: UIImageView = {
-        let imageView = UIImageView()
+        let imageView = UIImageView().prepareForConstrains()
         imageView.image = Spec.Images.card
         imageView.contentMode = .scaleAspectFit
-        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.isUserInteractionEnabled = true
         return imageView
+    }()
+
+    let removeCardButton: UIButton = {
+        let button = HighlightingButton().prepareForConstrains()
+//        button.setTitle("-", for: .normal)
+//        button.backgroundColor = .red
+        button.setImage(.remove, for: .normal)
+        button.tintColor = .white
+        return button
+    }()
+
+    let cardNumberLabel: UILabel = {
+        let label = UILabel().prepareForConstrains()
+        label.textColor = .white
+        return label
     }()
 
     let payView: GIFImageView = {
@@ -24,6 +39,15 @@ final class MainViewController: VendistaViewController {
         gifImageView.animationRepeatCount = 0
         gifImageView.translatesAutoresizingMaskIntoConstraints = false
         return gifImageView
+    }()
+
+    let emptyLabel: UILabel = {
+        let label = UILabel().prepareForConstrains()
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        label.text = "У вас пока нет карт для оплаты"
+        label.textColor = Spec.Color.gray
+        return label
     }()
 
 //    let scanLabel: UILabel = {
@@ -37,7 +61,21 @@ final class MainViewController: VendistaViewController {
 //    }()
 
     lazy var cardBarButton: UIBarButtonItem = {
-        let barButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(cardBarButtonDidTapped))
+        let barButton = UIBarButtonItem(
+            barButtonSystemItem: .add, 
+            target: self, 
+            action: #selector(cardBarButtonDidTapped)
+        )
+        return barButton
+    }()
+
+    lazy var logoutBarButton: UIBarButtonItem = {
+        let barButton = UIBarButtonItem(
+            title: "Выйти", 
+            style: .plain, 
+            target: self, 
+            action: #selector(logoutBarButtonDidTapped)
+        )
         return barButton
     }()
 
@@ -48,31 +86,71 @@ final class MainViewController: VendistaViewController {
             guard !queueTasks.isEmpty else {
                 return
             }
-            queueTasks.forEach { $0() }
+            queueTasks.last?()
+            queueTasks.removeAll()
         }
     }
+
+    var shouldScan: Bool = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Spec.Color.primary
         BluetoothManager.shared.setDelegate(delegate: self)
         BluetoothManager.shared.setNeedsToStartScanning()
-        BluetoothManager.shared.startScanningIfCan()
+
+        // TODO: Fix Костыль
+        let group = DispatchGroup()
+        group.enter()
+        Networker.sendGetUserCards() { _ in
+            group.leave()
+        } 
+        group.wait()
+
+//        if let items = GlobalStorage.shared.cards?.items {
+//            for card in items {
+//                Networker.sendDeleteUserCard(for: card.id) { _ in
+//                    GlobalStorage.shared.cards?.items.removeAll { item in
+//                        item.id == card.id
+//                    }
+//                }
+//            }
+//        }
+
         setupSubviews()
+        setupCardView()
         setupNotifications()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
+        setupCardView()
+        startScan()
+
         navigationItem.title = "TuganPay"
         navigationItem.rightBarButtonItem = cardBarButton
+        navigationItem.leftBarButtonItem = logoutBarButton
 
         navigationController?.navigationBar.standardAppearance = NavigationBarAppearance.main()
         navigationController?.navigationBar.scrollEdgeAppearance = NavigationBarAppearance.main()
         navigationController?.navigationBar.compactAppearance = NavigationBarAppearance.main()
 
-        navigationController?.navigationBar.tintColor = .black
+        navigationController?.navigationBar.tintColor = Spec.Color.secondary
+        navigationController?.navigationBar.prefersLargeTitles = true
+    }
+
+    private func startScan() {
+        if GlobalStorage.shared.cards?.items.isEmpty == false && shouldScan {
+            BiometricsManager.checkBiometrics { result, error in
+                defer { BluetoothManager.shared.startScanningIfCan() }
+                if result {
+                    self.isAccessGranted = result
+                } else {
+                    SuspendHelper.suspend()
+                }
+            }
+        }
     }
 
     private func setupNotifications() {
@@ -95,12 +173,14 @@ final class MainViewController: VendistaViewController {
     }
 
     @objc func appMovedToForeground() {
-        if !isAccessGranted {
-            BiometricsManager.checkBiometrics { result, error in
-                if result {
-                    self.isAccessGranted = result
-                } else {
-                    SuspendHelper.suspend()
+        if GlobalStorage.shared.cards?.items.isEmpty == false && shouldScan {
+            if !isAccessGranted {
+                BiometricsManager.checkBiometrics { result, error in
+                    if result {
+                        self.isAccessGranted = result
+                    } else {
+                        SuspendHelper.suspend()
+                    }
                 }
             }
         }
@@ -110,9 +190,48 @@ final class MainViewController: VendistaViewController {
         navigationController?.pushViewController(AddCardController(), animated: true)
     }
 
+    @objc func logoutBarButtonDidTapped() {
+        GlobalStorage.shared.token = nil
+        GlobalStorage.shared.cards = nil
+        navigationController?.setViewControllers([AuthorizationController()], animated: true)
+    }
+
+    @objc func removeCardButtonDidTapped() {
+        guard let card = GlobalStorage.shared.cards?.items.first else { return }
+
+        Networker.sendDeleteUserCard(for: card.id) { _ in
+            GlobalStorage.shared.cards?.items.removeAll { item in
+                item.id == card.id
+            }
+            self.setupCardView()
+        }
+    }
+
+    private func setupCardView() {
+        DispatchQueue.main.async {
+            if GlobalStorage.shared.cards?.items.isEmpty != false {
+                self.cardImageView.isHidden = true
+                self.payView.isHidden = true
+                self.emptyLabel.isHidden = false
+            } else if let cardNubmer = GlobalStorage.shared.cards?.items.first?.cardNumber {
+                self.cardNumberLabel.text = 
+                cardNubmer.replacingOccurrences(of: "*", with: "•")
+                self.cardImageView.isHidden = false
+                self.payView.isHidden = false
+                self.emptyLabel.isHidden = true
+            }
+        }
+    }
+
     private func setupSubviews() {
+        removeCardButton.addTarget(self, action: #selector(removeCardButtonDidTapped), for: .touchUpInside)
+
         view.addSubview(cardImageView)
         view.addSubview(payView)
+        view.addSubview(emptyLabel)
+
+        cardImageView.addSubview(cardNumberLabel)
+        cardImageView.addSubview(removeCardButton)
 //        view.addSubview(scanLabel)
 
         NSLayoutConstraint.activate([
@@ -129,6 +248,20 @@ final class MainViewController: VendistaViewController {
                 equalTo: cardImageView.widthAnchor, multiplier: 13/20
             ),
 
+            cardNumberLabel.bottomAnchor.constraint(
+                equalTo: cardImageView.bottomAnchor, constant: -16
+            ),
+            cardNumberLabel.leftAnchor.constraint(
+                equalTo: cardImageView.leftAnchor, constant: 16
+            ),
+
+            removeCardButton.topAnchor.constraint(
+                equalTo: cardImageView.topAnchor, constant: 16
+            ),
+            removeCardButton.rightAnchor.constraint(
+                equalTo: cardImageView.rightAnchor, constant:  -16
+            ),
+
             payView.topAnchor.constraint(
                 equalTo: cardImageView.bottomAnchor
             ),
@@ -140,6 +273,13 @@ final class MainViewController: VendistaViewController {
             ),
             payView.heightAnchor.constraint(
                 equalTo: payView.widthAnchor, multiplier: 3/4
+            ),
+
+            emptyLabel.centerXAnchor.constraint(
+                equalTo: view.centerXAnchor
+            ),
+            emptyLabel.centerYAnchor.constraint(
+                equalTo: view.centerYAnchor
             ),
 
 //            scanLabel.topAnchor.constraint(
@@ -176,7 +316,7 @@ final class MainViewController: VendistaViewController {
                 withGIFNamed: Spec.GIFs.reject,
                 loopCount: 1,
                 animationBlock:  {
-                    BluetoothManager.shared.startScanningIfCan()
+//                    BluetoothManager.shared.startScanningIfCan()
                 }
             )
         }
@@ -185,8 +325,10 @@ final class MainViewController: VendistaViewController {
 
 extension MainViewController: BluetoothManagerDelegate {
     func didStartScanning() {
-        payView.animate(withGIFNamed: Spec.GIFs.bringDeviceToReader)
-//        scanLabel.text = Spec.Text.bringDeviceToTerminal
+        DispatchQueue.main.async {
+            self.payView.animate(withGIFNamed: Spec.GIFs.bringDeviceToReader)
+    //        scanLabel.text = Spec.Text.bringDeviceToTerminal
+        }
     }
 
     func didStopScanning() {
@@ -207,19 +349,37 @@ extension MainViewController: BluetoothManagerDelegate {
     }
 
     func sendUUID(model: BluetoothTagModel) {
-//        Networker.sendDeviceRequest(
-//            for: Device(
-//                uuid: model.name!,
-//                token: GlobalStorage.shared.token ?? ""
-//            )
-//        ) { [weak self] response in
-//            guard let isSuccess = response?.success else { return }
-//
-//            if isSuccess {
-//                self?.doSuccess()
-//            } else {
-//                self?.doError()
-//            }
-//        }
+        shouldScan = false
+        if Toggle.sendBleListRequest.isActive {
+            Networker.sendBleListRequest(for: model) { [weak self] response in
+                guard let response = response else { return }
+                if response.result == 1 {
+                    LoggerHelper.error("Оплата прошла успешно")
+                    self?.doSuccess()
+                    guard let item = response.item, let price = response.price else { return }
+                    ControllerHelper.pushAlert(
+                        title: "Покупка!", 
+                        message: "Товар: \(item) - Цена: \(price)"
+                    ) {
+                        self?.shouldScan = true
+//                        BluetoothManager.shared.startScanningIfCan()
+                    }
+                } else {
+                    self?.doError()
+                    LoggerHelper.error("Оплата отклонена")
+                    ControllerHelper.pushAlert(
+                        title: "Ошибка \(response.result)", 
+                        message: response.error ?? ""
+                    ) {
+                        self?.shouldScan = true
+//                        BluetoothManager.shared.startScanningIfCan()
+                    }
+                }
+            }
+        } else {
+            LoggerHelper.error("Оплата прошла успешно")
+            shouldScan = true
+            doSuccess()
+        }
     }
 }

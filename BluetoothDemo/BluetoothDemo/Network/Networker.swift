@@ -46,6 +46,9 @@ enum Networker {
 
         send(request: request, with: TokenResponse.self) { response in
             GlobalStorage.shared.token = response?.token
+
+            Networker.sendGetUserCards() { _ in } 
+
             completion(response)
         }
     }
@@ -66,6 +69,73 @@ enum Networker {
             completion(response)
         }
     }
+
+    static func sendGetUserCards(
+        completion: @escaping (UserCardsResponse?) -> Void
+    ) {
+        let endpoint = EndpointFactory.makeGetUserCardsEndpoint()
+
+        guard let request = makeRequestFromEndpoint(endpoint: endpoint) else {
+            completion(nil)
+            return
+        }
+
+        send(request: request, with: UserCardsResponse.self) { response in
+            GlobalStorage.shared.cards = response
+            completion(response)
+        }
+    }
+
+    static func sendDeleteUserCard(
+        for id: Int,
+        completion: @escaping (DeleteUserCardResponse?) -> Void
+    ) {
+        let endpoint = EndpointFactory.makeDeleteUserCardEndpoint(from: id)
+
+        guard let request = makeRequestFromEndpoint(endpoint: endpoint) else {
+            completion(nil)
+            return
+        }
+
+        send(request: request, with: DeleteUserCardResponse.self) { response in
+            completion(response)
+        }
+    }
+
+    static func sendBleListRequest(
+        for device: BluetoothTagModel,
+        completion: @escaping (BleListResponse?) -> Void
+    ) {
+        let bleList = BleList(
+            ble: [
+                BleList.Ble(
+                    uuid: device.name ?? "", 
+                    rssi: device.rssi
+                )
+            ]
+        )
+        let endpoint = EndpointFactory.makeBleListEndpoint(from: bleList)
+
+        guard let request = makeRequestFromEndpoint(endpoint: endpoint) else { 
+            completion(nil)
+            return
+        }
+
+        send(request: request, with: BleListResponse.self) { response in
+            completion(response)
+        }
+    }
+
+//    static func sendCardImageRequest(
+//        completion: @escaping (CardImageResponse?) -> Void
+//    ) {
+//        let endpoint = EndpointFactory.makeCardImageEndpoint()
+//
+//        guard let request = makeRequestFromEndpoint(endpoint: endpoint) else {
+//            completion(nil)
+//            return
+//        }
+//    }
 
     static func sendTokenRequestOld(
         for user: User
@@ -111,7 +181,7 @@ enum Networker {
                 )
             } else if let data = data {
                 do {
-                    LoggerHelper.success("Успешный ответ на запрос \(request.url!)\nRaw data:\n\(String(data: data, encoding: .utf8) ?? String())")
+                    LoggerHelper.success("⬅️ Код 200\nПолучен ответ на запрос \(request.url!)\nRaw data:\n\(String(data: data, encoding: .utf8) ?? String())")
                     let response = try snakeCaseDecoder.decode(ResponseType.self, from: data)
                     completion(response)
                 } catch(let error) {
@@ -124,6 +194,7 @@ enum Networker {
                 LoggerHelper.error("Неопознанная ошибка")
             }
         }
+        LoggerHelper.success("➡️ Отправлен запрос \(String(describing: request.url))")
         task.resume()
     }
  

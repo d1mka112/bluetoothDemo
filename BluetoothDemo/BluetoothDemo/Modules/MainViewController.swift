@@ -128,7 +128,8 @@ final class MainViewController: VendistaViewController {
         setupCardView()
         startScan()
 
-        navigationItem.title = "TuganPay"
+        navigationItem.title = "Tugan Pay"
+
         navigationItem.rightBarButtonItem = cardBarButton
         navigationItem.leftBarButtonItem = logoutBarButton
 
@@ -354,7 +355,7 @@ extension MainViewController: BluetoothManagerDelegate {
             Networker.sendBleListRequest(for: model) { [weak self] response in
                 guard let response = response else { return }
                 if response.result == 1 {
-                    LoggerHelper.error("Оплата прошла успешно")
+                    LoggerHelper.success("Оплата прошла успешно")
                     self?.doSuccess()
                     guard let item = response.item, let price = response.price else { return }
                     ControllerHelper.pushAlert(
@@ -377,7 +378,7 @@ extension MainViewController: BluetoothManagerDelegate {
                 }
             }
         } else {
-            LoggerHelper.error("Оплата прошла успешно")
+            LoggerHelper.success("Оплата прошла успешно")
             shouldScan = true
             doSuccess()
         }

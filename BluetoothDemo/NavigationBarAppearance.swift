@@ -11,6 +11,12 @@ enum NavigationBarAppearance {
     static func main() -> UINavigationBarAppearance {
         let appearance = UINavigationBarAppearance()
         appearance.backgroundColor = Spec.Color.primary
+        appearance.titleTextAttributes =  [
+            .foregroundColor: Spec.Color.secondary
+        ]
+        appearance.largeTitleTextAttributes = [
+            .foregroundColor: Spec.Color.secondary
+        ]
         return appearance
     }
 

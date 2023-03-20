@@ -149,25 +149,6 @@ enum Networker {
         }
     }
 
-    static func sendDeviceRequest(
-        for device: Device,
-        completion: @escaping (DeviceResponse?) -> Void
-    ) {
-        let endpoint = EndpointFactory.makeDeviceEndpoint(from: device)
-
-        guard let request = makeRequestFromEndpoint(endpoint: endpoint) else { return }
-
-        if Toggle.substituteSuccess.isActive {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                completion(DeviceResponse(item: "fake-00id", success: false))
-            }
-        } else {
-            send(request: request, with: DeviceResponse.self) { response in
-                completion(response)
-            }
-        }
-    }
-
     private static func send<ResponseType: Codable>(
         request: URLRequest,
         with type: ResponseType.Type,

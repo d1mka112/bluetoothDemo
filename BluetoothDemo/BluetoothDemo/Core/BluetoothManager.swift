@@ -144,7 +144,7 @@ extension BluetoothManager: CBPeripheralDelegate {
 
         if model.rssi >= GlobalStorage.shared.minimalRSSI,
            let name = model.deviceName,
-           !name.lowercased().contains("apple"),
+           !name.lowercased().contains("watch"),
            !name.lowercased().contains("airpods") {
             stopScanning()
             LoggerHelper.success("Найден подходящий peripheral \(peripheral.description)\nRSSI:\(RSSI.intValue)")

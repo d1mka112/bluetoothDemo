@@ -54,18 +54,18 @@ enum Spec {
 
     enum GIFs {
         static var bringDeviceToReader: String {
-            if Toggle.gifTest.isActive {
-                return "bring_debug"
-            } else {
+//            if Toggle.gifTest.isActive {
+//                return "bring_debug"
+//            } else {
                 return "bringDeviceToReader"
-            }
+//            }
         }
         static var success: String {
-            if Toggle.gifTest.isActive {
-                return "success_debug"
-            } else {
+//            if Toggle.gifTest.isActive {
+//                return "success_debug"
+//            } else {
                 return "success"
-            }
+//            }
         }
         static let reject: String = "reject"
     }

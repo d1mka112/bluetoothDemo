@@ -11,5 +11,5 @@ struct BleListResponse: Codable {
     var result: Int
     var error: String?
     var item: String?
-    var price: String?
+    var price: Int?
 }

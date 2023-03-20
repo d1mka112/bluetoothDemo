@@ -12,11 +12,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         window?.makeKeyAndVisible()
 
-        LoggerHelper.warning("Приложение запущено")
+        LoggerHelper.warning("Приложение запущено\nВерсия: \(version!)")
         BluetoothManager.shared.setupManager()
 
         let rootViewController = (GlobalStorage.shared.token != nil) ? 
@@ -45,14 +46,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
-        guard Toggle.rescanWhenAppForeground.isActive else { return }
+//        guard Toggle.rescanWhenAppForeground.isActive else { return }
         LoggerHelper.warning("Приложение вышло из бекграунда")
-        BluetoothManager.shared.startScanningIfCan()
+//        BluetoothManager.shared.startScanningIfCan()
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
-        guard Toggle.rescanWhenAppForeground.isActive else { return }
+//        guard Toggle.rescanWhenAppForeground.isActive else { return }
         LoggerHelper.warning("Приложение ушло в бекграунд")
-        BluetoothManager.shared.stopScanning()
+//        BluetoothManager.shared.stopScanning()
     }
 }

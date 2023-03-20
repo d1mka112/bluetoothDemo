@@ -146,23 +146,23 @@ extension TestViewController: BluetoothManagerDelegate {
     }
 
     func didReceiveDeviceWithRSSI(model: BluetoothTagModel) {
-        Networker.sendDeviceRequest(
-            for: Device(
-                uuid: model.name!,
-                token: GlobalStorage.shared.token ?? ""
-            )
-        ) { response in
-            // TODO: Обработка запроса
-            FeedbackGenerator.success()
-            GlobalPlayer.paySuccess()
-            DispatchQueue.main.async {
-                self.logLabel.text = nil
-                self.logLabel.backgroundColor = .clear
-
-                self.infoLabel.backgroundColor = .green
-                self.infoLabel.text = model.description
-            }
-        }
+//        Networker.sendDeviceRequest(
+//            for: Device(
+//                uuid: model.name!,
+//                token: GlobalStorage.shared.token ?? ""
+//            )
+//        ) { response in
+//            // TODO: Обработка запроса
+//            FeedbackGenerator.success()
+//            GlobalPlayer.paySuccess()
+//            DispatchQueue.main.async {
+//                self.logLabel.text = nil
+//                self.logLabel.backgroundColor = .clear
+//
+//                self.infoLabel.backgroundColor = .green
+//                self.infoLabel.text = model.description
+//            }
+//        }
     }
 
     func didUpdateModels(models: [BluetoothTagModel]) {

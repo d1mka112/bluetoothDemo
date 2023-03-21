@@ -176,6 +176,7 @@ final class MainViewController: VendistaViewController {
     @objc func appMovedToForeground() {
         if GlobalStorage.shared.cards?.items.isEmpty == false && shouldScan {
             if !isAccessGranted {
+                defer { BluetoothManager.shared.startScanningIfCan() }
                 BiometricsManager.checkBiometrics { result, error in
                     if result {
                         self.isAccessGranted = result
@@ -357,7 +358,15 @@ extension MainViewController: BluetoothManagerDelegate {
                 if response.result == 1 {
                     LoggerHelper.success("Оплата прошла успешно")
                     self?.doSuccess()
-                    guard let item = response.item, let price = response.price else { return }
+
+                    guard 
+                        Toggle.shouldShowTransaction.isActive,
+                        let item = response.item, 
+                        let price = response.price 
+                    else {
+                        self?.shouldScan = true
+                        return 
+                    }
                     ControllerHelper.pushAlert(
                         title: "Покупка!", 
                         message: "Товар: \(item) - Цена: \(price)"

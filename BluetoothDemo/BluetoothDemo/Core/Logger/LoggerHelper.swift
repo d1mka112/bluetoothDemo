@@ -9,15 +9,29 @@ import os
 import Foundation
 
 enum LoggerHelper {
+    class Timestamp {
+        lazy var dateFormatter: DateFormatter = {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd HH:mm:ss.SSS "
+            return formatter
+        }()
+
+        var current: String {
+            dateFormatter.string(from: Date())
+        }
+    }
+
     private static var logger = Logger()
+    private static var timesstamp = Timestamp()
 
     private static let infoPrefix = "✅"
     private static let warningPrefix = "⚡️"
     private static let errorPrefix = "⛔️"
 
     private static func log(_ text: String) {
-        logger.info("\(text)")
-        LoggerStorage.shared.log(text)
+        let info: String = "[\(timesstamp.current)]\n\(text)"
+        logger.info("\(info)")
+        LoggerStorage.shared.log(info)
     }
 
     static func success(_ text: String) {

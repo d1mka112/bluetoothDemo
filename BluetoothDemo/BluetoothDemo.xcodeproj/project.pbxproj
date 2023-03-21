@@ -32,6 +32,9 @@
 		1725EABB29C6E2DD003E9637 /* BluetoothModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1725EABA29C6E2DD003E9637 /* BluetoothModel.swift */; };
 		1725EABD29C6E577003E9637 /* BleListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1725EABC29C6E577003E9637 /* BleListResponse.swift */; };
 		1725EABF29C6F1F2003E9637 /* CardImageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1725EABE29C6F1F2003E9637 /* CardImageResponse.swift */; };
+		1725EB0D29C8F2F9003E9637 /* NFCManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1725EB0C29C8F2F9003E9637 /* NFCManager.swift */; };
+		1725EB0F29C8F46B003E9637 /* NFCTestController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1725EB0E29C8F46B003E9637 /* NFCTestController.swift */; };
+		1725EB1229C90299003E9637 /* CoreNFC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1725EB1029C8FA08003E9637 /* CoreNFC.framework */; };
 		17327A1229BFAEB70060B00A /* NavigationBarAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17327A1129BFAEB70060B00A /* NavigationBarAppearance.swift */; };
 		17327A1429BFB4960060B00A /* Phone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17327A1329BFB4960060B00A /* Phone.swift */; };
 		17327A1629BFB6FE0060B00A /* SMSCodeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17327A1529BFB6FE0060B00A /* SMSCodeResponse.swift */; };
@@ -104,6 +107,10 @@
 		1725EABA29C6E2DD003E9637 /* BluetoothModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothModel.swift; sourceTree = "<group>"; };
 		1725EABC29C6E577003E9637 /* BleListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BleListResponse.swift; sourceTree = "<group>"; };
 		1725EABE29C6F1F2003E9637 /* CardImageResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardImageResponse.swift; sourceTree = "<group>"; };
+		1725EB0B29C8F275003E9637 /* BluetoothDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BluetoothDemo.entitlements; sourceTree = "<group>"; };
+		1725EB0C29C8F2F9003E9637 /* NFCManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFCManager.swift; sourceTree = "<group>"; };
+		1725EB0E29C8F46B003E9637 /* NFCTestController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFCTestController.swift; sourceTree = "<group>"; };
+		1725EB1029C8FA08003E9637 /* CoreNFC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreNFC.framework; path = System/Library/Frameworks/CoreNFC.framework; sourceTree = SDKROOT; };
 		17327A1129BFAEB70060B00A /* NavigationBarAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarAppearance.swift; sourceTree = "<group>"; };
 		17327A1329BFB4960060B00A /* Phone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phone.swift; sourceTree = "<group>"; };
 		17327A1529BFB6FE0060B00A /* SMSCodeResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSCodeResponse.swift; sourceTree = "<group>"; };
@@ -156,6 +163,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AE456AFD7E28A902077D95B5 /* libPods-BluetoothDemo.a in Frameworks */,
+				1725EB1229C90299003E9637 /* CoreNFC.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -165,6 +173,7 @@
 		0E156CCB6085467A4772469F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1725EB1029C8FA08003E9637 /* CoreNFC.framework */,
 				88B5AE4F66FC4E32F0AA073E /* libPods-BluetoothDemo.a */,
 			);
 			name = Frameworks;
@@ -194,6 +203,7 @@
 		171B83C92948FFDB00EE478F /* BluetoothDemo */ = {
 			isa = PBXGroup;
 			children = (
+				1725EB0B29C8F275003E9637 /* BluetoothDemo.entitlements */,
 				179EB2512975E26B00D2BD62 /* Resources */,
 				17E7CEB42964A808004A59BE /* Extensions */,
 				173969BD2952632900EFEB2F /* Modules */,
@@ -219,6 +229,7 @@
 				17676057296726BA002DFE20 /* Logger */,
 				172124CE294F569100DE386D /* Wrappers */,
 				171B83DF2949027700EE478F /* BluetoothManager.swift */,
+				1725EB0C29C8F2F9003E9637 /* NFCManager.swift */,
 				17E9D1D5294A6AB200C6D354 /* FeedbackGenerator.swift */,
 				172124CA294F478B00DE386D /* Player.swift */,
 				173969BB29525F9B00EFEB2F /* GlobalStorage.swift */,
@@ -299,6 +310,7 @@
 				17FB945329BE3B91000A9B65 /* AuthorizationController.swift */,
 				4EB4C33A29C0AE2B00721B68 /* PhoneCodeController.swift */,
 				1724969B29C3B15000ECDB5C /* AddCardController.swift */,
+				1725EB0E29C8F46B003E9637 /* NFCTestController.swift */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -498,6 +510,7 @@
 				176043712954E591008F593D /* PayView.swift in Sources */,
 				1725EAB729C6487D003E9637 /* DeleteUserCardResponse.swift in Sources */,
 				172496A429C3C80700ECDB5C /* UserCard.swift in Sources */,
+				1725EB0F29C8F46B003E9637 /* NFCTestController.swift in Sources */,
 				17E7CEB3296453A3004A59BE /* LogsViewController.swift in Sources */,
 				1725EABB29C6E2DD003E9637 /* BluetoothModel.swift in Sources */,
 				171B83CB2948FFDB00EE478F /* AppDelegate.swift in Sources */,
@@ -525,6 +538,7 @@
 				1767605429672405002DFE20 /* ToggleTableViewCell.swift in Sources */,
 				17A5007C295CD7CC00BFFC85 /* LogLabel.swift in Sources */,
 				173969B029524D1D00EFEB2F /* User.swift in Sources */,
+				1725EB0D29C8F2F9003E9637 /* NFCManager.swift in Sources */,
 				172124CB294F478B00DE386D /* Player.swift in Sources */,
 				17C29F6929C240DE003FAC3F /* Validation.swift in Sources */,
 				17327A1229BFAEB70060B00A /* NavigationBarAppearance.swift in Sources */,
@@ -682,6 +696,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = BluetoothDemo/BluetoothDemo.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
@@ -689,6 +704,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BluetoothDemo/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Tugan Pay";
+				INFOPLIST_KEY_NFCReaderUsageDescription = "Использование NFC для считывания данных";
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Our app uses bluetooth to find, connect and transfer data between different devices";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "Это приложение хочет использовать ваши биометрические данные в качестве подтверждения оплаты";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -697,13 +713,14 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.7;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.4.7;
-				PRODUCT_BUNDLE_IDENTIFIER = ru.vendista.bluetoothdemo;
+				MARKETING_VERSION = 0.4.9;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.vendista.bluetoothNFCdemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -718,12 +735,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = BluetoothDemo/BluetoothDemo.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = G9AN7L738K;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BluetoothDemo/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Tugan Pay";
+				INFOPLIST_KEY_NFCReaderUsageDescription = "Использование NFC для считывания данных";
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Our app uses bluetooth to find, connect and transfer data between different devices";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "Это приложение хочет использовать ваши биометрические данные в качестве подтверждения оплаты";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -732,14 +752,16 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.7;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.4.7;
-				PRODUCT_BUNDLE_IDENTIFIER = ru.vendista.bluetoothdemo;
+				MARKETING_VERSION = 0.4.9;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.vendista.bluetoothNFCdemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

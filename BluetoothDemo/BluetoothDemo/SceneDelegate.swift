@@ -25,7 +25,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             AuthorizationController()
 
         let navigationController = UINavigationController(rootViewController: rootViewController)
-        window?.rootViewController = navigationController
+//        window?.rootViewController = navigationController
+        window?.rootViewController = NFCTestController()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

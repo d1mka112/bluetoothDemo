@@ -142,10 +142,16 @@ extension BluetoothManager: CBPeripheralDelegate {
         let model = BluetoothTagModel(rssi: RSSI.intValue, name: peripheral.identifier.description, deviceName: peripheral.name)
         models[peripheral.identifier.description] = model
 
+        var isBluetoothDevice = true
+        if !Toggle.shouldScanAppleDevices.isActive,
+           let name = model.deviceName {
+            isBluetoothDevice = 
+                !name.lowercased().contains("watch") &&
+                !name.lowercased().contains("airpods")
+        }
+
         if model.rssi >= GlobalStorage.shared.minimalRSSI,
-           let name = model.deviceName,
-           !name.lowercased().contains("watch"),
-           !name.lowercased().contains("airpods") {
+           isBluetoothDevice {
             stopScanning()
             LoggerHelper.success("Найден подходящий peripheral \(peripheral.description)\nRSSI:\(RSSI.intValue)")
             delegate?.didReceiveDeviceWithRSSI(model: model)

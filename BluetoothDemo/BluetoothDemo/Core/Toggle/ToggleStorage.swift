@@ -11,6 +11,8 @@ import AVFoundation
 enum Toggle: String, Codable, Hashable {
     case sendBleListRequest = "send_ble_list_request"
     case shutDownWhenSuccess = "shut_down_when_success"
+    case shouldScanAppleDevices = "should_scan_apple_devices"
+    case shouldShowTransaction = "should_show_transaction"
 
     var isActive: Bool {
         ToggleStorage.shared.toggles.first { $0.id == self }?.value ?? false
@@ -51,5 +53,17 @@ final class ToggleStorage {
             description: "Эмулирует двойное нажатие home и скрывает приложение",
             value: false
         ),
+        ToggleData(
+            id: .shouldScanAppleDevices, 
+            title: "Сканировать Apple устройства", 
+            description: "Разрешает считать Apple Watch и AirPods - bluetooth устройством, который можно будет отправить в запросе",
+            value: true
+        ),
+        ToggleData(
+            id: .shouldShowTransaction, 
+            title: "Показывать покупку", 
+            description: "Включает отображение покупки, после успешной оплаты",
+            value: true
+        )
      ]
 }
